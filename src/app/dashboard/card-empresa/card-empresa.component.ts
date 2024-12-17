@@ -9,4 +9,7 @@ import { IEmpresaDisplay } from '../../types';
 })
 export class EmpresaCardComponent {
  public empresa = input.required<IEmpresaDisplay>({alias: 'info-empresa'});
+
+ //calcular vacantes totales
+ /* protected numeroVacantes = this.empresa().vacantes.reduce((acc, cur) => acc + cur.cantidad, 0); */
 }

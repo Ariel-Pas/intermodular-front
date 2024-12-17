@@ -7,7 +7,8 @@ interface IFiltrosForm extends HTMLFormControlsCollection{
   localidad : HTMLSelectElement,
   provincia : HTMLSelectElement,
   vacantes : HTMLSelectElement,
-  categorias : HTMLSelectElement
+  categorias : HTMLSelectElement,
+  servicios: HTMLSelectElement
 }
 
 
@@ -22,7 +23,6 @@ interface IFiltrosForm extends HTMLFormControlsCollection{
 export class FiltroEmpresasComponent {
   public towns : InfoGeografia = townsJson;
 
-
   public provincias = [...Object.keys(this.towns)];
   //Actualizar localidades al cambiar la provincia seleccionada
   public provinciaSeleccionada = signal('');
@@ -35,6 +35,7 @@ export class FiltroEmpresasComponent {
   protected opcionesVacantes = [1, 2, 3, 4, 5, 6];
   protected categorias = ['Programación web', 'Comercio electrónico', 'RRSS', 'Marketing', 'Aplicaciones'];
 
+  protected opcionesServicios = ['PHP', 'TS', 'JS', 'Java', 'HTML', 'CSS'];
   //Gestión cambios filtros
 
 
@@ -51,7 +52,8 @@ export class FiltroEmpresasComponent {
       localidad,
       provincia,
       vacantes,
-      categorias
+      categorias,
+      servicios
     } = form.elements as IFiltrosForm;
 
     console.log(nombreEmpresa.value);
@@ -61,7 +63,8 @@ export class FiltroEmpresasComponent {
       localidad : localidad.value,
       provincia : provincia.value,
       vacantes: Number(vacantes.value),
-      categoria: categorias.value
+      categoria: categorias.value,
+      servicio : servicios.value
     })
   }
 

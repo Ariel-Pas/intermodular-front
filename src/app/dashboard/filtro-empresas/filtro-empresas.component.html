@@ -50,6 +50,16 @@
       </select>
     </div>
 
+    <div class="mb-3">
+      <label for="categorias" class="form-label">Servicios</label>
+      <select class="form-select" name="servicios" aria-label="Select servicios" >
+        <option value="">Cualquiera</option>
+        @for (servicio of opcionesServicios; track servicio) {
+          <option value="{{servicio}}">{{servicio}}</option>
+        }
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 
