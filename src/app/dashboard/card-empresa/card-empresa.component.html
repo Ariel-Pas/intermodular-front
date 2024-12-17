@@ -1,0 +1,13 @@
+<div class="card">
+  <img src={{empresa().imagen}} class="card-img-top" alt="...">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().poblacion}} - ({{empresa().provincia}})</h6>
+    <h5 class="card-title">{{empresa().nombre}}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().categorias.join(', ')}}</h6>
+    <div>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Puestos disponibles</h6>
+      <p>{{empresa().vacantes}}</p>
+    </div>
+    <a href="#" class="btn btn-primary">Contactar</a>
+  </div>
+</div>

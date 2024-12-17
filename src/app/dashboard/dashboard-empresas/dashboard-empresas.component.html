@@ -1,0 +1,16 @@
+
+
+<div class="row">
+  <app-filtro-empresas class="col-3"
+  (filtrosChanged)="filtrosChanged($event)"
+  >
+
+  </app-filtro-empresas>
+
+  <app-empresas-container class="col-9 row">
+    @for (empresa of empresasFiltradas(); track empresa.id) {
+      <app-empresa-card [info-empresa]="empresa" class="col-3"></app-empresa-card>
+    }
+
+  </app-empresas-container>
+</div>

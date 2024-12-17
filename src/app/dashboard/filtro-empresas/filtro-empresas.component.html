@@ -1,0 +1,56 @@
+<div class="mx-4">
+  <h5 class="fw-bold">Buscar empresa</h5>
+
+  <form (submit)="aplicarFiltros($event)">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="buscar-nombre">Buscar</span>
+      <input type="text" class="form-control" name="nombreEmpresa" placeholder="Nombre" aria-label="Nombre empresa" aria-describedby="buscar-nombre">
+    </div>
+
+    <div class="mb-3">
+      <label for="provincia" class="form-label">Provincia</label>
+      <select class="form-select" name="provincia" aria-label="Provincia" #selectProv
+      (change)="provinciaSeleccionada.set(selectProv.value)"
+      >
+      <option value="">Cualquiera</option>
+        @for (item of provincias; track item) {
+          <option value="{{item}}">{{item}}</option>
+        }
+
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="localidad" class="form-label">Localidad</label>
+      <select class="form-select" name="localidad" aria-label="Select localidad" >
+        <option value="">Cualquiera</option>
+        @for (localidad of localidades(); track localidad) {
+          <option value="{{localidad}}">{{localidad}}</option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="vacantes" class="form-label">Vacantes</label>
+      <select class="form-select" name="vacantes" aria-label="Select vacantes" >
+        <option value="">Cualquiera</option>
+        @for (vacantes of opcionesVacantes; track $index) {
+          <option value="{{vacantes}}">{{vacantes}}</option>
+        }
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="categorias" class="form-label">Categorías</label>
+      <select class="form-select" name="categorias" aria-label="Select categorías" >
+        <option value="">Cualquiera</option>
+        @for (categoria of categorias; track categoria) {
+          <option value="{{categoria}}">{{categoria}}</option>
+        }
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+</div>
