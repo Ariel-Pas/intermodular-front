@@ -7,9 +7,9 @@
 
   </app-filtro-empresas>
 
-  <app-empresas-container class="col-9 row">
+  <app-empresas-container class="col-9 row justify-content-evenly">
     @for (empresa of empresasFiltradas(); track empresa.id) {
-      <app-empresa-card [info-empresa]="empresa" class="col-3"></app-empresa-card>
+      <app-empresa-card [info-empresa]="empresa" class="col-5 col-md-3"></app-empresa-card>
     }
 
   </app-empresas-container>
