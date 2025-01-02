@@ -34,7 +34,6 @@ export class DashboardEmpresasComponent {
   //actualizar signal de los filtros cuando se reciba la salida del componente filtro
   filtrosChanged($event: IFiltros): void {
     this.filtros.set($event);
-    console.log(this.filtros());
   }
 
   //generar array empresas
@@ -111,25 +110,27 @@ export class DashboardEmpresasComponent {
             .toLocaleLowerCase()
             .includes(this.filtros().nombre.toLocaleLowerCase())
     );
+
     filtrado = filtrado.filter((x) =>
       this.filtros().provincia ? x.direccion.provincia == this.filtros().provincia : true
     );
+
     filtrado = filtrado.filter((x) =>
       this.filtros().localidad ? x.direccion.poblacion == this.filtros().localidad : true
     );
+
     filtrado = filtrado.filter((x) =>{
       if(!this.filtros().vacantes) return true;
-      /* for (const vacante of x.vacantes) {
-        if(vacante.cantidad == this.filtros().vacantes) return true;
-      } */
       return x.vacantes[0].cantidad == this.filtros().vacantes;
       return false;
     });
+
     filtrado = filtrado.filter((x) =>
       this.filtros().categoria
         ? x.categorias.includes(this.filtros().categoria)
         : true
     );
+
     filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.includes(this.filtros().servicio) : true);
 
     return filtrado;

@@ -1,13 +1,63 @@
 <div class="card">
-  <img src="https://plus.unsplash.com/premium_photo-1661764256397-af154e87b1b3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().direccion.poblacion}} - ({{empresa().direccion.provincia}})</h6>
-    <h5 class="card-title">{{empresa().nombre}}</h5>
+  <img src="https://plus.unsplash.com/premium_photo-1661764256397-af154e87b1b3?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top rounded" alt="...">
+  <div class="card-body px-0 mx-0">
+    <h6 class="card-subtitle mb-2 text-body-secondary ">{{empresa().direccion.poblacion}} - ({{empresa().direccion.provincia}})</h6>
+    <h5 class="card-title fw-bold fs-6">{{empresa().nombre}}</h5>
+    <!--categorias-->
     <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().categorias.join(', ')}}</h6>
-    <div>
-      <h6 class="card-subtitle mb-2 text-body-secondary">Puestos disponibles</h6>
-      <p>{{empresa().vacantes[0].cantidad}}</p>
+    <!--Localizacion-->
+    <div class="my-2 row align-items-center">
+      <div class="col-1">
+        <i class="bi bi-geo-alt"></i>
+      </div>
+      <div class="col-10">
+        <p class="section-title mb-0">{{empresa().direccion.poblacion}} - ({{empresa().direccion.provincia}})</p>
+        <p class="mb-1">{{empresa().direccion.calle}}</p>
+      </div>
     </div>
+    <!--Horarios-->
+    <div>
+      <div class="my-2 row align-items-center">
+        <div class="col-1">
+          <i class="bi bi-calendar"></i>
+        </div>
+        <div class="col-11 row">
+          <div class="col-6">
+            <p class="section-title mb-0">De</p>
+            <p class="mb-1">{{empresa().horario.horario_manana}}</p>
+          </div>
+          <div class="col-6">
+            <p class="section-title mb-0">Hasta</p>
+            <p class="mb-1">{{empresa().horario.horario_tarde}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Puestos-->
+    <div class="my-2 row align-items-center">
+      <div class="col-1">
+        <i class="bi bi-person"></i>
+      </div>
+      <div class="col-10">
+        <p class="section-title mb-0">Puestos disponibles</p>
+        <p class="mb-1">{{empresa().vacantes[0].cantidad}} en {{empresa().vacantes[0].anyo}}</p>
+      </div>
+    </div>
+
+    <!--calificaciones-->
+    <div class="my-2">
+      <div class="row justify-content-between">
+        <p class="section-title mb-0 col-9">Calificacion profesor</p>
+        <p class="col-3">{{(empresa().puntuacion.profesor * 10).toFixed(0)}}</p>
+      </div>
+      <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" style="width: 25%"></div>
+      </div>
+    </div>
+
+
+
     <a href="#" class="btn btn-primary">Contactar</a>
   </div>
 </div>
