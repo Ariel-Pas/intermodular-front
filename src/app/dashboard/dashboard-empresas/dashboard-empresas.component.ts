@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, model, signal } from '@angular/core';
 import { FiltroEmpresasComponent } from '../filtro-empresas/filtro-empresas.component';
 import { EmpresasContainerComponent } from '../empresas-container/empresas-container.component';
 import { EmpresaCardComponent } from '../card-empresa/card-empresa.component';
@@ -30,11 +30,6 @@ export class DashboardEmpresasComponent {
     servicio: ''
   });
 
-  //gestionar cambio de filtros
-  //actualizar signal de los filtros cuando se reciba la salida del componente filtro
-  filtrosChanged($event: IFiltros): void {
-    this.filtros.set($event);
-  }
 
   //generar array empresas
   //array para generar una provincia y localidad
