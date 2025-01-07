@@ -117,7 +117,7 @@ export class DashboardEmpresasComponent {
     filtrado = filtrado.filter((x) =>{
       if(!this.filtros().vacantes) return true;
       return x.vacantes[0].cantidad == this.filtros().vacantes;
-      return false;
+
     });
 
     filtrado = filtrado.filter((x) =>

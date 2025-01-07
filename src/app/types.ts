@@ -44,3 +44,7 @@ export interface IFiltros {
   categoria: string;
   servicio: string;
 }
+
+
+//parejas de strings para generar el nav subrayado. id-nombre seccion
+export type stringPair = [string, string];

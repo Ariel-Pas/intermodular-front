@@ -1,0 +1,13 @@
+<ul class="nav nav-underline mb-4" role="tablist">
+
+  @for (seccion of listaSecciones(); track seccion[0]) {
+
+    <li class="nav-item">
+      <a class="nav-link {{$first ? 'active' : ''}}" aria-current="page" data-bs-toggle="list" id="{{seccion[0]}}-tab"
+      [attr.data-bs-target]="'#'+seccion[0]" role="tab" [attr.aria-controls]="seccion[0]" [attr.aria-selected]="$first"
+      href="#{{seccion[0]}}"
+      >{{seccion[1]}}</a>
+    </li>
+  }
+
+</ul>

@@ -1,0 +1,29 @@
+.btn{
+  background: rgb(245,175,25);
+  background: linear-gradient(264deg, rgba(245,175,25,1) -15%, rgba(241,39,17,1) 100%);
+  width: 100%;
+  border: none;
+
+  span {
+    width: 100%;
+    text-align: center;
+  }
+
+  &:has(i){
+    display: grid;
+    grid-template-columns: 5px 1fr;
+  }
+
+  &.background-flat{
+    background: rgba(241,39,17,1);
+  }
+
+}
+
+/* span:nth-child(2) {
+  margin: auto;
+}
+
+span:nth-child(1) {
+  text-align: center;
+} */

@@ -1,0 +1,32 @@
+@if (submit()) {
+  <button class="btn btn-primary mt-2 {{flat()? 'background-flat' : ''}}" type="submit">
+    <span [innerHTML]="btnIcon()">
+      <!-- <ng-content select="[icon]"></ng-content>
+      {{btnIcon()}} -->
+    </span>
+
+    <span>{{text()}}</span>
+  </button>
+}
+@else if(href()) {
+  <a href="{{href()}}" class="btn btn-primary mt-2 {{flat()? 'background-flat' : ''}}">
+    <span [innerHTML]="btnIcon()">
+      <!-- <ng-content select="[icon]"></ng-content> -->
+
+    </span>
+    <span>{{text()}}</span>
+  </a>
+}
+@else {
+  <!--botón normal con onclick-->
+  <button class="btn btn-primary mt-2 {{flat()? 'background-flat' : ''}}" (click)="useClickFunction()">
+    <!-- //probar a meter la funcion en una variable, hacer una funcion en button que compruebe si está asignada, y ejecutar la función propia -->
+    <span [innerHTML]="btnIcon()">
+      <!-- <ng-content select="[icon]"></ng-content>
+      {{btnIcon()}} -->
+    </span>
+
+    <span>{{text()}}</span>
+  </button>
+}
+

@@ -47,17 +47,31 @@
 
     <!--calificaciones-->
     <div class="my-2">
-      <div class="row justify-content-between">
-        <p class="section-title mb-0 col-9">Calificacion profesor</p>
-        <p class="col-3">{{(empresa().puntuacion.profesor * 10).toFixed(0)}}</p>
+      <div class="mb-2">
+        <div class="row justify-content-between">
+          <p class="section-title mb-0 col-9">Calificacion profesor</p>
+          <p class="col-3">{{(empresa().puntuacion.profesor * 10).toFixed(0)}}</p>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" [style.width]="(empresa().puntuacion.profesor * 10) + '%'"></div>
+        </div>
       </div>
-      <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-        <div class="progress-bar" style="width: 25%"></div>
+      <div class="mt-2">
+        <div class="row justify-content-between">
+          <p class="section-title mb-0 col-9">Calificacion alumnado</p>
+          <p class="col-3">{{(empresa().puntuacion.alumno * 10).toFixed(0)}}</p>
+        </div>
+        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" [style.width]="(empresa().puntuacion.alumno * 10) + '%'"></div>
+        </div>
       </div>
     </div>
 
 
 
-    <a href="#" class="btn btn-primary">Contactar</a>
+   <button-main  text="Contactar" [onClick]="f">
+
+    </button-main>
+
   </div>
 </div>

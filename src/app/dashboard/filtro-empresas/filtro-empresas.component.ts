@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { InfoGeografia, IFiltros } from '../../types';
 import townsJson from '../../towns.json';
+import { ButtonMainComponent } from '../../components/button-main/button-main.component';
 
 interface IFiltrosForm extends HTMLFormControlsCollection {
   nombreEmpresa: HTMLInputElement;
@@ -20,7 +21,7 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
 
 @Component({
   selector: 'app-filtro-empresas',
-  imports: [],
+  imports: [ButtonMainComponent],
   templateUrl: './filtro-empresas.component.html',
   styleUrl: './filtro-empresas.component.scss',
 })
@@ -60,7 +61,7 @@ export class FiltroEmpresasComponent {
     categoria: '',
     servicio: '',
   });
-  
+
 
   aplicarFiltros(e: Event) {
     e.preventDefault();

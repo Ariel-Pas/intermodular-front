@@ -1,0 +1,19 @@
+$font-weight-tab : 400;
+
+ul{
+  border-bottom: rgb(196, 196, 196) solid 2px;
+  height: 42px;
+}
+
+.nav-link.active{
+  color: rgb(220, 164, 10);
+  font-weight: $font-weight-tab;
+}
+
+
+.nav-link
+{
+  color: rgb(130, 130, 131);
+  min-width: 100px;
+  font-weight: $font-weight-tab;
+}
