@@ -9,6 +9,10 @@ import {
 import { InfoGeografia, IFiltros } from '../../types';
 import townsJson from '../../towns.json';
 import { ButtonMainComponent } from '../../components/button-main/button-main.component';
+import { CaracteresProhibidosInputDirective } from '../../directives/caracteres-prohibidos-input.directive';
+import IEmpresasService from '../../services/IEmpresasService';
+import { GestionFiltradoEmpresasService } from '../../services/gestion-filtrado-empresas.service';
+
 
 interface IFiltrosForm extends HTMLFormControlsCollection {
   nombreEmpresa: HTMLInputElement;
@@ -21,11 +25,21 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
 
 @Component({
   selector: 'app-filtro-empresas',
-  imports: [ButtonMainComponent],
+  imports: [ButtonMainComponent, CaracteresProhibidosInputDirective],
   templateUrl: './filtro-empresas.component.html',
   styleUrl: './filtro-empresas.component.scss',
+  /* providers : [
+    {
+      provide : GestionFiltradoEmpresasService,
+      useExisting: GestionFiltradoEmpresasService
+    }
+  ] */
 })
 export class FiltroEmpresasComponent {
+  constructor(private empresasService : GestionFiltradoEmpresasService){
+
+  }
+
   public towns: InfoGeografia = townsJson;
 
   //obtener nombre de provincias
@@ -53,14 +67,14 @@ export class FiltroEmpresasComponent {
 
   //Gestión cambios filtros
 
-  filtrosEmpresas = model<IFiltros>({
+  filtrosEmpresas : IFiltros = {
     nombre: '',
     localidad: '',
     provincia: '',
     vacantes: 0,
     categoria: '',
     servicio: '',
-  });
+  };
 
 
   aplicarFiltros(e: Event) {
@@ -78,13 +92,15 @@ export class FiltroEmpresasComponent {
     } = form.elements as IFiltrosForm;
 
     //asignar valores form a model
-    this.filtrosEmpresas.set({
+    this.filtrosEmpresas = {
       nombre: nombreEmpresa.value,
       localidad: localidad.value,
       provincia: provincia.value,
       vacantes: Number(vacantes.value),
       categoria: categorias.value,
       servicio: servicios.value,
-    });
+    };
+
+    this.empresasService.actualizarFiltros(this.filtrosEmpresas)
   }
 }

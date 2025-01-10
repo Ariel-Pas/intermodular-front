@@ -1,14 +1,14 @@
 
 
 <div class="row">
+
   <app-filtro-empresas class="col-3"
-  [(filtrosEmpresas)]="filtros"
   >
 
   </app-filtro-empresas>
 
   <app-empresas-container class="col-9 row justify-content-evenly">
-    @for (empresa of empresasFiltradas(); track empresa.id) {
+    @for (empresa of this.empresasService.empresasFiltradas(); track empresa.id) {
       <app-empresa-card [info-empresa]="empresa" class="col"></app-empresa-card>
     }
 

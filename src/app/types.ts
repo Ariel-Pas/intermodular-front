@@ -3,7 +3,8 @@ export interface IEmpresaDisplay {
   nombre: string;
   cif: string;
   descripcion: string;
-  email: string;
+  email?: string;
+  telefono? : string;
   direccion: {
     calle: string;
     provincia: string;

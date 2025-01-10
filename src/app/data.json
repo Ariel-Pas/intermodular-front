@@ -1,0 +1,2619 @@
+{
+    "companies": [{
+            "id": "2a0b3b78-0b1a-455b-b20f-8a592251128a",
+            "name": "Muñiz, Marín y Montéz Asociados",
+            "image": "https://picsum.photos/seed/MLesFgU/640/480",
+            "phone": "986.401.742",
+            "email": "Ignacio_DelgadoCortez15@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Polígono Luis Mata",
+                "position": {
+                    "lat": 38.5513784465993,
+                    "lng": -0.14037604984662266
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 7
+            }],
+            "categories": [
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "19:00"
+            },
+            "score": {
+                "teacher": 84,
+                "student": 64
+            }
+        },
+        {
+            "id": "0d90566a-68a3-43ea-bee4-94a659b7226d",
+            "name": "Nazario, Figueroa y Alemán Asociados",
+            "image": "https://picsum.photos/seed/x5QR2z/640/480",
+            "phone": "975958868",
+            "email": "Rocio_SedilloSedillo@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Edificio Gilberto Echevarría",
+                "position": {
+                    "lat": 38.5513808800547,
+                    "lng": -0.13839176665419473
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "PHP",
+                "Photoshop",
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 15,
+                "student": 67
+            }
+        },
+        {
+            "id": "d1a9739e-7120-4cf7-81c1-0a0c5c64721a",
+            "name": "Llamas, Estrada y Loya Asociados",
+            "image": "https://picsum.photos/seed/hQfGw/640/480",
+            "phone": "975.751.637",
+            "email": "Victoria_SotoIglesias@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Terrenos Eduardo Rosario",
+                "position": {
+                    "lat": 38.54822666909216,
+                    "lng": -0.15834304990244163
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "Photoshop",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 48,
+                "student": 75
+            }
+        },
+        {
+            "id": "b7b3219f-f935-44b2-adc9-080555aa471c",
+            "name": "Pedraza Rojas Hermanos",
+            "image": "https://picsum.photos/seed/Yk85NYQNWF/640/480",
+            "phone": "998 341 555",
+            "email": "Guadalupe46@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Municipio Francisco Garica",
+                "position": {
+                    "lat": 38.543732983692394,
+                    "lng": -0.14654165761965032
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 72,
+                "student": 19
+            }
+        },
+        {
+            "id": "4910480c-1981-44c8-a1b1-5acacd6f4422",
+            "name": "Collado S.L.",
+            "image": "https://picsum.photos/seed/bWLl3/640/480",
+            "phone": "915.315.415",
+            "email": "Margarita2@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Arrabal José María",
+                "position": {
+                    "lat": 38.53619627731727,
+                    "lng": -0.12923692565414058
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "HTML",
+                "Javascript",
+                "Frontend",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 69,
+                "student": 31
+            }
+        },
+        {
+            "id": "6f0b87f8-c66b-4705-9c2d-ed3bf13e5bab",
+            "name": "Granado S.A.",
+            "image": "https://picsum.photos/seed/zwAQ4q9SLJ/640/480",
+            "phone": "974961659",
+            "email": "Federico4@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Lado Gustavo",
+                "position": {
+                    "lat": 38.54627943477799,
+                    "lng": -0.1363361421023228
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "PHP",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "08:30",
+                "end": "18:00"
+            },
+            "score": {
+                "teacher": 100,
+                "student": 96
+            }
+        },
+        {
+            "id": "c09ecf8b-a641-4828-b15f-2db15fd61f9d",
+            "name": "Posada Ozuna Hermanos",
+            "image": "https://picsum.photos/seed/fCFsh7c/640/480",
+            "phone": "924.177.002",
+            "email": "JoseLuis.SamaniegoBorrego15@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Calle Salvador",
+                "position": {
+                    "lat": 38.55793508877226,
+                    "lng": -0.1391193035675542
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 7
+            }],
+            "categories": [
+                "HTML",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 97,
+                "student": 98
+            }
+        },
+        {
+            "id": "96ca4192-0829-4ef7-86a8-fa378f521b04",
+            "name": "Medina Cotto Hermanos",
+            "image": "https://picsum.photos/seed/YB99x2f1/640/480",
+            "phone": "992 800 894",
+            "email": "Joaquin61@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Subida María del Carmen Agosto",
+                "position": {
+                    "lat": 38.55615964628306,
+                    "lng": -0.14642190236929764
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "PHP",
+                "Frontend",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 34,
+                "student": 72
+            }
+        },
+        {
+            "id": "aa3b867c-6ed6-4265-bf62-de823b76e8d7",
+            "name": "Montero Hermanos",
+            "image": "https://picsum.photos/seed/omnKZ/640/480",
+            "phone": "956.385.380",
+            "email": "Debora_VelaGaribay@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Arrabal Anita Sauceda",
+                "position": {
+                    "lat": 38.54614055531202,
+                    "lng": -0.14145220906334544
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "Javascript",
+                "HTML",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 92,
+                "student": 36
+            }
+        },
+        {
+            "id": "3b0a1f9e-9d5a-4f43-8a08-1b50176741fd",
+            "name": "Vallejo Esparza S.A.",
+            "image": "https://picsum.photos/seed/jVpjkAHNUz/640/480",
+            "phone": "958.580.339",
+            "email": "Estela4@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Jardines Diego Amador",
+                "position": {
+                    "lat": 38.56620640005478,
+                    "lng": -0.1511828527227408
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "Photoshop",
+                "CSS",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 8,
+                "student": 27
+            }
+        },
+        {
+            "id": "ab967d3c-a23a-4504-a755-bae6f02085ba",
+            "name": "Urrutia Aguirre e Hijos",
+            "image": "https://picsum.photos/seed/W86UN3VV1/640/480",
+            "phone": "960345750",
+            "email": "Virginia.SolorzanoLuna@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Colonia César Dávila",
+                "position": {
+                    "lat": 38.55591103705148,
+                    "lng": -0.12833919828005946
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "PHP",
+                "CSS",
+                "Frontend",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "20:30"
+            },
+            "score": {
+                "teacher": 35,
+                "student": 41
+            }
+        },
+        {
+            "id": "388634cb-c5b4-42e7-b6c5-6802b5aadf44",
+            "name": "Cadena, Berríos y Cepeda Asociados",
+            "image": "https://picsum.photos/seed/FcL53LN/640/480",
+            "phone": "967598364",
+            "email": "Rosa62@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Solar Eduardo Verduzco",
+                "position": {
+                    "lat": 38.557980590702414,
+                    "lng": -0.14023773363862801
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": [
+                "CSS",
+                "PHP",
+                "Photoshop",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "07:00",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 14,
+                "student": 71
+            }
+        },
+        {
+            "id": "3602466d-028b-4fb3-962b-55e99f786599",
+            "name": "Olmos Hermanos",
+            "image": "https://picsum.photos/seed/jyoYS/640/480",
+            "phone": "929-326-984",
+            "email": "Pablo40@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Parque Juana Gallardo",
+                "position": {
+                    "lat": 38.546597793450466,
+                    "lng": -0.1263855950096513
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "Backend",
+                "PHP",
+                "Frontend",
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "10:30",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 51,
+                "student": 67
+            }
+        },
+        {
+            "id": "6db48324-e584-42d7-84ba-3709902cc300",
+            "name": "Ceballos y Sarabia",
+            "image": "https://picsum.photos/seed/4MDbHNI0/640/480",
+            "phone": "959329531",
+            "email": "Rafael.CalderonPerales20@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Rampa Reina Delvalle",
+                "position": {
+                    "lat": 38.540752803942446,
+                    "lng": -0.14400631364765104
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "PHP",
+                "CSS",
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "07:00",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 39,
+                "student": 35
+            }
+        },
+        {
+            "id": "c71bb92a-b288-410f-b8c1-595768a30aad",
+            "name": "Puente y Solorzano",
+            "image": "https://picsum.photos/seed/3qZBVrgUDH/640/480",
+            "phone": "963760746",
+            "email": "Carlota.OrnelasEspinoza45@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Vía Pública Marco Antonio Alva",
+                "position": {
+                    "lat": 38.54769435993386,
+                    "lng": -0.13816192455340115
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "HTML",
+                "Backend",
+                "Javascript",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "20:30"
+            },
+            "score": {
+                "teacher": 11,
+                "student": 44
+            }
+        },
+        {
+            "id": "c59987d6-9421-4436-9a9f-cdb2b8c04042",
+            "name": "Montalvo, Acosta y Pérez Asociados",
+            "image": "https://picsum.photos/seed/yxcdG/640/480",
+            "phone": "948.233.886",
+            "email": "Daniela_AlanisCuriel19@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Camino Salvador",
+                "position": {
+                    "lat": 38.556098465094806,
+                    "lng": -0.14155829853052637
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "HTML",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 85,
+                "student": 49
+            }
+        },
+        {
+            "id": "a7a4e70f-f51b-472d-90f2-d776b6989d9b",
+            "name": "Sáenz, Sáenz y Roybal Asociados",
+            "image": "https://picsum.photos/seed/reyMO/640/480",
+            "phone": "965-013-390",
+            "email": "Alfredo.VerduzcoPabon60@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Extramuros José Emilio Domínguez",
+                "position": {
+                    "lat": 38.54992186138448,
+                    "lng": -0.13438240642074106
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 6
+            }],
+            "categories": [
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "07:00",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 41,
+                "student": 27
+            }
+        },
+        {
+            "id": "12529dba-ad7b-4302-8a2c-bb1a53a0417b",
+            "name": "Sanabria Hermanos",
+            "image": "https://picsum.photos/seed/7QwYHKFc/640/480",
+            "phone": "997-038-487",
+            "email": "JulioCesar76@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Ramal Manuel",
+                "position": {
+                    "lat": 38.55470043241263,
+                    "lng": -0.1256161689095734
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "Frontend",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "10:30",
+                "end": "19:00"
+            },
+            "score": {
+                "teacher": 37,
+                "student": 48
+            }
+        },
+        {
+            "id": "c16ef0ca-24bd-48d7-a3b8-27db2d53d89a",
+            "name": "Quesada, Palacios y Rivera Asociados",
+            "image": "https://picsum.photos/seed/voZmCUwSv/640/480",
+            "phone": "993 082 431",
+            "email": "Guillermo.SantiagoCornejo@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Polígono Guadalupe",
+                "position": {
+                    "lat": 38.54688902744067,
+                    "lng": -0.13458681484928547
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "Photoshop",
+                "CSS",
+                "Frontend",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "08:30",
+                "end": "20:30"
+            },
+            "score": {
+                "teacher": 81,
+                "student": 93
+            }
+        },
+        {
+            "id": "d048fbb2-3285-444c-a7e0-44c6ce293f34",
+            "name": "Arredondo S.A.",
+            "image": "https://picsum.photos/seed/NAx6Vd1/640/480",
+            "phone": "967.682.007",
+            "email": "AnaLuisa82@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Sección Soledad",
+                "position": {
+                    "lat": 38.54700758083811,
+                    "lng": -0.16105167063074077
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": [
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "18:00"
+            },
+            "score": {
+                "teacher": 5,
+                "student": 95
+            }
+        },
+        {
+            "id": "47282bcb-d21b-4993-8a10-d85d2166d166",
+            "name": "Ceballos y Cazares",
+            "image": "https://picsum.photos/seed/x1Qsl9R/640/480",
+            "phone": "991 603 650",
+            "email": "Margarita.CollazoSamaniego@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Rampa María Cristina Baeza",
+                "position": {
+                    "lat": 38.54421664449717,
+                    "lng": -0.15497867980911906
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "Backend",
+                "Photoshop",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "18:00"
+            },
+            "score": {
+                "teacher": 99,
+                "student": 0
+            }
+        },
+        {
+            "id": "b8c495e5-a5e8-498c-90c7-079f6e51c39a",
+            "name": "Deleón Cotto e Hijos",
+            "image": "https://picsum.photos/seed/LVYveSY/640/480",
+            "phone": "997526558",
+            "email": "Manuela_OlivoRael@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Salida Blanca",
+                "position": {
+                    "lat": 38.562907691874464,
+                    "lng": -0.1445497795504025
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "PHP",
+                "Photoshop",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 94,
+                "student": 32
+            }
+        },
+        {
+            "id": "a611a12a-139c-4d6c-b1e1-c8b4b0fec457",
+            "name": "Altamirano Carrasco Hermanos",
+            "image": "https://picsum.photos/seed/Cg86w8evq/640/480",
+            "phone": "973231487",
+            "email": "Alejandra.CoronadeJesus@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Rincón Sofía",
+                "position": {
+                    "lat": 38.573649845548104,
+                    "lng": -0.14318480713245663
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": [
+                "CSS",
+                "Backend",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "15:00"
+            },
+            "score": {
+                "teacher": 48,
+                "student": 96
+            }
+        },
+        {
+            "id": "59c0acd0-33f5-4b8b-a4bd-6e6e4c630178",
+            "name": "Montero y Pineda",
+            "image": "https://picsum.photos/seed/Fm5Pa3MxH3/640/480",
+            "phone": "931-095-432",
+            "email": "Agustin27@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Rua Ana María",
+                "position": {
+                    "lat": 38.54074665951625,
+                    "lng": -0.16253978181850925
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 99,
+                "student": 24
+            }
+        },
+        {
+            "id": "7d089d81-9917-48ce-8888-fc85c26c1608",
+            "name": "Porras Concepción e Hijos",
+            "image": "https://picsum.photos/seed/IgAJcSq/640/480",
+            "phone": "988.410.926",
+            "email": "Victoria.CisnerosBonilla21@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Grupo Rodrigo",
+                "position": {
+                    "lat": 38.56131651216767,
+                    "lng": -0.15846484585301823
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "CSS",
+                "HTML",
+                "Backend",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 13,
+                "student": 66
+            }
+        },
+        {
+            "id": "9ad054f8-b51c-4597-a8d1-643f633aaf79",
+            "name": "Gámez e Hijos",
+            "image": "https://picsum.photos/seed/4hfglw4U/640/480",
+            "phone": "928 975 383",
+            "email": "Gustavo.LlamasOlivas0@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Vía Pública Estela Valle",
+                "position": {
+                    "lat": 38.56483206929545,
+                    "lng": -0.15080804952935978
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": [
+                "Frontend",
+                "Javascript",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "10:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 38,
+                "student": 11
+            }
+        },
+        {
+            "id": "36dbba7d-d074-43b9-b50b-5383f07b1108",
+            "name": "Serrato y Ruelas",
+            "image": "https://picsum.photos/seed/B372x80Av/640/480",
+            "phone": "907.445.353",
+            "email": "Ariadna.ColonBarrios35@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Sector Alejandra",
+                "position": {
+                    "lat": 38.533297675227985,
+                    "lng": -0.1418341929139615
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "Backend",
+                "HTML",
+                "PHP",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 52,
+                "student": 45
+            }
+        },
+        {
+            "id": "eba25ba2-911e-498f-99d8-0ccbe9105a8a",
+            "name": "Aguilera Godínez Hermanos",
+            "image": "https://picsum.photos/seed/iabHf/640/480",
+            "phone": "922.826.580",
+            "email": "Elvira.IrizarryChacon@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Terrenos David",
+                "position": {
+                    "lat": 38.543461811117865,
+                    "lng": -0.16512495714425768
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": [
+                "HTML",
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 31,
+                "student": 47
+            }
+        },
+        {
+            "id": "bd162c5b-046f-4cbb-82fd-d71a2ed2b32f",
+            "name": "Olmos S.A.",
+            "image": "https://picsum.photos/seed/R3zl9kr2/640/480",
+            "phone": "943215549",
+            "email": "Vicente.MoyaSerna@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Senda Claudio Aponte",
+                "position": {
+                    "lat": 38.57044644469249,
+                    "lng": -0.14725116747229094
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "Backend",
+                "Javascript",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 2,
+                "student": 58
+            }
+        },
+        {
+            "id": "f21e11bc-5b49-4955-861b-6febd34c93f7",
+            "name": "Echevarría, Escobedo y Sevilla Asociados",
+            "image": "https://picsum.photos/seed/t6dVQPf3/640/480",
+            "phone": "921-518-000",
+            "email": "Javier_VelezOrdonez@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Apartamento Josefina",
+                "position": {
+                    "lat": 38.560108306655316,
+                    "lng": -0.1297964988525564
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "Backend",
+                "Javascript",
+                "HTML",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "15:00"
+            },
+            "score": {
+                "teacher": 75,
+                "student": 89
+            }
+        },
+        {
+            "id": "8939f6a2-9415-4ece-bb94-5100c024c998",
+            "name": "Tirado y Mares",
+            "image": "https://picsum.photos/seed/02bEKO/640/480",
+            "phone": "937-219-266",
+            "email": "Gregorio_UriasCervantez@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Parcela Juan Carlos",
+                "position": {
+                    "lat": 38.53887001054366,
+                    "lng": -0.13823455800320517
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "Photoshop",
+                "PHP",
+                "Backend",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 77,
+                "student": 77
+            }
+        },
+        {
+            "id": "7ecec8c8-b213-4236-95c5-6a313748234c",
+            "name": "Salcido, Olivárez y Ceja Asociados",
+            "image": "https://picsum.photos/seed/5ZNTxg5/640/480",
+            "phone": "969.004.257",
+            "email": "Conchita35@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Aldea Marco Antonio Botello",
+                "position": {
+                    "lat": 38.56123116953103,
+                    "lng": -0.1286972058092033
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "08:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 65,
+                "student": 24
+            }
+        },
+        {
+            "id": "8c475fdd-3e39-40b1-ae02-00b13b15c186",
+            "name": "Gastélum, Garza y Alejandro Asociados",
+            "image": "https://picsum.photos/seed/43hZhv8Gyp/640/480",
+            "phone": "907 940 905",
+            "email": "Concepcion83@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Rua Samuel Corona",
+                "position": {
+                    "lat": 38.546111494970106,
+                    "lng": -0.1493880555284477
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "CSS",
+                "HTML",
+                "Backend",
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 56,
+                "student": 70
+            }
+        },
+        {
+            "id": "96db5c32-8e6a-41af-9d0f-f9765e5a7471",
+            "name": "Solano y Grijalva",
+            "image": "https://picsum.photos/seed/CScuDXahW/640/480",
+            "phone": "900.480.082",
+            "email": "Raul.VacaNunez66@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Avenida Fernando",
+                "position": {
+                    "lat": 38.55934216117155,
+                    "lng": -0.11797347707852168
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": [
+                "Javascript",
+                "Backend",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 48,
+                "student": 83
+            }
+        },
+        {
+            "id": "55f00025-1f09-4960-9254-f369db2c2f3a",
+            "name": "Padilla, Argüello y Ornelas Asociados",
+            "image": "https://picsum.photos/seed/IV2PJ/640/480",
+            "phone": "922.124.685",
+            "email": "Francisca_GuardadoGonzalez63@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Lado Irene",
+                "position": {
+                    "lat": 38.550988301064905,
+                    "lng": -0.14097963922245071
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "PHP",
+                "HTML",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "18:00"
+            },
+            "score": {
+                "teacher": 57,
+                "student": 78
+            }
+        },
+        {
+            "id": "20c55d3c-730a-4ab0-b7b7-0f2d8aef8549",
+            "name": "Rivero Espino Hermanos",
+            "image": "https://picsum.photos/seed/d1RvyO/640/480",
+            "phone": "993.063.156",
+            "email": "Manuela_VillalobosLomeli@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Municipio Marta Esparza",
+                "position": {
+                    "lat": 38.55073456620341,
+                    "lng": -0.12936112258353205
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "CSS",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "18:00"
+            },
+            "score": {
+                "teacher": 12,
+                "student": 91
+            }
+        },
+        {
+            "id": "fe4be6bd-c23c-4c79-8f33-191babb1537b",
+            "name": "Rodarte, Sanabria y Meléndez Asociados",
+            "image": "https://picsum.photos/seed/KhJsv/640/480",
+            "phone": "903.216.518",
+            "email": "MiguelAngel.EspinalSalcido@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Conjunto Luis",
+                "position": {
+                    "lat": 38.54528297754523,
+                    "lng": -0.12416544956886355
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "PHP",
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "08:30",
+                "end": "15:00"
+            },
+            "score": {
+                "teacher": 89,
+                "student": 43
+            }
+        },
+        {
+            "id": "f078d7f2-7f61-4cc8-a6a2-bff8fadb2a47",
+            "name": "Armijo S.L.",
+            "image": "https://picsum.photos/seed/AkEVUQwz7t/640/480",
+            "phone": "985363597",
+            "email": "Sonia_DelafuenteOrtiz69@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Extramuros Germán",
+                "position": {
+                    "lat": 38.555143773691015,
+                    "lng": -0.13456799301923184
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "HTML",
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "10:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 70,
+                "student": 90
+            }
+        },
+        {
+            "id": "142ed11b-32a0-491d-8c16-b4ba0f8dcdb6",
+            "name": "Benítez y Juárez",
+            "image": "https://picsum.photos/seed/ru1ytM/640/480",
+            "phone": "952-275-432",
+            "email": "Adan_AlcalaMuniz@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Manzana Leticia Fonseca",
+                "position": {
+                    "lat": 38.56103055196436,
+                    "lng": -0.1496842813321564
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 7
+            }],
+            "categories": [
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 83,
+                "student": 54
+            }
+        },
+        {
+            "id": "45c258c3-1558-40e1-b7b5-21189235c6bc",
+            "name": "Alejandro, Valdivia y Barrientos Asociados",
+            "image": "https://picsum.photos/seed/s0UxIp/640/480",
+            "phone": "917.250.804",
+            "email": "Esteban.PadillaVelazquez91@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Paseo Cristóbal",
+                "position": {
+                    "lat": 38.55809594383756,
+                    "lng": -0.15827624590258438
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "Photoshop",
+                "Frontend",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "20:30"
+            },
+            "score": {
+                "teacher": 54,
+                "student": 12
+            }
+        },
+        {
+            "id": "fcf78cce-991a-4248-9d37-b08cf87e7f47",
+            "name": "Estévez, Samaniego y Anguiano Asociados",
+            "image": "https://picsum.photos/seed/iu2jnWPq9/640/480",
+            "phone": "978652121",
+            "email": "Roberto_AlbaAlvarado47@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Partida Sancho",
+                "position": {
+                    "lat": 38.53835050923795,
+                    "lng": -0.14990421390064057
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": [
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 3,
+                "student": 77
+            }
+        },
+        {
+            "id": "1eddeffe-546a-40b1-8079-0f6a3d6c590c",
+            "name": "Tafoya Olivo Hermanos",
+            "image": "https://picsum.photos/seed/yQcb7/640/480",
+            "phone": "986.311.195",
+            "email": "Gabriela_NietoAguilar25@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Travesía Ignacio Bernal",
+                "position": {
+                    "lat": 38.55018773243451,
+                    "lng": -0.1424456323711638
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "Javascript",
+                "PHP",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "15:00"
+            },
+            "score": {
+                "teacher": 35,
+                "student": 52
+            }
+        },
+        {
+            "id": "7fe967a3-2f8d-44be-b3cc-0cfe3f235f07",
+            "name": "Bahena y Muñiz",
+            "image": "https://picsum.photos/seed/R4hYQQ/640/480",
+            "phone": "966680352",
+            "email": "Francisco_ZelayaQuintana@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Polígono Elena",
+                "position": {
+                    "lat": 38.54238931514433,
+                    "lng": -0.12246867374028625
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "HTML",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 48,
+                "student": 2
+            }
+        },
+        {
+            "id": "57170f20-f906-4522-a619-aa969dc64a75",
+            "name": "Saucedo S.L.",
+            "image": "https://picsum.photos/seed/Yas4btPEKR/640/480",
+            "phone": "956051995",
+            "email": "Eloisa.EscobedoVelazquez38@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Partida Óscar",
+                "position": {
+                    "lat": 38.572534247101856,
+                    "lng": -0.14070260994117234
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "Javascript",
+                "HTML",
+                "CSS",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 90,
+                "student": 19
+            }
+        },
+        {
+            "id": "63779e79-9cc1-431f-a908-6425d1ee3b19",
+            "name": "Cervántez y Lucero",
+            "image": "https://picsum.photos/seed/nwSe1lnR/640/480",
+            "phone": "943911885",
+            "email": "Carla_LermaCordero@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Travesía Irene",
+                "position": {
+                    "lat": 38.56207135043578,
+                    "lng": -0.13170076488006544
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "HTML",
+                "CSS",
+                "Javascript",
+                "Photoshop"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 64,
+                "student": 52
+            }
+        },
+        {
+            "id": "bdc2119e-0675-46f8-b621-d17886fa7352",
+            "name": "Sevilla, Tirado y Jurado Asociados",
+            "image": "https://picsum.photos/seed/5RXGaL/640/480",
+            "phone": "939-609-694",
+            "email": "MariaEugenia_BernalAlcaraz@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Riera María Soledad",
+                "position": {
+                    "lat": 38.54911198755407,
+                    "lng": -0.13609118424449207
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "Javascript",
+                "HTML",
+                "Photoshop",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "08:30",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 92,
+                "student": 72
+            }
+        },
+        {
+            "id": "acf344cd-3719-4d5b-b405-445fc9e2668b",
+            "name": "Espinoza e Hijos",
+            "image": "https://picsum.photos/seed/sY6gLws6TW/640/480",
+            "phone": "943.015.057",
+            "email": "Isabela.SantanaResendez75@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Riera Carlos Jaime",
+                "position": {
+                    "lat": 38.55094832499687,
+                    "lng": -0.15846877422688976
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "Frontend",
+                "HTML",
+                "Backend",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "07:00",
+                "end": "20:30"
+            },
+            "score": {
+                "teacher": 13,
+                "student": 100
+            }
+        },
+        {
+            "id": "88788d14-bf18-448b-ac81-c26b97e21c93",
+            "name": "Navarro S.A.",
+            "image": "https://picsum.photos/seed/ZLIUwLPaa9/640/480",
+            "phone": "930 828 814",
+            "email": "Cesar_VillarrealDuarte36@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Colonia Vicente",
+                "position": {
+                    "lat": 38.55586591549002,
+                    "lng": -0.1167415335272608
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "PHP",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 51,
+                "student": 77
+            }
+        },
+        {
+            "id": "41c62de4-4b76-48c3-bacf-9a52cedffb67",
+            "name": "Gaona, Niño y Muro Asociados",
+            "image": "https://picsum.photos/seed/H8042/640/480",
+            "phone": "975.401.667",
+            "email": "AnaMaria_MatosUrrutia@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Ramal Nicolás Aparicio",
+                "position": {
+                    "lat": 38.53055553586582,
+                    "lng": -0.12896347200501168
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 7,
+                "student": 9
+            }
+        },
+        {
+            "id": "f9f3edc1-30e2-4c1b-ab51-429832a5c6af",
+            "name": "Dávila Guevara e Hijos",
+            "image": "https://picsum.photos/seed/rjDYcjJTl/640/480",
+            "phone": "953165491",
+            "email": "Raquel_SisnerosCarbajal@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Masía Juana Carranza",
+                "position": {
+                    "lat": 38.554994480647956,
+                    "lng": -0.1386590707434152
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "PHP",
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 53,
+                "student": 3
+            }
+        },
+        {
+            "id": "d68a1ac8-4b09-4e69-a838-12a182527f75",
+            "name": "Salgado Hermanos",
+            "image": "https://picsum.photos/seed/qKel0JfP/640/480",
+            "phone": "979 798 509",
+            "email": "Adan22@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Entrada Sofía",
+                "position": {
+                    "lat": 38.55165726069201,
+                    "lng": -0.1234892271119179
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "HTML",
+                "Photoshop",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "19:00"
+            },
+            "score": {
+                "teacher": 35,
+                "student": 52
+            }
+        },
+        {
+            "id": "25631f46-1168-4411-a782-6b1f40344636",
+            "name": "Pedroza, Guillén y Lara Asociados",
+            "image": "https://picsum.photos/seed/x8wRk/640/480",
+            "phone": "928065404",
+            "email": "Carmen.SaldivarJaimes78@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Ferrocarril Rafael",
+                "position": {
+                    "lat": 38.54963789940498,
+                    "lng": -0.14035902680325307
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": [
+                "PHP",
+                "HTML",
+                "Frontend"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 99,
+                "student": 44
+            }
+        },
+        {
+            "id": "71a2d464-702f-47f4-9a70-c840a515e91b",
+            "name": "Rosado, Nevárez y Villagómez Asociados",
+            "image": "https://picsum.photos/seed/4NSQQcV/640/480",
+            "phone": "932-598-276",
+            "email": "Pedro6@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Torrente María Teresa",
+                "position": {
+                    "lat": 38.55182683970312,
+                    "lng": -0.15427676266801882
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "PHP",
+                "CSS",
+                "HTML",
+                "Javascript"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "18:30"
+            },
+            "score": {
+                "teacher": 86,
+                "student": 4
+            }
+        },
+        {
+            "id": "9c886da2-6ec0-46bb-a358-3152f2791140",
+            "name": "Mondragón y Lugo",
+            "image": "https://picsum.photos/seed/HLuZr5F5a/640/480",
+            "phone": "966-750-820",
+            "email": "Agustin.PedrozaEspino@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Urbanización María José Padilla",
+                "position": {
+                    "lat": 38.55688383234349,
+                    "lng": -0.12586377139257365
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "19:30"
+            },
+            "score": {
+                "teacher": 88,
+                "student": 99
+            }
+        },
+        {
+            "id": "77f93cdc-a6d0-4f71-8917-b3f04f4e6fdb",
+            "name": "Vaca Hermanos",
+            "image": "https://picsum.photos/seed/kG5ZG/640/480",
+            "phone": "909-013-532",
+            "email": "JoseMaria90@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Arrabal Luis",
+                "position": {
+                    "lat": 38.53561482477124,
+                    "lng": -0.1445737225543553
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": [
+                "CSS",
+                "Backend"
+            ],
+            "workingHours": {
+                "start": "10:30",
+                "end": "18:00"
+            },
+            "score": {
+                "teacher": 9,
+                "student": 37
+            }
+        },
+        {
+            "id": "ffa3a230-cf96-43e8-8e78-eccf430e7c40",
+            "name": "Arias S.L.",
+            "image": "https://picsum.photos/seed/nocNF7Gt/640/480",
+            "phone": "962-219-602",
+            "email": "Lorena.PantojaPichardo45@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Jardines Graciela",
+                "position": {
+                    "lat": 38.55127728911086,
+                    "lng": -0.13965058871087876
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": [
+                "Frontend",
+                "Photoshop",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 66,
+                "student": 43
+            }
+        },
+        {
+            "id": "e981e361-2a71-4faf-93b4-502ed6c6fe84",
+            "name": "Leal y Calderón",
+            "image": "https://picsum.photos/seed/iZDq1Lx0B/640/480",
+            "phone": "917-381-015",
+            "email": "Berta19@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Manzana Benjamón Delgadillo",
+                "position": {
+                    "lat": 38.5622616582707,
+                    "lng": -0.12254549490978661
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "08:00",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 42,
+                "student": 89
+            }
+        },
+        {
+            "id": "e26531d5-3e7b-427a-ba17-85ee53511486",
+            "name": "Botello, Elizondo y Sierra Asociados",
+            "image": "https://picsum.photos/seed/bQzqg/640/480",
+            "phone": "986.969.191",
+            "email": "Diana22@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Colegio María José Huerta",
+                "position": {
+                    "lat": 38.55907226112341,
+                    "lng": -0.1475888012799942
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": [
+                "Backend",
+                "PHP",
+                "Photoshop",
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 7,
+                "student": 48
+            }
+        },
+        {
+            "id": "645ed084-2e59-46df-84e5-bc76cccbabfe",
+            "name": "Ávalos, Laboy y Manzanares Asociados",
+            "image": "https://picsum.photos/seed/iprRhj/640/480",
+            "phone": "968.053.797",
+            "email": "Dolores14@hotmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Polígono Berta Argüello",
+                "position": {
+                    "lat": 38.551336388103756,
+                    "lng": -0.163951230548264
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": [
+                "Frontend",
+                "HTML",
+                "Javascript",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "10:00",
+                "end": "19:00"
+            },
+            "score": {
+                "teacher": 43,
+                "student": 16
+            }
+        },
+        {
+            "id": "e4137f18-ca67-480f-825d-ff01e0c9a12e",
+            "name": "Guillén Hermanos",
+            "image": "https://picsum.photos/seed/d3MypyVPJ/640/480",
+            "phone": "935.203.479",
+            "email": "Guadalupe19@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Travesía Ricardo",
+                "position": {
+                    "lat": 38.55501178058121,
+                    "lng": -0.13795738595933926
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": [
+                "Backend",
+                "CSS",
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "15:00"
+            },
+            "score": {
+                "teacher": 11,
+                "student": 10
+            }
+        },
+        {
+            "id": "9cb80190-6024-40d4-82d9-6f8543495a5a",
+            "name": "Mejía y Morales",
+            "image": "https://picsum.photos/seed/42pZkT/640/480",
+            "phone": "969 032 196",
+            "email": "Gilberto_PenaCarrasquillo@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Senda Elsa",
+                "position": {
+                    "lat": 38.55081219057956,
+                    "lng": -0.1402984458186438
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": [
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "09:00",
+                "end": "19:00"
+            },
+            "score": {
+                "teacher": 71,
+                "student": 41
+            }
+        },
+        {
+            "id": "fba6c064-2875-42df-a12a-63c832b04dbf",
+            "name": "Gallegos, Trujillo y Becerra Asociados",
+            "image": "https://picsum.photos/seed/2O3lO5/640/480",
+            "phone": "988.627.981",
+            "email": "Antonia_RegaladoLira@gmail.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Cuesta Pilar Cazares",
+                "position": {
+                    "lat": 38.544312902847885,
+                    "lng": -0.11712213145210626
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": [
+                "CSS",
+                "Frontend",
+                "Photoshop",
+                "HTML"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "20:00"
+            },
+            "score": {
+                "teacher": 20,
+                "student": 74
+            }
+        },
+        {
+            "id": "edfc414d-d30f-4335-b405-498858ce5cfc",
+            "name": "Mesa S.L.",
+            "image": "https://picsum.photos/seed/LYr0DJPS/640/480",
+            "phone": "925 734 566",
+            "email": "JoseEduardo_PalomoValdez@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Mercado Lorenzo Fonseca",
+                "position": {
+                    "lat": 38.54737280424842,
+                    "lng": -0.14395356114323477
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": [
+                "Backend",
+                "CSS",
+                "PHP"
+            ],
+            "workingHours": {
+                "start": "07:30",
+                "end": "21:00"
+            },
+            "score": {
+                "teacher": 68,
+                "student": 86
+            }
+        },
+        {
+            "id": "0e64dfef-e2f8-4f5a-bb80-d9262bd987f7",
+            "name": "Tirado Soria S.A.",
+            "image": "https://picsum.photos/seed/p1QbQ/640/480",
+            "phone": "933-429-320",
+            "email": "Estela_LovatoMarrero57@yahoo.com",
+            "address": {
+                "region": "Alicante",
+                "town": "Benidorm",
+                "street": "Monte Silvia Villanueva",
+                "position": {
+                    "lat": 38.54869500985284,
+                    "lng": -0.14468699925032524
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": [
+                "Backend",
+                "Javascript",
+                "CSS"
+            ],
+            "workingHours": {
+                "start": "09:30",
+                "end": "19:00"
+            },
+            "score": {
+                "teacher": 21,
+                "student": 1
+            }
+        }, {
+            "id": "8a082570-8807-42e9-b115-bb46a4476bd0",
+            "name": "Núñez y Soliz",
+            "image": "https://picsum.photos/seed/OZc61Gql/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Solar Carmen Soto",
+                "position": {
+                    "lat": 38.34344230927528,
+                    "lng": -0.5095537704827393
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": ["Photoshop", "Javascript", "PHP", "Backend"],
+            "workingHours": {
+                "start": "07:00",
+                "end": "10:30"
+            },
+            "score": {
+                "teacher": 53,
+                "student": 90
+            }
+        }, {
+            "id": "312ea296-5549-42f3-b2f6-ba799be15a10",
+            "name": "Cárdenas S.L.",
+            "image": "https://picsum.photos/seed/vGiN69/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Sector Joaquín Rico",
+                "position": {
+                    "lat": 38.35171634443983,
+                    "lng": -0.48270310915609116
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": ["PHP", "Backend", "HTML", "CSS"],
+            "workingHours": {
+                "start": "09:30",
+                "end": "08:00"
+            },
+            "score": {
+                "teacher": 18,
+                "student": 78
+            }
+        }, {
+            "id": "33e23ecf-ae78-4de8-9149-5195b3763ec9",
+            "name": "Contreras e Hijos",
+            "image": "https://picsum.photos/seed/MqtdpBSESH/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Municipio Alberto",
+                "position": {
+                    "lat": 38.36071930806761,
+                    "lng": -0.47615969133335057
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": ["Photoshop", "Javascript"],
+            "workingHours": {
+                "start": "07:30",
+                "end": "10:30"
+            },
+            "score": {
+                "teacher": 81,
+                "student": 51
+            }
+        }, {
+            "id": "335a63ed-0a9a-4968-9052-9f860956e1ee",
+            "name": "Echevarría y Serrano",
+            "image": "https://picsum.photos/seed/HxvK3n7XU/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Entrada José Luis Pérez",
+                "position": {
+                    "lat": 38.37145589001269,
+                    "lng": -0.4633341881039996
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": ["Photoshop"],
+            "workingHours": {
+                "start": "08:00",
+                "end": "09:30"
+            },
+            "score": {
+                "teacher": 77,
+                "student": 93
+            }
+        }, {
+            "id": "f791228e-a852-46a0-8b5c-7d33f6f3f843",
+            "name": "Portillo y López",
+            "image": "https://picsum.photos/seed/Zn3Y67rlp0/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Pasaje Alberto",
+                "position": {
+                    "lat": 38.3676308545583,
+                    "lng": -0.4882841478791988
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 6
+            }],
+            "categories": ["PHP", "Backend", "Javascript"],
+            "workingHours": {
+                "start": "10:00",
+                "end": "09:30"
+            },
+            "score": {
+                "teacher": 44,
+                "student": 28
+            }
+        }, {
+            "id": "31415a5f-1a07-41ab-93b9-d2daa0c6967b",
+            "name": "Ulloa e Hijos",
+            "image": "https://picsum.photos/seed/JqqdTNAr/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Rincón Gregorio Maestas",
+                "position": {
+                    "lat": 38.36212012350153,
+                    "lng": -0.5283982062434234
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": ["PHP", "Backend", "Javascript"],
+            "workingHours": {
+                "start": "09:30",
+                "end": "08:00"
+            },
+            "score": {
+                "teacher": 59,
+                "student": 3
+            }
+        }, {
+            "id": "57861c93-6bcd-4294-bfa4-156702ea5ada",
+            "name": "Meraz y Campos",
+            "image": "https://picsum.photos/seed/5c2Dtidwvv/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Avenida Timoteo",
+                "position": {
+                    "lat": 38.36154406260879,
+                    "lng": -0.5183153823979865
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": ["HTML", "Frontend", "Javascript", "CSS"],
+            "workingHours": {
+                "start": "07:30",
+                "end": "07:00"
+            },
+            "score": {
+                "teacher": 29,
+                "student": 74
+            }
+        }, {
+            "id": "a3fca1e4-f501-400f-9812-1ab814d6f313",
+            "name": "Cadena, Quiróz y Caraballo Asociados",
+            "image": "https://picsum.photos/seed/igJAzxTK/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Manzana Lorena",
+                "position": {
+                    "lat": 38.38040573394953,
+                    "lng": -0.503970616025299
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": ["Photoshop", "Backend"],
+            "workingHours": {
+                "start": "08:00",
+                "end": "09:00"
+            },
+            "score": {
+                "teacher": 80,
+                "student": 41
+            }
+        }, {
+            "id": "795bfb30-b2c9-46a6-a400-4857281329e6",
+            "name": "Villagómez y Parra",
+            "image": "https://picsum.photos/seed/kAW0Q0/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Urbanización Mercedes Solorio",
+                "position": {
+                    "lat": 38.35540306036385,
+                    "lng": -0.47716771283830894
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 4
+            }],
+            "categories": ["Photoshop", "Frontend", "PHP"],
+            "workingHours": {
+                "start": "08:30",
+                "end": "07:00"
+            },
+            "score": {
+                "teacher": 78,
+                "student": 59
+            }
+        }, {
+            "id": "4d60487f-a2e2-4e55-a056-cb914d08e086",
+            "name": "Brito S.A.",
+            "image": "https://picsum.photos/seed/HC7q3/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Bajada Julio",
+                "position": {
+                    "lat": 38.353904222740184,
+                    "lng": -0.4842278862299736
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 6
+            }],
+            "categories": ["Backend"],
+            "workingHours": {
+                "start": "07:00",
+                "end": "08:00"
+            },
+            "score": {
+                "teacher": 82,
+                "student": 12
+            }
+        }, {
+            "id": "9f265eae-63e2-40be-8323-7c1bd1545841",
+            "name": "Camarillo y Gómez",
+            "image": "https://picsum.photos/seed/oBg2AfNz/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Terrenos María Elena",
+                "position": {
+                    "lat": 38.371912674161585,
+                    "lng": -0.47507391080011985
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": ["HTML"],
+            "workingHours": {
+                "start": "07:00",
+                "end": "10:30"
+            },
+            "score": {
+                "teacher": 95,
+                "student": 86
+            }
+        }, {
+            "id": "abd667a7-f555-4629-8657-e082a55a647f",
+            "name": "Pedraza y Rico",
+            "image": "https://picsum.photos/seed/cjMqApi/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Sección Sonia Murillo",
+                "position": {
+                    "lat": 38.348063924402766,
+                    "lng": -0.45687324247182914
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 7
+            }],
+            "categories": ["Photoshop", "Backend", "Frontend"],
+            "workingHours": {
+                "start": "08:30",
+                "end": "10:30"
+            },
+            "score": {
+                "teacher": 23,
+                "student": 56
+            }
+        }, {
+            "id": "0f40fbf7-3878-4edb-9ded-a974083f4791",
+            "name": "Mercado Urías Hermanos",
+            "image": "https://picsum.photos/seed/igJVS42g/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Puerta Samuel",
+                "position": {
+                    "lat": 38.33815609132349,
+                    "lng": -0.4899600849936405
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 3
+            }],
+            "categories": ["Photoshop", "HTML"],
+            "workingHours": {
+                "start": "08:00",
+                "end": "08:00"
+            },
+            "score": {
+                "teacher": 55,
+                "student": 84
+            }
+        },
+        {
+            "id": "43ca9930-12d7-4015-9162-1da117e1182c",
+            "name": "Haro Hermanos",
+            "image": "https://picsum.photos/seed/A3DzcED/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Monte Juana Barreto",
+                "position": {
+                    "lat": 38.34038383038723,
+                    "lng": -0.4734151788819645
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 9
+            }],
+            "categories": ["Backend"],
+            "workingHours": {
+                "start": "09:30",
+                "end": "09:00"
+            },
+            "score": {
+                "teacher": 58,
+                "student": 17
+            }
+        },
+        {
+            "id": "9d0f85eb-32ab-48a3-a11e-dc907c532527",
+            "name": "Rocha Hermanos",
+            "image": "https://picsum.photos/seed/7zmq3Qv/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Alicante/Alacant",
+                "street": "Colegio María de los Ángeles",
+                "position": {
+                    "lat": 38.350488041027575,
+                    "lng": -0.44531643738412185
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 1
+            }],
+            "categories": ["Javascript", "Photoshop"],
+            "workingHours": {
+                "start": "10:00",
+                "end": "07:30"
+            },
+            "score": {
+                "teacher": 79,
+                "student": 6
+            }
+        }, {
+            "id": "4da2266c-828e-40c9-99ae-03945a306522",
+            "name": "Loya Bernal Hermanos",
+            "image": "https://picsum.photos/seed/BMpnbpPvbN/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Benissa",
+                "street": "Puerta Soledad Lugo",
+                "position": {
+                    "lat": 38.71428437157963,
+                    "lng": 0.05032451209513056
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 6
+            }],
+            "categories": ["Frontend", "HTML", "Javascript", "CSS"],
+            "workingHours": {
+                "start": "08:30",
+                "end": "08:30"
+            },
+            "score": {
+                "teacher": 75,
+                "student": 28
+            }
+        }, {
+            "id": "429faa4c-42cf-4026-a420-8ec46ebaa093",
+            "name": "Urías Palomino S.A.",
+            "image": "https://picsum.photos/seed/Uerik8v/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Benissa",
+                "street": "Glorieta María Teresa Trujillo ",
+                "position": {
+                    "lat": 38.69856407517017,
+                    "lng": 0.0705310282554592
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 10
+            }],
+            "categories": ["CSS", "Frontend ", "Photoshop "],
+            "workingHours": {
+                "start": "09:30",
+                "end": "10:30"
+            },
+            "score": {
+                "teacher": 50,
+                "student": 44
+            }
+        }, {
+            "id": "8fe02078-f254-4df6-8ee3-272b8826215e",
+            "name": "Portillo Hermanos ",
+            "image": "https://picsum.photos/seed/mKOWM/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Benissa",
+                "street": "Barrio Catalina Sierra",
+                "position": {
+                    "lat": 38.683284678075665,
+                    "lng": 0.03074282591433075
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 2
+            }],
+            "categories": ["Backend", "Javascript", "PHP", "Frontend"],
+            "workingHours": {
+                "start": "10:00",
+                "end": "08:00"
+            },
+            "score": {
+                "teacher": 82,
+                "student": 28
+            }
+        }, {
+            "id": "40d69332-6740-4e53-ad31-0b4ab14804a0",
+            "name": "Montéz Ozuna Hermanos",
+            "image": "https://picsum.photos/seed/yiM5t/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Benissa",
+                "street": "Torrente Daniela Lomeli",
+                "position": {
+                    "lat": 38.68684724640624,
+                    "lng": 0.08176371642605318
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 5
+            }],
+            "categories": ["Javascript", "Photoshop"],
+            "workingHours": {
+                "start": "08:30",
+                "end": "08:00"
+            },
+            "score": {
+                "teacher": 44,
+                "student": 84
+            }
+        }, {
+            "id": "7d4a30c3-78cd-4d22-8399-aa69eb05a52b",
+            "name": "Montoya S.A.",
+            "image": "https://picsum.photos/seed/3QYnn/640/480",
+            "address": {
+                "region": "Alicante",
+                "town": "Benissa",
+                "street": "Terrenos Berta Fonseca",
+                "position": {
+                    "lat": 38.69116087304773,
+                    "lng": 0.07406243547404756
+                }
+            },
+            "openings": [{
+                "year": 2023,
+                "count": 8
+            }],
+            "categories": ["CSS", "Backend", "Photoshop", "Javascript"],
+            "workingHours": {
+                "start": "08:00",
+                "end": "09:00"
+            },
+            "score": {
+                "teacher": 93,
+                "student": 95
+            }
+        }
+    ]
+}
