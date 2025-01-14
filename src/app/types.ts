@@ -99,3 +99,16 @@ export interface ICredenciales{
   rol : string | null,
   token : string | null
 }
+
+
+//Categorias y servicios
+export interface ICategoria{
+  id : string,
+  name : string
+}
+
+export interface IServicio{
+  category : string,
+  id : string,
+  name : string
+}

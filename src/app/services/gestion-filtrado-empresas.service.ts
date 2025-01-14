@@ -2,6 +2,7 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, IFiltros } from '../types';
 import { Subscription } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class GestionFiltradoEmpresasService {
 
-  private empresas = signal<IEmpresaDisplay[]>([]);
+  //private empresas = signal<IEmpresaDisplay[]>([]);
   private filtros = signal<IFiltros>({
     nombre: '',
     localidad: '',
@@ -22,19 +23,16 @@ export class GestionFiltradoEmpresasService {
   public orden = signal<string>('asc');
   public criterio = signal<string>('nombre');
 
- /*  constructor(private empresasService : IEmpresasService) {
-
-    this.empresas.set(empresasService.getEmpresas());
-
-  } */
-
+//obtener empresas del servicio
   private servicioEmpresas = inject(IEmpresasService);
-  private observableEmpresas$ = this.servicioEmpresas.getEmpresas();
-  private subscripcionEmpresas : Subscription = this.observableEmpresas$.subscribe(empresas => {
-    this.empresas.set(empresas);
+
+  private empresasRx = rxResource({
+    loader: () => this.servicioEmpresas.getEmpresas()
   })
 
+  private empresas = computed(()=> this.empresasRx.value() ?? []);
 
+  //filtrar
   public empresasFiltradas = computed(() => {
     console.log('computar empresas');
     this.filtros();

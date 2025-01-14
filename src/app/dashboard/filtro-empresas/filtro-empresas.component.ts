@@ -18,6 +18,9 @@ import { ILocalizacionService } from '../../services/localizacion/ILocalizacionS
 import { LocalizacionesJsonService } from '../../services/localizacion/localizaciones-json.service';
 import { LocalizacionesApiService } from '../../services/localizacion/localizaciones-api.service';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { ICategoriaService } from '../../services/categorias/ICategoriasService';
+import { CategoriasApiService } from '../../services/categorias/categorias-api.service';
+import { CategoriasJsonService } from '../../services/categorias/categorias-json.service';
 
 
 interface IFiltrosForm extends HTMLFormControlsCollection {
@@ -39,12 +42,17 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
       provide: ILocalizacionService,
       useExisting: LocalizacionesApiService,
     },
+    {
+      provide: ICategoriaService,
+      useExisting : CategoriasApiService
+    }
 
   ],
 })
 export class FiltroEmpresasComponent {
   private empresasService = inject(GestionFiltradoEmpresasService);
   private localizacionesService = inject(ILocalizacionService);
+  private categoriasService = inject(ICategoriaService);
 
 
   //obtener info localizaciones del servicio
@@ -69,20 +77,27 @@ export class FiltroEmpresasComponent {
   public rxLocalidadesComputed = computed(()=> this.rxLocalidades.value() ?? []);
 
 
-
-
   //Arrays para generar selects
   //opciones select vacantes
   protected opcionesVacantes = [1, 2, 3, 4, 5, 6];
-  protected categorias = [
-    'Programación web',
-    'Comercio electrónico',
-    'RRSS',
-    'Marketing',
-    'Aplicaciones',
-  ];
 
-  protected opcionesServicios = ['PHP', 'TS', 'JS', 'Java', 'HTML', 'CSS'];
+
+  //Categorias y servicios
+  protected categoriaSeleccionada = signal<string>('0');
+
+  private categoriasRx = rxResource({
+    loader : () => this.categoriasService.getCategorias()
+  })
+
+  public categorias = computed(()=> this.categoriasRx.value() ?? []);
+
+  private serviciosRx = rxResource({
+    request : () =>({categoriaSeleccionada : this.categoriaSeleccionada()}),
+    loader: ({request})=>this.categoriasService.getServicios(request.categoriaSeleccionada)
+  })
+
+  public servicios = computed(()=> this.serviciosRx.value() ?? []);
+
 
   //Gestión cambios filtros
 
