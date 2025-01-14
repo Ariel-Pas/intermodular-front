@@ -15,6 +15,8 @@ export class LocalizacionesJsonService extends ILocalizacionService{
   }
 
   public getPoblaciones(idRegion : string): Observable<ITown[]> {
+
+    if(idRegion == '') return of([]);
     return of(towns.filter(t => t.region == idRegion));
   }
 

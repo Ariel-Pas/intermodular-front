@@ -91,3 +91,11 @@ export interface IFiltros {
 
 //parejas de strings para generar el nav subrayado. id-nombre seccion
 export type stringPair = [string, string];
+
+
+//Auth
+export interface ICredenciales{
+  usuario : string | null,
+  rol : string | null,
+  token : string | null
+}

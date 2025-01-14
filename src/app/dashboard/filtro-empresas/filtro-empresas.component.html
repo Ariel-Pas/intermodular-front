@@ -28,7 +28,7 @@
         #selectProv
         (change)="provinciaSeleccionada.set(selectProv.value)"
       >
-        <option value="">Cualquiera</option>
+        <option value="-">Cualquiera</option>
         @for (item of provincias(); track item.id) {
         <option value="{{ item.id }}">{{ item.name }}</option>
         }

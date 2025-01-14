@@ -19,6 +19,7 @@ import { LocalizacionesJsonService } from '../../services/localizacion/localizac
 import { LocalizacionesApiService } from '../../services/localizacion/localizaciones-api.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 
+
 interface IFiltrosForm extends HTMLFormControlsCollection {
   nombreEmpresa: HTMLInputElement;
   localidad: HTMLSelectElement;
@@ -38,6 +39,7 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
       provide: ILocalizacionService,
       useExisting: LocalizacionesApiService,
     },
+
   ],
 })
 export class FiltroEmpresasComponent {
@@ -50,6 +52,7 @@ export class FiltroEmpresasComponent {
   private provinciasRx = rxResource({
     loader: () =>this.localizacionesService.getRegiones()
   })
+
   public provincias = computed (()=>
     this.provinciasRx.value() ?? []
   );
