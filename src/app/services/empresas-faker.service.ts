@@ -1,12 +1,14 @@
 import { Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, InfoGeografia } from '../types';
-import townsJson from '../towns.json';
+import townsJson from '../data/towns.json';
 import { faker } from '@faker-js/faker';
+import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class EmpresasFakerService extends IEmpresasService{
+
   private empresas : IEmpresaDisplay[];
 
   private towns: InfoGeografia = townsJson;
@@ -28,7 +30,7 @@ export class EmpresasFakerService extends IEmpresasService{
         const prov =
           this.provincias[Math.floor(Math.random() * this.provincias.length)];
         let e: IEmpresaDisplay = {
-          id: this.ids++,
+          id: (this.ids++).toString(),
           nombre: faker.company.name(),
           cif: 'B12345678',
           descripcion: faker.lorem.text().substring(0, 60),
@@ -75,6 +77,11 @@ export class EmpresasFakerService extends IEmpresasService{
   }
 
   getEmpresas(){
-    return this.empresas;
+    return of(this.empresas);
+  }
+
+  getEmpresa(idEmpresa: string): Observable<IEmpresaDisplay | undefined> {
+    let empresa = this.empresas.find(e => e.id == idEmpresa);
+    return of(empresa);
   }
 }

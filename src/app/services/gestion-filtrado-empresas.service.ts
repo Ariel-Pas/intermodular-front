@@ -1,6 +1,7 @@
-import { computed, effect, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, IFiltros } from '../types';
+import { Subscription } from 'rxjs';
 
 
 @Injectable({
@@ -21,11 +22,17 @@ export class GestionFiltradoEmpresasService {
   public orden = signal<string>('asc');
   public criterio = signal<string>('nombre');
 
-  constructor(private empresasService : IEmpresasService) {
+ /*  constructor(private empresasService : IEmpresasService) {
 
     this.empresas.set(empresasService.getEmpresas());
 
-  }
+  } */
+
+  private servicioEmpresas = inject(IEmpresasService);
+  private observableEmpresas$ = this.servicioEmpresas.getEmpresas();
+  private subscripcionEmpresas : Subscription = this.observableEmpresas$.subscribe(empresas => {
+    this.empresas.set(empresas);
+  })
 
 
   public empresasFiltradas = computed(() => {
@@ -63,7 +70,7 @@ export class GestionFiltradoEmpresasService {
 
       filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.includes(this.filtros().servicio) : true);
 
-      //Ordenar 
+      //Ordenar
       filtrado.sort((left, right) => {
         switch(this.criterio()){
           case 'nombre' :

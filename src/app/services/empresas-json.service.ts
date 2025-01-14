@@ -1,38 +1,10 @@
 import { Injectable } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
-import { IEmpresaDisplay, InfoGeografia } from '../types';
-import townsJson from '../towns.json';
-import empresasData from '../data.json';
+import { IEmpresaDisplay, InfoGeografia, EmpresaJson } from '../types';
+import townsJson from '../data/towns.json';
+import empresasData from '../data/data.json';
+import { Observable, of } from 'rxjs';
 
-interface EmpresaJson {
-  id: string,
-  name: string,
-  image: string,
-  phone?: string | undefined,
-  email?: string | undefined,
-  address: {
-      region: string,
-      town: string,
-      street: string,
-      position: {
-          lat: number,
-          lng: number
-      }
-  },
-  openings: {
-      year: number,
-      count: number
-  }[],
-  categories: string[],
-  workingHours: {
-      start: string,
-      end: string
-  },
-  score: {
-      teacher: number,
-      student: number
-  }
-}
 
 
 
@@ -50,7 +22,7 @@ export class EmpresasJsonService extends IEmpresasService {
     let ids = 0;
     this.empresas = this.data.map(empresa => {
       let e : IEmpresaDisplay =  {
-        id: ids++,
+        id: (ids++).toString(),
         nombre: empresa.name,
         cif : '00000000X',
         descripcion: 'Empresa',
@@ -92,6 +64,11 @@ export class EmpresasJsonService extends IEmpresasService {
   }
 
   getEmpresas(){
-    return this.empresas;
+    return of(this.empresas);
   }
+
+  getEmpresa(idEmpresa: string): Observable<IEmpresaDisplay | undefined> {
+      let empresa = this.empresas.find(e => e.id == idEmpresa);
+      return of(empresa);
+    }
 }

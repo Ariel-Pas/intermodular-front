@@ -7,11 +7,13 @@ import {
   signal,
 } from '@angular/core';
 import { InfoGeografia, IFiltros } from '../../types';
-import townsJson from '../../towns.json';
+import townsJson from '../../data/towns.json';
 import { ButtonMainComponent } from '../../components/button-main/button-main.component';
 import { CaracteresProhibidosInputDirective } from '../../directives/caracteres-prohibidos-input.directive';
 import IEmpresasService from '../../services/IEmpresasService';
 import { GestionFiltradoEmpresasService } from '../../services/gestion-filtrado-empresas.service';
+import { ILocalizacionService } from '../../services/localizacion/ILocalizacionService';
+import { LocalizacionesJsonService } from '../../services/localizacion/localizaciones-json.service';
 
 
 interface IFiltrosForm extends HTMLFormControlsCollection {
@@ -28,17 +30,19 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
   imports: [ButtonMainComponent, CaracteresProhibidosInputDirective],
   templateUrl: './filtro-empresas.component.html',
   styleUrl: './filtro-empresas.component.scss',
-  /* providers : [
+  providers : [
     {
-      provide : GestionFiltradoEmpresasService,
-      useExisting: GestionFiltradoEmpresasService
+      provide : ILocalizacionService,
+      useExisting: LocalizacionesJsonService
     }
-  ] */
+  ]
 })
 export class FiltroEmpresasComponent {
-  constructor(private empresasService : GestionFiltradoEmpresasService){
+  constructor(private empresasService : GestionFiltradoEmpresasService, private localizacionesService : ILocalizacionService){
 
   }
+
+
 
   public towns: InfoGeografia = townsJson;
 
@@ -46,6 +50,9 @@ export class FiltroEmpresasComponent {
   public provincias = [...Object.keys(this.towns)];
 
   public provinciaSeleccionada = signal('');
+
+    //obtener datos del servivio de localizacion
+
 
   //Actualizar localidades al cambiar la provincia seleccionada
   localidades = computed(() => {

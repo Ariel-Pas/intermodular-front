@@ -1,5 +1,5 @@
 export interface IEmpresaDisplay {
-  id: number;
+  id: string;
   nombre: string;
   cif: string;
   descripcion: string;
@@ -34,7 +34,49 @@ export interface IEmpresaDisplay {
   }
 }
 
+export interface EmpresaJson {
+  id: string,
+  name: string,
+  image: string,
+  phone?: string | undefined,
+  email?: string | undefined,
+  address: {
+      region: string,
+      town: string,
+      street: string,
+      position: {
+          lat: number,
+          lng: number
+      }
+  },
+  openings: {
+      year: number,
+      count: number
+  }[],
+  categories: string[],
+  workingHours: {
+      start: string,
+      end: string
+  },
+  score: {
+      teacher: number,
+      student: number
+  }
+}
+
 export type InfoGeografia = Record<string, string[]>;
+
+export interface IRegion {
+  area : string,
+  id : string,
+  name : string
+}
+
+export interface ITown{
+  region : string,
+  id : string,
+  name : string
+}
 
 //interfaz de la información de filtrado que envía el componente filtros
 export interface IFiltros {
