@@ -14,7 +14,7 @@ export class LocalizacionesApiService extends ILocalizacionService{
     return this.httpClient.get<IRegion[]>('http://localhost:3000/regions?area=10');
   }
 
-  public getPoblaciones(idRegion: string): Observable<ITown[] | undefined> {
+  public getPoblaciones(idRegion: string): Observable<ITown[] > {
     return this.httpClient.get<ITown[]>('http://localhost:3000/towns', {params: {'region' : idRegion}});
   }
 }

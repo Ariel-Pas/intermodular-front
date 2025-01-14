@@ -14,9 +14,9 @@ export class LocalizacionesJsonService extends ILocalizacionService{
     return of(this.regionsCV);
   }
 
-  public getPoblaciones(idRegion : string): Observable<ITown[] |undefined> {
+  public getPoblaciones(idRegion : string): Observable<ITown[]> {
     return of(towns.filter(t => t.region == idRegion));
   }
 
-  
+
 }

@@ -29,8 +29,8 @@
         (change)="provinciaSeleccionada.set(selectProv.value)"
       >
         <option value="">Cualquiera</option>
-        @for (item of provincias; track item) {
-        <option value="{{ item }}">{{ item }}</option>
+        @for (item of provincias(); track item.id) {
+        <option value="{{ item.id }}">{{ item.name }}</option>
         }
       </select>
     </div>
@@ -43,8 +43,8 @@
         aria-label="Select localidad"
       >
         <option value="">Cualquiera</option>
-        @for (localidad of localidades(); track localidad) {
-        <option value="{{ localidad }}">{{ localidad }}</option>
+        @for (localidad of rxLocalidadesComputed(); track localidad) {
+        <option value="{{ localidad.id }}">{{ localidad.name }}</option>
         }
       </select>
     </div>
