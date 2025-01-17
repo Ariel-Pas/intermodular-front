@@ -7,14 +7,18 @@ import { ICredenciales } from '../../types';
   providedIn: 'root',
 })
 export class AuthFakeService extends IAuthenticationService {
+
+
   public login(user: string, password: string): Observable<ICredenciales>{
     const rnd = Math.random();
     let credenciales : ICredenciales;
-    if(rnd <= 0.8){
+
+
+    if(rnd <= 0.3){
       //login correcto
       credenciales = {
         usuario : user,
-        rol : 'user',
+        rol : 'estudiante',
         token : 'fakeSuccesfultoken'
       }
     }
@@ -25,6 +29,10 @@ export class AuthFakeService extends IAuthenticationService {
         token : null
       }
     }
+
+    this.user.set(user);
+    this.rol.set('estudiante');
+    this.token.set('fakeSuccesfultoken');
 
     return of(credenciales);
   }

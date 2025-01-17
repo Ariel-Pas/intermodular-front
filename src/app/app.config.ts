@@ -19,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     {provide: IAuthenticationService, useExisting: AuthFakeService},
     {provide: API_BASE, useValue: 'http://localhost:3000'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
+    provideRouter(routes),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)
   ]
 };
