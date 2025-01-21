@@ -3,6 +3,7 @@
   background: linear-gradient(264deg, rgba(245,175,25,1) -15%, rgba(241,39,17,1) 100%);
   width: 100%;
   border: none;
+  margin: 0;
 
   span {
     width: 100%;
@@ -11,7 +12,7 @@
 
   &:has(i){
     display: grid;
-    grid-template-columns: 5px 1fr;
+    grid-template-columns: 1fr 5fr;
   }
 
   &.background-flat{

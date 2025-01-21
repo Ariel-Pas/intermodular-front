@@ -40,11 +40,11 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
   providers: [
     {
       provide: ILocalizacionService,
-      useExisting: LocalizacionesApiService,
+      useExisting: LocalizacionesJsonService,
     },
     {
       provide: ICategoriaService,
-      useExisting : CategoriasApiService
+      useExisting : CategoriasJsonService
     }
 
   ],
@@ -127,11 +127,11 @@ export class FiltroEmpresasComponent {
     //asignar valores form a model
     this.filtrosEmpresas = {
       nombre: nombreEmpresa.value,
-      localidad: localidad.value,
-      provincia: provincia.value,
+      localidad: /* localidad.value */this.rxLocalidadesComputed().find(x => x?.id == localidad.value)?.name ?? '',
+      provincia: /* provincia.value */ this.provincias().find(p => p?.id == provincia.value)?.name ?? '',
       vacantes: Number(vacantes.value),
-      categoria: categorias.value,
-      servicio: servicios.value,
+      categoria: /* categorias.value */this.categorias().find(x => x?.id == categorias.value)?.name ?? '',
+      servicio: this.servicios().find(x => x?.id == servicios.value)?.name ?? '',
     };
 
     this.empresasService.actualizarFiltros(this.filtrosEmpresas);

@@ -21,8 +21,9 @@ export class GestionFiltradoEmpresasService {
   });
 
   public orden = signal<string>('asc');
+  //tipo asc|desc
   public criterio = signal<string>('nombre');
-
+  //keyof Icompany porque tiene que ser algo de la interfaz
 //obtener empresas del servicio
   private servicioEmpresas = inject(IEmpresasService);
 
@@ -32,11 +33,14 @@ export class GestionFiltradoEmpresasService {
 
   private empresas = computed(()=> this.empresasRx.value() ?? []);
 
+  //todo hacer dos computadas, una que filtra y otra que ordena dependiente de la primera
   //filtrar
   public empresasFiltradas = computed(() => {
     console.log('computar empresas');
-    this.filtros();
-    this.empresas();
+    //console.log(this.empresas());
+
+    /* this.filtros();
+    this.empresas(); */
       const clon = [...this.empresas()];
       let filtrado = clon.filter((x) =>
         this.filtros().nombre.length == 0
@@ -46,6 +50,8 @@ export class GestionFiltradoEmpresasService {
               .includes(this.filtros().nombre.toLocaleLowerCase())
       );
 
+
+      //console.log(filtrado);
       filtrado = filtrado.filter((x) =>
         this.filtros().provincia ? this.filtros().provincia.includes(x.direccion.provincia) : true
       );
@@ -53,6 +59,7 @@ export class GestionFiltradoEmpresasService {
       filtrado = filtrado.filter((x) =>
         this.filtros().localidad ? x.direccion.poblacion == this.filtros().localidad : true
       );
+
 
       filtrado = filtrado.filter((x) =>{
         if(!this.filtros().vacantes) return true;
@@ -67,6 +74,8 @@ export class GestionFiltradoEmpresasService {
       );
 
       filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.includes(this.filtros().servicio) : true);
+
+
 
       //Ordenar
       filtrado.sort((left, right) => {
@@ -93,6 +102,8 @@ export class GestionFiltradoEmpresasService {
 
         return 1;
       })
+
+      console.log(filtrado);
 
       return filtrado;
     });

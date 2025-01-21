@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import IEmpresasService from './services/IEmpresasService';
@@ -15,11 +15,11 @@ import { API_BASE } from './tokens/tokens';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    {provide: IEmpresasService, useExisting: EmpresasApiService},
+    {provide: IEmpresasService, useExisting: EmpresasFakerService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
     {provide: API_BASE, useValue: 'http://localhost:3000'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)
   ]
 };

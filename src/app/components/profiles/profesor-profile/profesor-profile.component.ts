@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
 
 @Component({
   selector: 'app-profesor-profile',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './profesor-profile.component.scss'
 })
 export class ProfesorProfileComponent {
-
+  private loginService = inject(IAuthenticationService);
+    public nombreUsuario = this.loginService.user();
 }

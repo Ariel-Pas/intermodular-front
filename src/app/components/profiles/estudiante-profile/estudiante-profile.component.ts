@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
 
 @Component({
   selector: 'app-estudiante-profile',
@@ -8,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class EstudianteProfileComponent {
 
+  private loginService = inject(IAuthenticationService);
+  public nombreUsuario = this.loginService.user();
 }

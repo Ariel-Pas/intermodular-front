@@ -28,7 +28,7 @@
         #selectProv
         (change)="provinciaSeleccionada.set(selectProv.value)"
       >
-        <option value="-">Cualquiera</option>
+        <option value="">Cualquiera</option>
         @for (item of provincias(); track item.id) {
         <option value="{{ item.id }}">{{ item.name }}</option>
         }
@@ -68,7 +68,7 @@
         #categoriasSelect
         (change)="this.categoriaSeleccionada.set(categoriasSelect.value)"
       >
-        <option value="0">Cualquiera</option>
+        <option value="">Cualquiera</option>
         @for (categoria of categorias(); track categoria.id) {
         <option value="{{ categoria.id }}">{{ categoria.name }}</option>
         }
@@ -82,7 +82,7 @@
         name="servicios"
         aria-label="Select servicios"
       >
-        <option value="0">Cualquiera</option>
+        <option value="">Cualquiera</option>
         @for (servicio of servicios(); track servicio.id) {
         <option value="{{ servicio.id }}">{{ servicio.name }}</option>
         }
@@ -91,7 +91,7 @@
 
     <button-main link="#" text="Aplicar filtros" [submit]="true"
     btnIcon='<i class="bi bi-search"></i>'>
-      <i icon class="bi bi-search"></i>
+
 
     </button-main>
 

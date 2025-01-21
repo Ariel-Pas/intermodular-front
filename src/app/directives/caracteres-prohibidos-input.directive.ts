@@ -8,8 +8,8 @@ import { Directive, ElementRef, signal } from '@angular/core';
 })
 export class CaracteresProhibidosInputDirective {
 
-  hasChanged = signal(false);
-  lastCharacter = signal('');
+
+  //prohibidos = input.required<string>()      poner un prohibidos en el componente que tiene la directiva
 
   replaceForbiddenCharacters(character: string, event: Event) : void{
     const forbiddenCharacters = '*@"#';

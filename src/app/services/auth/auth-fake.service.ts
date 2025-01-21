@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IAuthenticationService } from './IAuthenticationService';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { ICredenciales } from '../../types';
 
 @Injectable({
@@ -14,25 +14,21 @@ export class AuthFakeService extends IAuthenticationService {
     let credenciales : ICredenciales;
 
 
-    if(rnd <= 0.3){
+    if(rnd <= 0.8){
       //login correcto
       credenciales = {
         usuario : user,
-        rol : 'estudiante',
+        rol : 'admin',
         token : 'fakeSuccesfultoken'
       }
+
+      this.token.set(credenciales.token)
+      this.user.set(credenciales.usuario)
+      this.rol.set(credenciales.rol);
     }
     else{
-      credenciales = {
-        usuario : null,
-        rol : null,
-        token : null
-      }
+      return throwError(()=>({error : 'Login no válido'}));
     }
-
-    this.user.set(user);
-    this.rol.set('estudiante');
-    this.token.set('fakeSuccesfultoken');
 
     return of(credenciales);
   }
@@ -41,6 +37,7 @@ export class AuthFakeService extends IAuthenticationService {
     this.user.set(null);
     this.rol.set(null);
     this.token.set(null);
+
     return of(true);
   }
 }

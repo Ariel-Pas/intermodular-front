@@ -8,6 +8,7 @@ export abstract class IAuthenticationService{
 
   public abstract logout() : Observable<boolean>;
 
+  //son abstractas
   public user = signal<string | null>(null);
   public rol = signal<string | null>(null);
   public token = signal<string | null>(null);

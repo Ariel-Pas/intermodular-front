@@ -35,19 +35,17 @@ export class LoginComponent {
       {
         next: (value) => {
           if(value.token != null) this.router.navigate(['/profile']);
-          else this.error.set(true);
+          //else this.error.set(true);
 
+        },
+        error: ()=> {
+          this.error.set(true)
         }
 
       }
     )
 
-    //TODO como unsuscribe de esto?
-
   }
-
-
-
 
 
 }
