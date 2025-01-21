@@ -8,7 +8,9 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { InfoGeografia, IFiltros, ITown, IRegion } from '../../types';
+import { FormsModule } from '@angular/forms';
+
+import { InfoGeografia, IFiltros, ITown, IRegion, IFiltrosModel } from '../../types';
 import townsJson from '../../data/towns.json';
 import { ButtonMainComponent } from '../../components/button-main/button-main.component';
 import { CaracteresProhibidosInputDirective } from '../../directives/caracteres-prohibidos-input.directive';
@@ -34,18 +36,11 @@ interface IFiltrosForm extends HTMLFormControlsCollection {
 
 @Component({
   selector: 'app-filtro-empresas',
-  imports: [ButtonMainComponent, CaracteresProhibidosInputDirective],
+  imports: [ButtonMainComponent, CaracteresProhibidosInputDirective, FormsModule],
   templateUrl: './filtro-empresas.component.html',
   styleUrl: './filtro-empresas.component.scss',
   providers: [
-    {
-      provide: ILocalizacionService,
-      useExisting: LocalizacionesJsonService,
-    },
-    {
-      provide: ICategoriaService,
-      useExisting : CategoriasJsonService
-    }
+
 
   ],
 })
@@ -101,6 +96,7 @@ export class FiltroEmpresasComponent {
 
   //Gestión cambios filtros
 
+  //IFiltros para actualizar el servicio
   filtrosEmpresas: IFiltros = {
     nombre: '',
     localidad: '',
@@ -110,6 +106,49 @@ export class FiltroEmpresasComponent {
     servicio: '',
   };
 
+  //model para el formulario
+  protected model : IFiltrosModel = {
+    nombre: '',
+    localidad: {
+      id: '',
+      name: '',
+      region: ''
+    },
+    provincia:{
+      id: '',
+      name: '',
+      area: ''
+    },
+    vacantes: 0,
+    categoria: {
+      id: '',
+      name: ''
+    },
+    servicio: {
+      id: '',
+      name: '',
+      category: ''
+    }
+  }
+
+  protected static modelToData(model:IFiltrosModel) :IFiltros
+  {
+    let res:IFiltros = {
+      nombre: model.nombre,
+      localidad: model.localidad.name,
+      provincia: model.provincia.name,
+      vacantes: model.vacantes,
+      categoria: model.categoria.name,
+      servicio: model.servicio.name
+    }
+
+    return res
+  }
+
+  onSubmit(){
+    this.empresasService.actualizarFiltros(FiltroEmpresasComponent.modelToData(this.model))
+  }
+/*
   aplicarFiltros(e: Event) {
     e.preventDefault();
 
@@ -127,13 +166,13 @@ export class FiltroEmpresasComponent {
     //asignar valores form a model
     this.filtrosEmpresas = {
       nombre: nombreEmpresa.value,
-      localidad: /* localidad.value */this.rxLocalidadesComputed().find(x => x?.id == localidad.value)?.name ?? '',
-      provincia: /* provincia.value */ this.provincias().find(p => p?.id == provincia.value)?.name ?? '',
+      localidad: /* localidad.value this.rxLocalidadesComputed().find(x => x?.id == localidad.value)?.name ?? '',
+      provincia: /* provincia.value  this.provincias().find(p => p?.id == provincia.value)?.name ?? '',
       vacantes: Number(vacantes.value),
-      categoria: /* categorias.value */this.categorias().find(x => x?.id == categorias.value)?.name ?? '',
+      categoria: /* categorias.value this.categorias().find(x => x?.id == categorias.value)?.name ?? '',
       servicio: this.servicios().find(x => x?.id == servicios.value)?.name ?? '',
     };
 
     this.empresasService.actualizarFiltros(this.filtrosEmpresas);
-  }
+  } */
 }

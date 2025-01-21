@@ -1,9 +1,7 @@
 <div class="mx-4">
   <h5 class="fw-bold">Buscar empresa</h5>
 
-  <form
-    (submit)="aplicarFiltros($event)"
-  >
+  <form (ngSubmit)="onSubmit()">
     <div class="input-group mb-3">
       <span class="input-group-text" id="buscar-nombre"
         ><i class="bi bi-search"></i
@@ -16,6 +14,7 @@
         aria-label="Nombre empresa"
         aria-describedby="buscar-nombre"
         caracteresProhibidosInput=""
+        [(ngModel)]="model.nombre"
       />
     </div>
 
@@ -26,11 +25,12 @@
         name="provincia"
         aria-label="Provincia"
         #selectProv
-        (change)="provinciaSeleccionada.set(selectProv.value)"
+        [(ngModel)]="model.provincia"
+        (change)="provinciaSeleccionada.set(model.provincia.id)"
       >
-        <option value="">Cualquiera</option>
+        <option [ngValue]="" selected>Cualquiera</option>
         @for (item of provincias(); track item.id) {
-        <option value="{{ item.id }}">{{ item.name }}</option>
+        <option [ngValue]="item">{{ item.name }}</option>
         }
       </select>
     </div>
@@ -41,20 +41,22 @@
         class="form-select"
         name="localidad"
         aria-label="Select localidad"
+        [(ngModel)]="model.localidad"
       >
         <option value="">Cualquiera</option>
         @for (localidad of rxLocalidadesComputed(); track localidad) {
-        <option value="{{ localidad.id }}">{{ localidad.name }}</option>
+        <option [ngValue]="localidad">{{ localidad.name }}</option>
         }
       </select>
     </div>
 
     <div class="mb-3">
       <label for="vacantes" class="form-label">Vacantes</label>
-      <select class="form-select" name="vacantes" aria-label="Select vacantes">
+      <select class="form-select" name="vacantes" aria-label="Select vacantes"
+      [(ngModel)]="model.vacantes">
         <option value="">Cualquiera</option>
         @for (vacantes of opcionesVacantes; track $index) {
-        <option value="{{ vacantes }}">{{ vacantes }}</option>
+        <option [ngValue]="vacantes">{{ vacantes }}</option>
         }
       </select>
     </div>
@@ -66,11 +68,12 @@
         name="categorias"
         aria-label="Select categorías"
         #categoriasSelect
-        (change)="this.categoriaSeleccionada.set(categoriasSelect.value)"
+        [(ngModel)]="model.categoria"
+        (change)="this.categoriaSeleccionada.set(model.categoria.id)"
       >
         <option value="">Cualquiera</option>
         @for (categoria of categorias(); track categoria.id) {
-        <option value="{{ categoria.id }}">{{ categoria.name }}</option>
+        <option [ngValue]="categoria">{{ categoria.name }}</option>
         }
       </select>
     </div>
@@ -81,19 +84,21 @@
         class="form-select"
         name="servicios"
         aria-label="Select servicios"
+        [(ngModel)]="model.servicio"
       >
         <option value="">Cualquiera</option>
         @for (servicio of servicios(); track servicio.id) {
-        <option value="{{ servicio.id }}">{{ servicio.name }}</option>
+        <option [ngValue]="servicio">{{ servicio.name }}</option>
         }
       </select>
     </div>
 
-    <button-main link="#" text="Aplicar filtros" [submit]="true"
-    btnIcon='<i class="bi bi-search"></i>'>
-
-
+    <button-main
+      link="#"
+      text="Aplicar filtros"
+      [submit]="true"
+      btnIcon='<i class="bi bi-search"></i>'
+    >
     </button-main>
-
   </form>
 </div>

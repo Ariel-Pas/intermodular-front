@@ -1,1 +1,46 @@
-<p>create-empresa works!</p>
+
+
+<div class="container">
+  <h3>Información de la empresa</h3>
+  <form (ngSubmit)="onSubmit()" #nuevaEmpresaForm="ngForm" [validarHorarioEmpresa]="['horario-manana','horario-tarde']" novalidate>
+    <div class="mb-3">
+      <label for="nombre" class="form-label" >Nombre</label>
+      <input type="text" class="form-control" id="" name="nombre"
+      required min-length="4"
+      [(ngModel)]="model.nombre"
+      #nombre="ngModel">
+      @if(nombre.invalid){
+        <span>Error en nombre</span>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label for="cif" class="form-label" required pattern="[A-Za-z]\d{8}">CIF</label>
+      <input type="text" class="form-control" id="" name="cif"
+      [(ngModel)]="model.cif">
+    </div>
+
+    <div>
+      <label  class="form-label">Provincia</label>
+      <select class="form-select" name="provincia" [(ngModel)]="model.provincia" required>
+        <option selected>Elige una provincia</option>
+        @for (provincia of provincias(); track provincia.id) {
+          <option [ngValue]="provincia">{{provincia.name}} </option>
+        }
+
+      </select>
+    </div>
+
+    <div>
+      <label  class="form-label">Horario</label>
+      <input type="time" name="horario-manana" id="" required>
+      <input type="time" name="horario-tarde" id="" required>
+      @if (nuevaEmpresaForm.hasError('validarHorarioEmpresa')) {
+        <span>El horario no cuadra</span>
+      }
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

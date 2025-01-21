@@ -20,6 +20,7 @@ export class LoginComponent {
   public error = signal<boolean>(false);
 
 
+
   //on init comprobar si hay que redireccionar
   ngOnInit(){
     if(this.loginService.token()) this.router.navigate(['/profile']);

@@ -1,3 +1,10 @@
+export interface IUniqueResource{
+  id: string,
+  name: string
+}
+
+
+
 export interface IEmpresaDisplay {
   id: string;
   nombre: string;
@@ -88,6 +95,15 @@ export interface IFiltros {
   servicio: string;
 }
 
+export interface IFiltrosModel {
+  nombre: string;
+  provincia: IRegion;
+  localidad: ITown;
+  vacantes: number;
+  categoria: ICategoria;
+  servicio: IServicio;
+}
+
 
 //parejas de strings para generar el nav subrayado. id-nombre seccion
 export type stringPair = [string, string];
@@ -111,4 +127,15 @@ export interface IServicio{
   category : string,
   id : string,
   name : string
+}
+
+
+export interface INewEmpresa{
+  nombre: string,
+  provincia: string //aqui meter el id?
+  cif: string,
+  horario: {
+    manana: string,
+    tarde: string
+  }
 }

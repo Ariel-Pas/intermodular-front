@@ -11,12 +11,18 @@ import { IAuthenticationService } from './services/auth/IAuthenticationService';
 import { AuthFakeService } from './services/auth/auth-fake.service';
 import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
 import { API_BASE } from './tokens/tokens';
+import { ILocalizacionService } from './services/localizacion/ILocalizacionService';
+import { LocalizacionesJsonService } from './services/localizacion/localizaciones-json.service';
+import { ICategoriaService } from './services/categorias/ICategoriasService';
+import { CategoriasJsonService } from './services/categorias/categorias-json.service';
 
 
 export const appConfig: ApplicationConfig = {
   providers: [
     {provide: IEmpresasService, useExisting: EmpresasFakerService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
+    {provide: ILocalizacionService, useExisting: LocalizacionesJsonService},
+    {provide: ICategoriaService, useExisting: CategoriasJsonService},
     {provide: API_BASE, useValue: 'http://localhost:3000'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
