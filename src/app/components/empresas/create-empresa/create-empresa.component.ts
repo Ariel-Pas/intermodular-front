@@ -5,6 +5,7 @@ import { ICategoria, ICheckboxOption, INewEmpresa, IRegion, ITown } from '../../
 import { FormsModule } from '@angular/forms';
 import { ValidarHorarioEmpresaDirective } from '../../../directives/validar-horario-empresa.directive';
 import { ICategoriaService } from '../../../services/categorias/ICategoriasService';
+import { ValidarCheckbox } from '../../../directives/validar-checkbox.directive';
 
 
 
@@ -23,7 +24,7 @@ interface INewEmpresaModel{
 
 @Component({
   selector: 'app-create-empresa',
-  imports: [FormsModule, ValidarHorarioEmpresaDirective],
+  imports: [FormsModule, ValidarHorarioEmpresaDirective, ValidarCheckbox],
   templateUrl: './create-empresa.component.html',
   styleUrl: './create-empresa.component.scss'
 })
@@ -38,10 +39,10 @@ export class CreateEmpresaComponent {
     })
   }
 
-  
+
   private localizacionesService = inject(ILocalizacionService);
   private categoriasService = inject(ICategoriaService);
-  
+
    private provinciasRx = rxResource({
       loader: () =>this.localizacionesService.getRegiones()
     })
@@ -52,13 +53,13 @@ export class CreateEmpresaComponent {
 
     //señal para saber cuál es la provincia seleccionada
       public provinciaSeleccionada = signal('0');
-    
+
       //rxResource para localidades - depende de la provincia seleccionada
       private rxLocalidades = rxResource({
         request : ()=>({provSelec : this.provinciaSeleccionada()}),
         loader : ({request}) => this.localizacionesService.getPoblaciones(request.provSelec)
       })
-    
+
       public localidades = computed(()=> this.rxLocalidades.value() ?? []);
 
 
@@ -78,6 +79,8 @@ export class CreateEmpresaComponent {
     })
 
     public servicios = computed(()=> this.serviciosRx.value() ?? []);
+
+    protected serviciosControlsNames = computed(()=>this.servicios().map(x => 'servicio'+x.id));
 
     //Validacion form
     model : INewEmpresaModel = {
@@ -115,14 +118,17 @@ export class CreateEmpresaComponent {
         horario: {
           manana: model.horario.manana,
           tarde: model.horario.tarde
-        }
+        },
+        categoria: model.categoria.name,
+        servicios: model.servicios.map(x => x.id)
+
       }
     }
 
     onSubmit()
     {
       console.log(this.model);
-      
+
       /* let data = this.modelToData(this.model);
       console.log(data); */
 

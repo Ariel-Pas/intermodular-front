@@ -2,7 +2,10 @@
 
 <div class="container">
   <h3>Información de la empresa</h3>
-  <form (ngSubmit)="onSubmit()" #nuevaEmpresaForm="ngForm" [validarHorarioEmpresa]="['horario-manana','horario-tarde']" novalidate>
+  <form (ngSubmit)="onSubmit()" #nuevaEmpresaForm="ngForm" [validarHorarioEmpresa]="['horario-manana','horario-tarde']"
+  [validar-checkbox]="{min: 1, controls:serviciosControlsNames()}"
+
+  novalidate>
     <div class="mb-3">
       <label for="nombre" class="form-label" >Nombre</label>
       <input type="text" class="form-control" id="" name="nombre"
@@ -56,7 +59,8 @@
     <div>
       <label  class="form-label">Categorias</label>
       <select class="form-select" name="categoria" [(ngModel)]="model.categoria" required
-      (change)="categoriaSeleccionada.set(model.categoria.id)">
+      (change)="categoriaSeleccionada.set(model.categoria.id)"
+      #categoria="ngModel">
         <option selected>Elige una categoria</option>
         @for (categoria of categorias(); track categoria.id) {
           <option [ngValue]="categoria">{{categoria.name}} </option>
@@ -67,6 +71,9 @@
         <p>Servicios</p>
         @for (servicio of model.servicios; track servicio.id; let i = $index) {
           <label for="">{{servicio.name}} <input type="checkbox" [name]="'servicio'+servicio.id" [(ngModel)]="servicio.selected" id=""></label>
+        }
+        @if ((categoria.dirty ) && nuevaEmpresaForm.hasError('validar-checkbox')) {
+          <p>Selecciona al menos una categoría</p>
         }
       </div>
     </div>

@@ -138,7 +138,9 @@ export interface INewEmpresa{
   horario: {
     manana: string,
     tarde: string
-  }
+  },
+  categoria: string,
+  servicios: string[]
 }
 
 
