@@ -133,6 +133,7 @@ export interface IServicio{
 export interface INewEmpresa{
   nombre: string,
   provincia: string //aqui meter el id?
+  localidad: string
   cif: string,
   horario: {
     manana: string,

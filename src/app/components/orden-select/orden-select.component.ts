@@ -16,7 +16,7 @@ export class OrdenSelectComponent {
   }
 
   //TODO Meter model aqui
-  criterioModel:string[] = this.criterioOrdenacion();
+  //criterioModel:string[] = this.criterioOrdenacion();
 
   actualizarCriterioOrdenacion(event : Event){
     if( event.target instanceof HTMLSelectElement)

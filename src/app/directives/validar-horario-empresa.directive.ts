@@ -17,8 +17,7 @@ import {
   ],
 })
 export class ValidarHorarioEmpresaDirective implements Validator {
-  @Input({ required: true, alias: 'validarHorarioEmpresa' }) campos: string[] =
-    [];
+  @Input({ required: true, alias: 'validarHorarioEmpresa' }) campos: string[] = [];
 
   validate(control: AbstractControl): ValidationErrors | null {
     const inputHorarioApertura = control.get(this.campos[0]);
@@ -29,11 +28,11 @@ export class ValidarHorarioEmpresaDirective implements Validator {
 
     }
     if (inputHorarioApertura && inputHorarioCierre) {
-      const {horaApertura, minutosApertura} = inputHorarioApertura.value.split(':');
-      const {horaCierre, minutosCierre} = inputHorarioCierre.value.split(':');
-      return null;
+      const [horaApertura, minutosApertura] = inputHorarioApertura.value.split(':');
+      const [horaCierre, minutosCierre] = inputHorarioCierre.value.split(':');
 
-      if(Number(horaCierre) <= Number(horaApertura) ) return {'validarHorarioEmpresa' : true};
+
+      if((!isNaN(Number(horaCierre)) && !isNaN(Number(horaApertura))) && Number(horaCierre) <= Number(horaApertura) ) return {'validarHorarioEmpresa' : true};
       return null;
 
 

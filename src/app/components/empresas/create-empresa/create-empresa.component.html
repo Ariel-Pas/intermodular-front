@@ -6,7 +6,7 @@
     <div class="mb-3">
       <label for="nombre" class="form-label" >Nombre</label>
       <input type="text" class="form-control" id="" name="nombre"
-      required min-length="4"
+      required minlength="4"
       [(ngModel)]="model.nombre"
       #nombre="ngModel">
       @if(nombre.invalid){
@@ -22,7 +22,8 @@
 
     <div>
       <label  class="form-label">Provincia</label>
-      <select class="form-select" name="provincia" [(ngModel)]="model.provincia" required>
+      <select class="form-select" name="provincia" [(ngModel)]="model.provincia" required
+      (change)="provinciaSeleccionada.set(model.provincia.id)">
         <option selected>Elige una provincia</option>
         @for (provincia of provincias(); track provincia.id) {
           <option [ngValue]="provincia">{{provincia.name}} </option>
@@ -32,14 +33,29 @@
     </div>
 
     <div>
+      <label  class="form-label">Localidad</label>
+      <select class="form-select" name="localidad" [(ngModel)]="model.localidad" required>
+        <option selected>Elige una localidad </option>
+        @for (localidad  of localidades(); track localidad .id) {
+          <option [ngValue]="localidad ">{{localidad .name}} </option>
+        }
+
+      </select>
+    </div>
+
+    <div>
       <label  class="form-label">Horario</label>
-      <input type="time" name="horario-manana" id="" required>
-      <input type="time" name="horario-tarde" id="" required>
-      @if (nuevaEmpresaForm.hasError('validarHorarioEmpresa')) {
-        <span>El horario no cuadra</span>
+      <input type="time" name="horario-manana" id="horario-manana" [(ngModel)]="model.horario.manana" #horarioManana="ngModel" required>
+      <input type="time" name="horario-tarde" id="horario-tarde" [(ngModel)]="model.horario.tarde" #horarioTarde="ngModel" required>
+      @if ((horarioManana.dirty && horarioTarde.dirty) && nuevaEmpresaForm.hasError('validarHorarioEmpresa')) {
+        <span>La hora de cierre debe ser posterior a la apertura</span>
       }
     </div>
 
+
+    <div>
+
+    </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
