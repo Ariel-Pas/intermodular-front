@@ -1,79 +1,157 @@
-
-
 <div class="container">
   <h3>Información de la empresa</h3>
-  <form (ngSubmit)="onSubmit()" #nuevaEmpresaForm="ngForm" [validarHorarioEmpresa]="['horario-manana','horario-tarde']"
-  [validar-checkbox]="{min: 1, controls:serviciosControlsNames()}"
-
-  novalidate>
+  <form
+    (ngSubmit)="onSubmit()"
+    #nuevaEmpresaForm="ngForm"
+    [validarHorarioEmpresa]="['horario-manana', 'horario-tarde']"
+    [validar-checkbox]="{ min: 1, controls: serviciosControlsNames() }"
+    novalidate
+  >
     <div class="mb-3">
-      <label for="nombre" class="form-label" >Nombre</label>
-      <input type="text" class="form-control" id="" name="nombre"
-      required minlength="4"
-      [(ngModel)]="model.nombre"
-      #nombre="ngModel">
-      @if(nombre.invalid){
-        <span>Error en nombre</span>
+      <label for="nombre" class="form-label">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        id=""
+        name="nombre"
+        required
+        minlength="4"
+        [(ngModel)]="model.nombre"
+        #nombre="ngModel"
+        nombre-disponible
+      />
+      @if(nombre.hasError('nombre-disponible')){
+      <span>Nombre no disponible</span>
+      } @if(nombre.dirty && nombre.hasError('required')){
+      <span>Introduce un nombre</span>
+      } @if(nombre.dirty && nombre.hasError('nombre-disponible')){
+      <span>Nombre no disponible</span>
+      } @if(nombre.dirty && nombre.hasError('minlength')){
+      <span>Carácteres por debajo del minimo</span>
       }
     </div>
 
     <div class="mb-3">
-      <label for="cif" class="form-label" required pattern="[A-Za-z]\d{8}">CIF</label>
-      <input type="text" class="form-control" id="" name="cif"
-      [(ngModel)]="model.cif">
+      <label for="cif" class="form-label">CIF</label>
+      <input
+        type="text"
+        class="form-control"
+        id=""
+        name="cif"
+        [(ngModel)]="model.cif"
+        #cif="ngModel"
+        pattern="[A-Za-z]\d{8}"
+        required
+      />
+      @if(cif.dirty && cif.hasError('pattern')){
+      <span>Introduce un CIF válido con formato A12345678</span>
+      }
+      @else if(cif.touched && cif.hasError('required')){
+        <span>Introduce un CIF </span>
+      }
     </div>
 
     <div>
-      <label  class="form-label">Provincia</label>
-      <select class="form-select" name="provincia" [(ngModel)]="model.provincia" required
-      (change)="provinciaSeleccionada.set(model.provincia.id)">
-        <option selected>Elige una provincia</option>
+      <label class="form-label">Provincia</label>
+      <select
+        class="form-select"
+        name="provincia"
+        [(ngModel)]="model.provincia"
+        required
+        (change)="provinciaSeleccionada.set(model.provincia.id)"
+        #provincia="ngModel"
+      >
+        <option [ngValue]="null">Elige una provincia</option>
         @for (provincia of provincias(); track provincia.id) {
-          <option [ngValue]="provincia">{{provincia.name}} </option>
+        <option [ngValue]="provincia">{{ provincia.name }}</option>
         }
-
       </select>
-    </div>
-
-    <div>
-      <label  class="form-label">Localidad</label>
-      <select class="form-select" name="localidad" [(ngModel)]="model.localidad" required>
-        <option selected>Elige una localidad </option>
-        @for (localidad  of localidades(); track localidad .id) {
-          <option [ngValue]="localidad ">{{localidad .name}} </option>
-        }
-
-      </select>
-    </div>
-
-    <div>
-      <label  class="form-label">Horario</label>
-      <input type="time" name="horario-manana" id="horario-manana" [(ngModel)]="model.horario.manana" #horarioManana="ngModel" required>
-      <input type="time" name="horario-tarde" id="horario-tarde" [(ngModel)]="model.horario.tarde" #horarioTarde="ngModel" required>
-      @if ((horarioManana.dirty && horarioTarde.dirty) && nuevaEmpresaForm.hasError('validarHorarioEmpresa')) {
-        <span>La hora de cierre debe ser posterior a la apertura</span>
+      @if(provincia.dirty && provincia.hasError('required')){
+      <span>Elige una provincia</span>
       }
     </div>
 
-
     <div>
-      <label  class="form-label">Categorias</label>
-      <select class="form-select" name="categoria" [(ngModel)]="model.categoria" required
-      (change)="categoriaSeleccionada.set(model.categoria.id)"
-      #categoria="ngModel">
-        <option selected>Elige una categoria</option>
-        @for (categoria of categorias(); track categoria.id) {
-          <option [ngValue]="categoria">{{categoria.name}} </option>
+      <label class="form-label">Localidad</label>
+      <select
+        class="form-select"
+        name="localidad"
+        [(ngModel)]="model.localidad"
+        required
+        #localidad="ngModel"
+      >
+        <option [ngValue]="null">Elige una localidad</option>
+        @for (localidad of localidades(); track localidad .id) {
+        <option [ngValue]="localidad">{{ localidad.name }}</option>
         }
       </select>
+      @if(localidad.dirty && localidad.hasError('required')){
+      <span>Elige una localidad</span>
+      }
+    </div>
+
+    <div>
+      <label class="form-label">Horario</label>
+      <input
+        type="time"
+        name="horario-manana"
+        id="horario-manana"
+        [(ngModel)]="model.horario.manana"
+        #horarioManana="ngModel"
+        required
+      />
+      <input
+        type="time"
+        name="horario-tarde"
+        id="horario-tarde"
+        [(ngModel)]="model.horario.tarde"
+        #horarioTarde="ngModel"
+        required
+      />
+      @if ((horarioManana.dirty || horarioTarde.dirty) &&
+      (horarioManana.hasError('required') || horarioTarde.hasError('required')))
+      {
+      <span>Introduce una hora de apertura y de cierre</span>
+      } @else if ((horarioManana.dirty && horarioTarde.dirty) &&
+      nuevaEmpresaForm.hasError('validarHorarioEmpresa')) {
+      <span>La hora de cierre debe ser posterior a la apertura</span>
+      }
+    </div>
+
+    <div>
+      <label class="form-label">Categorias</label>
+      <select
+        class="form-select"
+        name="categoria"
+        [(ngModel)]="model.categoria"
+        required
+        (change)="categoriaSeleccionada.set(model.categoria.id)"
+        #categoria="ngModel"
+      >
+        <option [ngValue]="null">Elige una categoria</option>
+        @for (categoria of categorias(); track categoria.id) {
+        <option [ngValue]="categoria">{{ categoria.name }}</option>
+        }
+      </select>
+      @if ((categoria.dirty ) && categoria.hasError('required'))
+      {
+      <p>Selecciona al menos una categoría</p>
+      }
 
       <div>
         <p>Servicios</p>
         @for (servicio of model.servicios; track servicio.id; let i = $index) {
-          <label for="">{{servicio.name}} <input type="checkbox" [name]="'servicio'+servicio.id" [(ngModel)]="servicio.selected" id=""></label>
-        }
-        @if ((categoria.dirty ) && nuevaEmpresaForm.hasError('validar-checkbox')) {
-          <p>Selecciona al menos una categoría</p>
+        <label for=""
+          >{{ servicio.name }}
+          <input
+            type="checkbox"
+            [name]="'servicio' + servicio.id"
+            [(ngModel)]="servicio.selected"
+            id=""
+        /></label>
+        } @if ((categoria.dirty ) &&
+        nuevaEmpresaForm.hasError('validar-checkbox')) {
+        <p>Selecciona al menos un servicio</p>
         }
       </div>
     </div>

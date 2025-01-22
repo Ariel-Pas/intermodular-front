@@ -3,7 +3,7 @@ import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, InfoGeografia, EmpresaJson } from '../types';
 import townsJson from '../data/towns.json';
 import empresasData from '../data/data.json';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 
 
 
@@ -71,4 +71,10 @@ export class EmpresasJsonService extends IEmpresasService {
       let empresa = this.empresas.find(e => e.id == idEmpresa);
       return of(empresa);
     }
+
+  getByName(nombreEmpresa: string): Observable<IEmpresaDisplay | undefined>{
+    let empresa = this.empresas.find(e => e.nombre == nombreEmpresa);
+    if(empresa) return of(empresa);
+    return throwError(()=>({error : 'No existe la empresa'}))
+  }
 }

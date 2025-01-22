@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ValidarHorarioEmpresaDirective } from '../../../directives/validar-horario-empresa.directive';
 import { ICategoriaService } from '../../../services/categorias/ICategoriasService';
 import { ValidarCheckbox } from '../../../directives/validar-checkbox.directive';
+import { NombreDisponibleDirective } from '../../../directives/nombre-disponible.directive';
 
 
 
@@ -24,7 +25,7 @@ interface INewEmpresaModel{
 
 @Component({
   selector: 'app-create-empresa',
-  imports: [FormsModule, ValidarHorarioEmpresaDirective, ValidarCheckbox],
+  imports: [FormsModule, ValidarHorarioEmpresaDirective, ValidarCheckbox, NombreDisponibleDirective],
   templateUrl: './create-empresa.component.html',
   styleUrl: './create-empresa.component.scss'
 })
@@ -80,7 +81,11 @@ export class CreateEmpresaComponent {
 
     public servicios = computed(()=> this.serviciosRx.value() ?? []);
 
+
+    //generar nombres de los checks para pasárselos a la directiva
     protected serviciosControlsNames = computed(()=>this.servicios().map(x => 'servicio'+x.id));
+
+
 
     //Validacion form
     model : INewEmpresaModel = {

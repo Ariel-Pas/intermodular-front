@@ -1,9 +1,16 @@
 import { Component, input } from '@angular/core';
 import { GestionFiltradoEmpresasService } from '../../services/gestion-filtrado-empresas.service';
+import { FormsModule } from '@angular/forms';
+
+interface ITipoOrdenacion{
+  criterio: string,
+  orden: 'asc' | 'desc'
+}
+
 
 @Component({
   selector: 'orden-select',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './orden-select.component.html',
   styleUrl: './orden-select.component.scss'
 })
@@ -11,22 +18,21 @@ export class OrdenSelectComponent {
 
   criterioOrdenacion = input.required<string[]>();
 
+
   constructor(public empresasService: GestionFiltradoEmpresasService){
-
   }
 
-  //TODO Meter model aqui
-  //criterioModel:string[] = this.criterioOrdenacion();
-
-  actualizarCriterioOrdenacion(event : Event){
-    if( event.target instanceof HTMLSelectElement)
-    this.empresasService.criterio.set(event.target.value);
-
-
+  //modelo para formulario
+  protected ordenModel : ITipoOrdenacion = {
+    criterio : 'nombre',
+    orden: 'asc'
   }
 
-  actualizarOrden(event : Event){
-    if( event.target instanceof HTMLSelectElement)
-    this.empresasService.orden.set(event.target.value);
+  //funciones que se ejecutan onchange
+  actualizarCriterioOrdenacion(){
+    this.empresasService.criterio.set(this.ordenModel.criterio);
+  }
+  actualizarOrden(){
+    this.empresasService.orden.set(this.ordenModel.orden);
   }
 }

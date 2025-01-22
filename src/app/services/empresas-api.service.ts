@@ -112,4 +112,12 @@ export class EmpresasApiService extends IEmpresasService {
         })
       );
   }
+
+
+  getByName(nombreEmpresa: string): Observable<IEmpresaDisplay | undefined>{
+    return this.httpClient
+    .get<IEmpresaDisplay>(`${this.baseUrl}/companies/name/${nombreEmpresa}`);
+
+
+  }
 }

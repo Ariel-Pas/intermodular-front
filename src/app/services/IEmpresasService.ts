@@ -4,4 +4,5 @@ import { IEmpresaDisplay } from "../types";
 export default abstract class IEmpresasService{
   abstract getEmpresas(): Observable<IEmpresaDisplay[]>;
   abstract getEmpresa(idEmpresa : string): Observable<IEmpresaDisplay | undefined> ;
+  abstract getByName(nombreEmpresa: string): Observable<IEmpresaDisplay | undefined>;
 }
