@@ -54,7 +54,21 @@
 
 
     <div>
+      <label  class="form-label">Categorias</label>
+      <select class="form-select" name="categoria" [(ngModel)]="model.categoria" required
+      (change)="categoriaSeleccionada.set(model.categoria.id)">
+        <option selected>Elige una categoria</option>
+        @for (categoria of categorias(); track categoria.id) {
+          <option [ngValue]="categoria">{{categoria.name}} </option>
+        }
+      </select>
 
+      <div>
+        <p>Servicios</p>
+        @for (servicio of model.servicios; track servicio.id; let i = $index) {
+          <label for="">{{servicio.name}} <input type="checkbox" [name]="'servicio'+servicio.id" [(ngModel)]="servicio.selected" id=""></label>
+        }
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>

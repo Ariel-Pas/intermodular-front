@@ -23,11 +23,8 @@ export class ValidarHorarioEmpresaDirective implements Validator {
     const inputHorarioApertura = control.get(this.campos[0]);
     const inputHorarioCierre = control.get(this.campos[1]);
 
-    if(inputHorarioApertura){
-      console.log('hola');
-
-    }
-    if (inputHorarioApertura && inputHorarioCierre) {
+    
+    if ((inputHorarioApertura && inputHorarioCierre) && (inputHorarioApertura.value && inputHorarioCierre.value)) {
       const [horaApertura, minutosApertura] = inputHorarioApertura.value.split(':');
       const [horaCierre, minutosCierre] = inputHorarioCierre.value.split(':');
 

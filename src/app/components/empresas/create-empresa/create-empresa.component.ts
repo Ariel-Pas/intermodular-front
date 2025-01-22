@@ -1,7 +1,7 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ILocalizacionService } from '../../../services/localizacion/ILocalizacionService';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { INewEmpresa, IRegion, ITown } from '../../../types';
+import { ICategoria, ICheckboxOption, INewEmpresa, IRegion, ITown } from '../../../types';
 import { FormsModule } from '@angular/forms';
 import { ValidarHorarioEmpresaDirective } from '../../../directives/validar-horario-empresa.directive';
 import { ICategoriaService } from '../../../services/categorias/ICategoriasService';
@@ -17,8 +17,8 @@ interface INewEmpresaModel{
     manana: string,
     tarde: string
   },
-  categoria: string,
-  servicios: {name: string, selected:boolean}[]
+  categoria: ICategoria,
+  servicios: ICheckboxOption[]
 }
 
 @Component({
@@ -28,6 +28,17 @@ interface INewEmpresaModel{
   styleUrl: './create-empresa.component.scss'
 })
 export class CreateEmpresaComponent {
+
+  constructor(){
+    effect(()=>{
+      //para poder generar opciones checkbox asociadas al model, hay que actualizar sus servicios cuando cambia
+      //la categoria seleccionada
+      this.model.servicios = this.servicios().map(x => {return {name: x.name, selected: false, id: x.id}})
+      //console.log(this.model.servicios);
+    })
+  }
+
+  
   private localizacionesService = inject(ILocalizacionService);
   private categoriasService = inject(ICategoriaService);
   
@@ -86,7 +97,10 @@ export class CreateEmpresaComponent {
         manana: '',
         tarde: ''
       },
-      categoria: '',
+      categoria: {
+        id: '',
+        name: ''
+      },
       servicios: []
 
     }
@@ -107,8 +121,10 @@ export class CreateEmpresaComponent {
 
     onSubmit()
     {
-      let data = this.modelToData(this.model);
-      console.log(data);
+      console.log(this.model);
+      
+      /* let data = this.modelToData(this.model);
+      console.log(data); */
 
     }
 }

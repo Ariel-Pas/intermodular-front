@@ -140,3 +140,10 @@ export interface INewEmpresa{
     tarde: string
   }
 }
+
+
+export interface ICheckboxOption{
+  name: string,
+  selected: boolean
+  id: string
+}
