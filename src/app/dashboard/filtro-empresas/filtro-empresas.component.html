@@ -26,9 +26,9 @@
         aria-label="Provincia"
         #selectProv
         [(ngModel)]="model.provincia"
-        (change)="provinciaSeleccionada.set(model.provincia.id)"
+        (change)="provinciaSeleccionada.set(model.provincia?.id ?? '')"
       >
-        <option [ngValue]="" selected>Cualquiera</option>
+        <option [ngValue]=null selected>Cualquiera</option>
         @for (item of provincias(); track item.id) {
         <option [ngValue]="item">{{ item.name }}</option>
         }
@@ -43,7 +43,7 @@
         aria-label="Select localidad"
         [(ngModel)]="model.localidad"
       >
-        <option value="">Cualquiera</option>
+        <option [ngValue]=null>Cualquiera</option>
         @for (localidad of rxLocalidadesComputed(); track localidad) {
         <option [ngValue]="localidad">{{ localidad.name }}</option>
         }
@@ -54,7 +54,7 @@
       <label for="vacantes" class="form-label">Vacantes</label>
       <select class="form-select" name="vacantes" aria-label="Select vacantes"
       [(ngModel)]="model.vacantes">
-        <option value="">Cualquiera</option>
+        <option [ngValue]="null">Cualquiera</option>
         @for (vacantes of opcionesVacantes; track $index) {
         <option [ngValue]="vacantes">{{ vacantes }}</option>
         }
@@ -69,9 +69,9 @@
         aria-label="Select categorías"
         #categoriasSelect
         [(ngModel)]="model.categoria"
-        (change)="this.categoriaSeleccionada.set(model.categoria.id)"
+        (change)="this.categoriaSeleccionada.set(model.categoria?.id ?? '')"
       >
-        <option value="">Cualquiera</option>
+        <option [ngValue]="null">Cualquiera</option>
         @for (categoria of categorias(); track categoria.id) {
         <option [ngValue]="categoria">{{ categoria.name }}</option>
         }
@@ -86,7 +86,7 @@
         aria-label="Select servicios"
         [(ngModel)]="model.servicio"
       >
-        <option value="">Cualquiera</option>
+        <option [ngValue]="null">Cualquiera</option>
         @for (servicio of servicios(); track servicio.id) {
         <option [ngValue]="servicio">{{ servicio.name }}</option>
         }

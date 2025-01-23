@@ -21,13 +21,13 @@
         nombre-disponible
       />
       @if(nombre.hasError('nombre-disponible')){
-      <span>Nombre no disponible</span>
-      } @if(nombre.dirty && nombre.hasError('required')){
-      <span>Introduce un nombre</span>
+      <span class="error-msg">Nombre no disponible</span>
+      } @if((nombre.touched || nombre.dirty) && nombre.hasError('required')){
+      <span class="error-msg">Introduce un nombre</span>
       } @if(nombre.dirty && nombre.hasError('nombre-disponible')){
-      <span>Nombre no disponible</span>
+      <span class="error-msg">Nombre no disponible</span>
       } @if(nombre.dirty && nombre.hasError('minlength')){
-      <span>Carácteres por debajo del minimo</span>
+      <span class="error-msg">Carácteres por debajo del minimo</span>
       }
     </div>
 
@@ -44,10 +44,10 @@
         required
       />
       @if(cif.dirty && cif.hasError('pattern')){
-      <span>Introduce un CIF válido con formato A12345678</span>
+      <span class="error-msg">Introduce un CIF válido con formato A12345678</span>
       }
       @else if(cif.touched && cif.hasError('required')){
-        <span>Introduce un CIF </span>
+        <span class="error-msg">Introduce un CIF </span>
       }
     </div>
 
@@ -58,7 +58,7 @@
         name="provincia"
         [(ngModel)]="model.provincia"
         required
-        (change)="provinciaSeleccionada.set(model.provincia.id)"
+        (change)="provinciaSeleccionada.set(model.provincia?.id ?? '')"
         #provincia="ngModel"
       >
         <option [ngValue]="null">Elige una provincia</option>
@@ -66,8 +66,8 @@
         <option [ngValue]="provincia">{{ provincia.name }}</option>
         }
       </select>
-      @if(provincia.dirty && provincia.hasError('required')){
-      <span>Elige una provincia</span>
+      @if(provincia.touched && provincia.hasError('required')){
+      <span class="error-msg">Elige una provincia</span>
       }
     </div>
 
@@ -85,8 +85,8 @@
         <option [ngValue]="localidad">{{ localidad.name }}</option>
         }
       </select>
-      @if(localidad.dirty && localidad.hasError('required')){
-      <span>Elige una localidad</span>
+      @if(localidad.touched && localidad.hasError('required')){
+      <span class="error-msg">Elige una localidad</span>
       }
     </div>
 
@@ -111,10 +111,10 @@
       @if ((horarioManana.dirty || horarioTarde.dirty) &&
       (horarioManana.hasError('required') || horarioTarde.hasError('required')))
       {
-      <span>Introduce una hora de apertura y de cierre</span>
+      <span class="error-msg">Introduce una hora de apertura y de cierre</span>
       } @else if ((horarioManana.dirty && horarioTarde.dirty) &&
       nuevaEmpresaForm.hasError('validarHorarioEmpresa')) {
-      <span>La hora de cierre debe ser posterior a la apertura</span>
+      <span class="error-msg">La hora de cierre debe ser posterior a la apertura</span>
       }
     </div>
 
@@ -125,7 +125,7 @@
         name="categoria"
         [(ngModel)]="model.categoria"
         required
-        (change)="categoriaSeleccionada.set(model.categoria.id)"
+        (change)="categoriaSeleccionada.set(model.categoria?.id ?? '')"
         #categoria="ngModel"
       >
         <option [ngValue]="null">Elige una categoria</option>
@@ -135,7 +135,7 @@
       </select>
       @if ((categoria.dirty ) && categoria.hasError('required'))
       {
-      <p>Selecciona al menos una categoría</p>
+      <p class="error-msg">Selecciona al menos una categoría</p>
       }
 
       <div>
@@ -149,13 +149,13 @@
             [(ngModel)]="servicio.selected"
             id=""
         /></label>
-        } @if ((categoria.dirty ) &&
+        } @if ((categoria.dirty && model.categoria != null) &&
         nuevaEmpresaForm.hasError('validar-checkbox')) {
-        <p>Selecciona al menos un servicio</p>
+        <p class="error-msg">Selecciona al menos un servicio</p>
         }
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="nuevaEmpresaForm.form.invalid">Submit</button>
   </form>
 </div>

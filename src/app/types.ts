@@ -90,18 +90,18 @@ export interface IFiltros {
   nombre: string;
   provincia: string;
   localidad: string;
-  vacantes: number;
+  vacantes: number |undefined;
   categoria: string;
   servicio: string;
 }
 
 export interface IFiltrosModel {
   nombre: string;
-  provincia: IRegion;
-  localidad: ITown;
-  vacantes: number;
-  categoria: ICategoria;
-  servicio: IServicio;
+  provincia: IRegion | null;
+  localidad: ITown | null;
+  vacantes: number| undefined;
+  categoria: ICategoria| null;
+  servicio: IServicio| null;
 }
 
 

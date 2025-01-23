@@ -135,11 +135,11 @@ export class FiltroEmpresasComponent {
   {
     let res:IFiltros = {
       nombre: model.nombre,
-      localidad: model.localidad.name,
-      provincia: model.provincia.name,
-      vacantes: model.vacantes,
-      categoria: model.categoria.name,
-      servicio: model.servicio.name
+      localidad: model.localidad?.name ?? '',
+      provincia: model.provincia?.name ?? '',
+      vacantes: model.vacantes ?? undefined,
+      categoria: model.categoria?.name ?? '',
+      servicio: model.servicio?.name ?? ''
     }
 
     return res
@@ -148,31 +148,5 @@ export class FiltroEmpresasComponent {
   onSubmit(){
     this.empresasService.actualizarFiltros(FiltroEmpresasComponent.modelToData(this.model))
   }
-/*
-  aplicarFiltros(e: Event) {
-    e.preventDefault();
 
-    const form = e.target as HTMLFormElement;
-
-    const {
-      nombreEmpresa,
-      localidad,
-      provincia,
-      vacantes,
-      categorias,
-      servicios,
-    } = form.elements as IFiltrosForm;
-
-    //asignar valores form a model
-    this.filtrosEmpresas = {
-      nombre: nombreEmpresa.value,
-      localidad: /* localidad.value this.rxLocalidadesComputed().find(x => x?.id == localidad.value)?.name ?? '',
-      provincia: /* provincia.value  this.provincias().find(p => p?.id == provincia.value)?.name ?? '',
-      vacantes: Number(vacantes.value),
-      categoria: /* categorias.value this.categorias().find(x => x?.id == categorias.value)?.name ?? '',
-      servicio: this.servicios().find(x => x?.id == servicios.value)?.name ?? '',
-    };
-
-    this.empresasService.actualizarFiltros(this.filtrosEmpresas);
-  } */
 }

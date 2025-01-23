@@ -12,14 +12,14 @@ import { NombreDisponibleDirective } from '../../../directives/nombre-disponible
 
 interface INewEmpresaModel{
   nombre: string,
-  provincia: IRegion,
-  localidad: ITown,
+  provincia: IRegion | null,
+  localidad: ITown | null,
   cif: string,
   horario:{
     manana: string,
     tarde: string
   },
-  categoria: ICategoria,
+  categoria: ICategoria | null,
   servicios: ICheckboxOption[]
 }
 
@@ -118,13 +118,13 @@ export class CreateEmpresaComponent {
       return{
         nombre: model.nombre,
         cif: model.cif,
-        provincia: model.provincia.id,
-        localidad: model.localidad.id,
+        provincia: model.provincia?.id ?? '',
+        localidad: model.localidad?.id ?? '',
         horario: {
           manana: model.horario.manana,
           tarde: model.horario.tarde
         },
-        categoria: model.categoria.name,
+        categoria: model.categoria?.name ?? '',
         servicios: model.servicios.map(x => x.id)
 
       }

@@ -1,0 +1,9 @@
+.error-msg{
+    color: red;
+}
+
+.ng-invalid.ng-touched:not(form),
+.ng-invalid.ng-dirty:not(form)
+{
+    border-color: rgb(141, 63, 63);
+}

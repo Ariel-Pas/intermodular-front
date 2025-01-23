@@ -36,11 +36,9 @@ export class GestionFiltradoEmpresasService {
   //todo hacer dos computadas, una que filtra y otra que ordena dependiente de la primera
   //filtrar
   public empresasFiltradas = computed(() => {
-    console.log('computar empresas');
-    //console.log(this.empresas());
 
-    /* this.filtros();
-    this.empresas(); */
+
+
       const clon = [...this.empresas()];
       let filtrado = clon.filter((x) =>
         this.filtros().nombre.length == 0
@@ -103,7 +101,7 @@ export class GestionFiltradoEmpresasService {
         return 1;
       })
 
-      console.log(filtrado);
+      //console.log(filtrado);
 
       return filtrado;
     });
@@ -112,14 +110,12 @@ export class GestionFiltradoEmpresasService {
 
 
   getEmpresasFiltradas(){
-    console.log('getempresasfiltradas');
-
     return this.empresasFiltradas;
   };
 
   actualizarFiltros(filtros : IFiltros ){
-    console.log('actualizarfiltros');
-    console.log(filtros);
+   /*  console.log('actualizarfiltros');
+    console.log(filtros); */
 
     this.filtros.set(filtros);
   };
