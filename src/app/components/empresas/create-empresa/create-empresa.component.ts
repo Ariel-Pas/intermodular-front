@@ -1,14 +1,22 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ILocalizacionService } from '../../../services/localizacion/ILocalizacionService';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { ICategoria, ICheckboxOption, INewEmpresa, IRegion, ITown } from '../../../types';
+import { ICategoria, ICheckboxOption, INewEmpresa, IRegion, IServicio, ITown } from '../../../types';
 import { FormsModule } from '@angular/forms';
 import { ValidarHorarioEmpresaDirective } from '../../../directives/validar-horario-empresa.directive';
 import { ICategoriaService } from '../../../services/categorias/ICategoriasService';
 import { ValidarCheckbox } from '../../../directives/validar-checkbox.directive';
 import { NombreDisponibleDirective } from '../../../directives/nombre-disponible.directive';
+import { filter } from 'rxjs';
 
 
+interface ActivableICheckboxOption extends ICheckboxOption{
+  visible: boolean
+}
+
+interface ServicioModel extends ActivableICheckboxOption{
+  category: string
+}
 
 interface INewEmpresaModel{
   nombre: string,
@@ -19,8 +27,8 @@ interface INewEmpresaModel{
     manana: string,
     tarde: string
   },
-  categoria: ICategoria | null,
-  servicios: ICheckboxOption[]
+  categoria: ICategoria[] | null,
+  servicios: ServicioModel[]
 }
 
 @Component({
@@ -35,8 +43,16 @@ export class CreateEmpresaComponent {
     effect(()=>{
       //para poder generar opciones checkbox asociadas al model, hay que actualizar sus servicios cuando cambia
       //la categoria seleccionada
-      this.model.servicios = this.servicios().map(x => {return {name: x.name, selected: false, id: x.id}})
+      //this.model.servicios = this.servicios().map(x => {return {name: x.name, selected: false, id: x.id}})
       //console.log(this.model.servicios);
+
+      //actualizar los servicios del model cuando acaben de cargar
+      this.model.servicios =  this.servicios().map(x => {
+
+        return{...x, visible: false, selected: false}}
+      )
+      console.log('effect');
+
     })
   }
 
@@ -74,14 +90,18 @@ export class CreateEmpresaComponent {
 
     public categorias = computed(()=> this.categoriasRx.value() ?? []);
 
-    private serviciosRx = rxResource({
+   /*  private serviciosRx = rxResource({
       request : () =>({categoriaSeleccionada : this.categoriaSeleccionada()}),
       loader: ({request})=>this.categoriasService.getServicios(request.categoriaSeleccionada)
+    }) */
+
+    private serviciosRx = rxResource({
+      loader: ()=>this.categoriasService.getAllServicios()
     })
 
     public servicios = computed(()=> this.serviciosRx.value() ?? []);
 
-
+    public serviciosMostrar = computed(()=> this.servicios().filter(x => x.category = this.categoriaSeleccionada()))
     //generar nombres de los checks para pasárselos a la directiva
     protected serviciosControlsNames = computed(()=>this.servicios().map(x => 'servicio'+x.id));
 
@@ -105,12 +125,18 @@ export class CreateEmpresaComponent {
         manana: '',
         tarde: ''
       },
-      categoria: {
-        id: '',
-        name: ''
-      },
-      servicios: []
+      categoria: [],
+      servicios: this.servicios().map(x => {
+        return{...x, visible:false, selected: false}}
+      )
 
+    }
+
+    private obtenerCategorias(model: INewEmpresaModel) : string[]
+    {
+      let ar = model.servicios.filter(serv => serv.selected).map(serv => serv.category);
+          const s = new Set(ar);
+          return Array.from(s);
     }
 
 
@@ -124,18 +150,18 @@ export class CreateEmpresaComponent {
           manana: model.horario.manana,
           tarde: model.horario.tarde
         },
-        categoria: model.categoria?.name ?? '',
-        servicios: model.servicios.map(x => x.id)
+        categoria: this.obtenerCategorias(model),
+        servicios: model.servicios.filter(serv => serv.selected).map(x => {return{categoria: x.category, id: x.id}})
 
       }
     }
 
     onSubmit()
     {
-      console.log(this.model);
+      //console.log(this.model);
 
-      /* let data = this.modelToData(this.model);
-      console.log(data); */
+      let data = this.modelToData(this.model);
+      console.log(data);
 
     }
 }

@@ -125,7 +125,7 @@
         name="categoria"
         [(ngModel)]="model.categoria"
         required
-        (change)="categoriaSeleccionada.set(model.categoria?.id ?? '')"
+        (change)="categoriaSeleccionada.set(categoria.value.id)"
         #categoria="ngModel"
       >
         <option [ngValue]="null">Elige una categoria</option>
@@ -141,14 +141,18 @@
       <div>
         <p>Servicios</p>
         @for (servicio of model.servicios; track servicio.id; let i = $index) {
-        <label for=""
+          @if (servicio.category == categoriaSeleccionada()) {
+            <label for=""
           >{{ servicio.name }}
           <input
             type="checkbox"
+            ng-checked="servicio.selected"
             [name]="'servicio' + servicio.id"
             [(ngModel)]="servicio.selected"
             id=""
         /></label>
+          }
+
         } @if ((categoria.dirty && model.categoria != null) &&
         nuevaEmpresaForm.hasError('validar-checkbox')) {
         <p class="error-msg">Selecciona al menos un servicio</p>

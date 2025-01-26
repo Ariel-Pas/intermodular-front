@@ -24,4 +24,9 @@ export class CategoriasApiService extends ICategoriaService {
       params: { category: idCategoria },
     });
   }
+
+  getAllServicios() : Observable<IServicio[]>
+  {
+    return this.httpClient.get<IServicio[]>(`${this.baseUrl}/services`);
+  }
 }
