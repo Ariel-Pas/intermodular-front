@@ -139,8 +139,8 @@ export interface INewEmpresa{
     manana: string,
     tarde: string
   },
-  categoria: string,
-  servicios: string[]
+  categoria: string[],
+  servicios: {categoria: string, id:string}[];
 }
 
 

@@ -19,4 +19,9 @@ export class CategoriasJsonService extends ICategoriaService{
     {
       return of(servicios.filter(serv => serv.category == idCategoria))
     }
+
+    getAllServicios() : Observable<IServicio[]>
+    {
+      return of(servicios);
+    }
 }

@@ -32,8 +32,8 @@
     { "category": "3", "id": "31", "name": "Windows Server" },
     { "category": "3", "id": "32", "name": "Cisco" },
     { "category": "4", "id": "33", "name": "Administrativo" },
-    { "category": "4", "id": "33", "name": "Gestión" },
-    { "category": "4", "id": "33", "name": "Personal" },
-    { "category": "4", "id": "33", "name": "Finanzas" },
-    { "category": "4", "id": "33", "name": "Café" }
+    { "category": "4", "id": "34", "name": "Gestión" },
+    { "category": "4", "id": "35", "name": "Personal" },
+    { "category": "4", "id": "36", "name": "Finanzas" },
+    { "category": "4", "id": "37", "name": "Café" }
 ]
