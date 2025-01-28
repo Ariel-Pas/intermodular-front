@@ -1,167 +1,248 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ILocalizacionService } from '../../../services/localizacion/ILocalizacionService';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { ICategoria, ICheckboxOption, INewEmpresa, IRegion, IServicio, ITown } from '../../../types';
-import { FormsModule } from '@angular/forms';
+import {
+  ICategoria,
+  ICheckboxOption,
+  INewEmpresa,
+  IRegion,
+  IServicio,
+  ITown,
+} from '../../../types';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormArray,
+  FormControl,
+  FormGroup,
+  FormRecord,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ValidarHorarioEmpresaDirective } from '../../../directives/validar-horario-empresa.directive';
 import { ICategoriaService } from '../../../services/categorias/ICategoriasService';
 import { ValidarCheckbox } from '../../../directives/validar-checkbox.directive';
 import { NombreDisponibleDirective } from '../../../directives/nombre-disponible.directive';
-import { filter } from 'rxjs';
+import { catchError, filter, map, Observable, of, switchMap } from 'rxjs';
+import { AsyncPipe, KeyValuePipe } from '@angular/common';
+import {
+  checkboxValidation,
+  validarHoraInicioPrecedeFin,
+} from '../../FormValidation/FormValidationsFn';
+import { HttpClient } from '@angular/common/http';
+import IEmpresasService from '../../../services/IEmpresasService';
 
-
-interface ActivableICheckboxOption extends ICheckboxOption{
-  visible: boolean
+interface ActivableICheckboxOption extends ICheckboxOption {
+  visible: boolean;
 }
 
-interface ServicioModel extends ActivableICheckboxOption{
-  category: string
+interface ServicioModel extends ICheckboxOption {
+  category: string;
 }
 
-interface INewEmpresaModel{
-  nombre: string,
-  provincia: IRegion | null,
-  localidad: ITown | null,
-  cif: string,
-  horario:{
-    manana: string,
-    tarde: string
-  },
-  categoria: ICategoria[] | null,
-  servicios: ServicioModel[]
+interface INewEmpresaModel {
+  nombre: string;
+  provincia: IRegion | null;
+  localidad: ITown | null;
+  cif: string;
+  horario: {
+    manana: string;
+    tarde: string;
+  };
+  categoria: ICategoria[] | null;
+  servicios: ServicioModel[];
 }
 
 @Component({
   selector: 'app-create-empresa',
-  imports: [FormsModule, ValidarHorarioEmpresaDirective, ValidarCheckbox, NombreDisponibleDirective],
+  imports: [ReactiveFormsModule, AsyncPipe, KeyValuePipe],
   templateUrl: './create-empresa.component.html',
-  styleUrl: './create-empresa.component.scss'
+  styleUrl: './create-empresa.component.scss',
 })
 export class CreateEmpresaComponent {
-
-  constructor(){
-    effect(()=>{
-      //para poder generar opciones checkbox asociadas al model, hay que actualizar sus servicios cuando cambia
-      //la categoria seleccionada
-      //this.model.servicios = this.servicios().map(x => {return {name: x.name, selected: false, id: x.id}})
-      //console.log(this.model.servicios);
-
-      //actualizar los servicios del model cuando acaben de cargar
-      this.model.servicios =  this.servicios().map(x => {
-
-        return{...x, visible: false, selected: false}}
-      )
-      console.log('effect');
-
-    })
+  constructor() {
+    //inicializar los valores del apartado servicios del form
+    this.categoriasService.getAllServicios().subscribe({
+      next: (x) => {
+        x.forEach((element) => {
+          this.form.controls.categorizacion.controls.servicios.addControl(
+            element.name,
+            new FormControl<boolean>(false)
+          );
+        });
+      },
+    });
   }
 
-
+  private empresasService = inject(IEmpresasService);
   private localizacionesService = inject(ILocalizacionService);
   private categoriasService = inject(ICategoriaService);
 
-   private provinciasRx = rxResource({
-      loader: () =>this.localizacionesService.getRegiones()
-    })
+  private provinciasRx = rxResource({
+    loader: () => this.localizacionesService.getRegiones(),
+  });
 
-    public provincias = computed (()=>
-      this.provinciasRx.value() ?? []
+  public provincias = computed(() => this.provinciasRx.value() ?? []);
+
+  //categorias y servicios
+
+
+
+  private categoriasRx = rxResource({
+    loader: () => this.categoriasService.getCategorias(),
+  });
+
+  public categorias = computed(() => this.categoriasRx.value() ?? []);
+
+  private serviciosRx = rxResource({
+    loader: () => this.categoriasService.getAllServicios(),
+  });
+
+  public servicios = computed(() => this.serviciosRx.value() ?? []);
+
+
+
+  //Form reactivo
+  form = new FormGroup({
+    nombre: new FormControl(
+      '',
+      [Validators.required, Validators.minLength(5)],
+      this.nombreEmpresaDisponible.bind(this)
+    ),
+    cif: new FormControl('', [
+      Validators.required,
+      Validators.pattern(/^[A-Z][0-9]{8}$/),
+    ]),
+    direccion: new FormGroup({
+      provincia: new FormControl<IRegion | null>(null, [Validators.required]),
+      localidad: new FormControl<ITown | null>(null, [Validators.required]),
+    }),
+    horarios: new FormGroup(
+      {
+        horarioManana: new FormControl<string | null>(null, [
+          Validators.required,
+        ]),
+        horarioTarde: new FormControl<string | null>(null, [
+          Validators.required,
+        ]),
+      },
+      [
+        validarHoraInicioPrecedeFin({
+          campoInicio: 'horarioManana',
+          campoFin: 'horarioTarde',
+        }),
+      ]
+    ),
+    categorizacion: new FormGroup({
+      categoria: new FormControl<ICategoria | null>(null, [
+        Validators.required,
+      ]),
+      servicios: new FormRecord({}, [checkboxValidation({ min: 1 })]),
+    }),
+  });
+
+  //cambiar localidades al cambiar provincia
+  localidades$ =
+    this.form.controls.direccion.controls.provincia.valueChanges.pipe(
+      switchMap((provincia) =>
+        provincia
+          ? this.localizacionesService.getPoblaciones(provincia.id)
+          : of([])
+      )
     );
 
-    //señal para saber cuál es la provincia seleccionada
-      public provinciaSeleccionada = signal('0');
 
-      //rxResource para localidades - depende de la provincia seleccionada
-      private rxLocalidades = rxResource({
-        request : ()=>({provSelec : this.provinciaSeleccionada()}),
-        loader : ({request}) => this.localizacionesService.getPoblaciones(request.provSelec)
-      })
+  //función que determina si un servicio se debe ver o no
+  ocultarServicio(servicio: string) {
+    //comprobar si el nombre del servicio está asociado a la categoria seleccionada del form
+    const infoServicio = this.servicios().find((x) => x.name == servicio);
+    if (!infoServicio) return true;
+    //comparar la categoria del servicio encontrado con el valor seleccionado
+    //para saber si hay que esconderlo o no
+    let esconder =
+      infoServicio.category !=
+      this.form.controls.categorizacion.controls.categoria.value?.id;
 
-      public localidades = computed(()=> this.rxLocalidades.value() ?? []);
+    return esconder;
+  }
 
+  //Funciones validación
+  nombreEmpresaDisponible(
+    control: AbstractControl
+  ): Observable<ValidationErrors | null> {
+    if (control.value === '' || control.value === null) return of(null);
 
-    //categorias y servicios
+    return this.empresasService.getByName(control.value).pipe(
+      map((x) => ({ 'nombre-disponible': true })),
+      catchError(() => of(null))
+    );
+  }
 
-    protected categoriaSeleccionada = signal<string>('0');
+  //obtener id de la categoria de un servicio a partir de su nombre
+  private obtenerIdCategoria(servicio: string | undefined) {
+    const infoServicio = this.servicios().find((x) => x.name == servicio);
+    return infoServicio?.category ?? '';
+  }
 
-    private categoriasRx = rxResource({
-      loader : () => this.categoriasService.getCategorias()
-    })
+  //obtener categorias seleccionadas a partir de servicios seleccionados
+  private obtenerCategorias(): string[] {
+    const serviciosForm = this.form
+      .get('categorizacion')
+      ?.get('servicios')?.value;
 
-    public categorias = computed(()=> this.categoriasRx.value() ?? []);
-
-   /*  private serviciosRx = rxResource({
-      request : () =>({categoriaSeleccionada : this.categoriaSeleccionada()}),
-      loader: ({request})=>this.categoriasService.getServicios(request.categoriaSeleccionada)
-    }) */
-
-    private serviciosRx = rxResource({
-      loader: ()=>this.categoriasService.getAllServicios()
-    })
-
-    public servicios = computed(()=> this.serviciosRx.value() ?? []);
-
-    public serviciosMostrar = computed(()=> this.servicios().filter(x => x.category = this.categoriaSeleccionada()))
-    //generar nombres de los checks para pasárselos a la directiva
-    protected serviciosControlsNames = computed(()=>this.servicios().map(x => 'servicio'+x.id));
-
-
-
-    //Validacion form
-    model : INewEmpresaModel = {
-      nombre: '',
-      provincia: {
-        id: '',
-        name: '',
-        area: ''
-      },
-      localidad: {
-        id: '',
-        name:'',
-        region: ''
-      },
-      cif: '',
-      horario: {
-        manana: '',
-        tarde: ''
-      },
-      categoria: [],
-      servicios: this.servicios().map(x => {
-        return{...x, visible:false, selected: false}}
-      )
-
-    }
-
-    private obtenerCategorias(model: INewEmpresaModel) : string[]
-    {
-      let ar = model.servicios.filter(serv => serv.selected).map(serv => serv.category);
-          const s = new Set(ar);
-          return Array.from(s);
-    }
-
-
-    modelToData (model: INewEmpresaModel): INewEmpresa{
-      return{
-        nombre: model.nombre,
-        cif: model.cif,
-        provincia: model.provincia?.id ?? '',
-        localidad: model.localidad?.id ?? '',
-        horario: {
-          manana: model.horario.manana,
-          tarde: model.horario.tarde
-        },
-        categoria: this.obtenerCategorias(model),
-        servicios: model.servicios.filter(serv => serv.selected).map(x => {return{categoria: x.category, id: x.id}})
-
+    const arrayCategorias: string[] = [];
+    for (let nombre in serviciosForm) {
+      if (serviciosForm[nombre]) {
+        const idCategoria = this.obtenerIdCategoria(nombre);
+        if (idCategoria && !arrayCategorias.includes(idCategoria))
+          arrayCategorias.push(idCategoria);
       }
     }
 
-    onSubmit()
-    {
-      //console.log(this.model);
+    return arrayCategorias;
+  }
 
-      let data = this.modelToData(this.model);
-      console.log(data);
+  //obtener array de servicios de la forma {idServicio, categoria}
+  private obtenerServicios() {
+    const serviciosForm = this.form
+      .get('categorizacion')
+      ?.get('servicios')?.value;
 
+    const arrayServicios: { categoria: string; id: string }[] = [];
+    for (let nombre in serviciosForm) {
+      if (serviciosForm[nombre]) {
+        const infoServicio = this.servicios().find((x) => x.name == nombre);
+        if (infoServicio)
+          arrayServicios.push({
+            categoria: infoServicio.category,
+            id: infoServicio.id,
+          });
+      }
     }
+
+    return arrayServicios;
+  }
+
+  modelToData(): INewEmpresa {
+    return {
+      nombre: this.form.controls.nombre.value ?? '',
+      cif: this.form.controls.cif.value ?? '',
+      provincia:
+        this.form.controls.direccion.controls.provincia.value?.id ?? '',
+      localidad:
+        this.form.controls.direccion.controls.localidad.value?.id ?? '',
+      horario: {
+        manana: this.form.controls.horarios.controls.horarioManana.value ?? '',
+        tarde: this.form.controls.horarios.controls.horarioTarde.value ?? '',
+      },
+      categoria: this.obtenerCategorias(),
+      servicios: this.obtenerServicios(),
+    };
+  }
+
+  onSubmit() {
+    console.log(this.modelToData());
+  }
 }
