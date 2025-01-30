@@ -18,7 +18,7 @@ export const routes: Routes = [
   {path: 'profile', component: EmpresaProfileComponent, canMatch: [()=>roleIs('empresa')]},
   {path: 'dashboard', component: DashboardEmpresasComponent, canActivate: [()=>roleIs('profesor', 'admin')]},
   {path: 'login', component: LoginComponent},
-  {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}, canActivate: [()=>roleIs('profesor', 'admin')]},
+  {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'create-company', component: CreateEmpresaComponent,/*  canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   {path: '**', component: RouteNotFoundComponent}

@@ -19,6 +19,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { ValidarHorarioEmpresaDirective } from '../../../directives/validar-horario-empresa.directive';
@@ -29,9 +30,10 @@ import { catchError, filter, map, Observable, of, switchMap } from 'rxjs';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import {
   checkboxValidation,
+  fileInputTodoImagenes,
   validarHoraInicioPrecedeFin,
 } from '../../FormValidation/FormValidationsFn';
-import { HttpClient } from '@angular/common/http';
+
 import IEmpresasService from '../../../services/IEmpresasService';
 
 interface ActivableICheckboxOption extends ICheckboxOption {
@@ -42,18 +44,7 @@ interface ServicioModel extends ICheckboxOption {
   category: string;
 }
 
-interface INewEmpresaModel {
-  nombre: string;
-  provincia: IRegion | null;
-  localidad: ITown | null;
-  cif: string;
-  horario: {
-    manana: string;
-    tarde: string;
-  };
-  categoria: ICategoria[] | null;
-  servicios: ServicioModel[];
-}
+
 
 @Component({
   selector: 'app-create-empresa',
@@ -88,8 +79,6 @@ export class CreateEmpresaComponent {
 
   //categorias y servicios
 
-
-
   private categoriasRx = rxResource({
     loader: () => this.categoriasService.getCategorias(),
   });
@@ -115,9 +104,14 @@ export class CreateEmpresaComponent {
       Validators.required,
       Validators.pattern(/^[A-Z][0-9]{8}$/),
     ]),
+    email: new FormControl('',[Validators.required, Validators.email]),
+    descripcion: new FormControl('',[Validators.required, Validators.minLength(10)]),
+    vacantes: new FormControl(1, [Validators.min(1), Validators.required]),
+    imagen: new FormControl('', [fileInputTodoImagenes('imagen')]),
     direccion: new FormGroup({
       provincia: new FormControl<IRegion | null>(null, [Validators.required]),
       localidad: new FormControl<ITown | null>(null, [Validators.required]),
+      calle : new FormControl('', [Validators.required])
     }),
     horarios: new FormGroup(
       {
@@ -154,6 +148,36 @@ export class CreateEmpresaComponent {
     );
 
 
+    //Cargar imagen cuando se selecciona 
+    leerImagen(event : Event){
+      if(event.target instanceof HTMLInputElement){
+        const preview = document.getElementById("img-preview") as HTMLImageElement;
+        preview.src = '';
+        const fileList = event.target.files;
+        if(fileList && fileList.length == 1){
+          if (!fileList[0].type.startsWith("image/")) {
+            return;
+          }
+          
+          const reader = new FileReader();
+
+          new Promise((resolve, reject) =>{
+            reader.readAsDataURL(fileList[0]);
+            reader.onload = ()=> resolve(reader.result)
+          }).then(url => {
+            let imageUrl = url as string;
+            preview.src = imageUrl;
+            this.form.controls.imagen.setValue(imageUrl, {emitModelToViewChange: false});
+          })
+
+        }
+
+      }
+    }
+
+
+
+
   //función que determina si un servicio se debe ver o no
   ocultarServicio(servicio: string) {
     //comprobar si el nombre del servicio está asociado a la categoria seleccionada del form
@@ -179,6 +203,28 @@ export class CreateEmpresaComponent {
       catchError(() => of(null))
     );
   }
+
+  fileInputTodoImagenesLocal(fileInputName : string) :  ValidatorFn {
+    return (control : AbstractControl) : ValidationErrors | null =>{
+      const fileInput = this.form.get('imagen');
+      if(fileInput instanceof HTMLInputElement)
+      {
+        const fileList = fileInput.files;
+        if(fileList ){
+          for (const file of fileList) {
+            if (!file.type.startsWith("image/")) {
+              return {'imagen-no-valida' : true};
+            }
+          }
+        }
+        return null;
+      }
+      return null;
+  
+    }
+  }
+
+
 
   //obtener id de la categoria de un servicio a partir de su nombre
   private obtenerIdCategoria(servicio: string | undefined) {
@@ -229,6 +275,11 @@ export class CreateEmpresaComponent {
     return {
       nombre: this.form.controls.nombre.value ?? '',
       cif: this.form.controls.cif.value ?? '',
+      email: this.form.get('email')?.value ?? '',
+      descripcion : this.form.get('descripcion')?.value ?? '',
+      direccion: this.form.get('direccion')?.get('calle')?.value ?? '',
+      vacantes: this.form.get('vacantes')?.value ?? 1,
+      imagen: this.form.controls.imagen.value ?? '',
       provincia:
         this.form.controls.direccion.controls.provincia.value?.id ?? '',
       localidad:

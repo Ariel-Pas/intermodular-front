@@ -132,15 +132,20 @@ export interface IServicio{
 
 export interface INewEmpresa{
   nombre: string,
-  provincia: string //aqui meter el id?
-  localidad: string
+  provincia: string 
+  localidad: string,
+  direccion: string,
   cif: string,
+  email: string,
+  descripcion: string,
+  vacantes: number
   horario: {
     manana: string,
     tarde: string
   },
   categoria: string[],
   servicios: {categoria: string, id:string}[];
+  imagen: string
 }
 
 

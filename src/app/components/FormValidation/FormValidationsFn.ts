@@ -34,11 +34,22 @@ export function validarHoraInicioPrecedeFin(datos : {campoInicio : string, campo
 }
 
 
-/*  @Input({ required: true, alias: 'validar-checkbox'}) config : { exact?: number, min?: number, max?: number, controls: string[] } = { controls: [] };
+export function fileInputTodoImagenes(fileInputName : string) :  ValidatorFn {
+  return (control : AbstractControl) : ValidationErrors | null =>{
+    const fileInput = control.get(fileInputName);
+    if(fileInput instanceof HTMLInputElement)
+    {
+      const fileList = fileInput.files;
+      if(fileList ){
+        for (const file of fileList) {
+          if (!file.type.startsWith("image/")) {
+            return {'imagen-no-valida' : true};
+          }
+        }
+      }
+      return null;
+    }
+    return null;
 
-  validate(control: AbstractControl): ValidationErrors | null {
-    const { exact, min, max, controls } = this.config;
-    const checked = controls.map(name => control.get(name)).filter(x => x != null && x.value).length;
-    return (exact == undefined || checked === exact) && (min == undefined || checked >= min) && (max == undefined || checked <= max) ? null : { 'validar-checkbox': { checked: checked, min, max, exact } }
-
-  } */
+  }
+}
