@@ -13,5 +13,6 @@ export class SectionsUnderlineComponent {
   //recibe un array de tuplas de la forma [id objetivo a mostrar, texto del link] ej [['lista', 'Listado'], ['mapa, 'Mapa']],
   //siendo 'lista' y 'mapa' divs dentro de un tab-content
  public listaSecciones = input.required<stringPair[]>({alias: 'lista'});
+ public mostrarOrden = input(true, {alias: 'orden'})
  public criteriosOrdenacion = input<string[]>([]);
 }

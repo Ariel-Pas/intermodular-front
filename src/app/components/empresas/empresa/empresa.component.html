@@ -1,7 +1,32 @@
-<p>Empresa {{empresa.nombre}} con id {{this.id()}} de {{empresa.direccion.provincia}}</p>
+<!-- <p>Empresa {{empresa.nombre}} con id {{this.id()}} de {{empresa.direccion.provincia}}</p>
+ -->
 <div class="container">
 
-    <div class="row">
-        <img src="{{empresa.imagen}}" >
+    <sections-underline [lista]="[['Empresa', 'Empresa']]" [orden]="false"></sections-underline>
+    <div class="row align-items-center">
+        <div class="col-5">
+            <h3 class="nombre-empresa">{{empresa.nombre}}</h3>
+        </div>
+        <div class="col-4 col-md-2 col-xlg-2  offset-1">
+            <img class="img-fluid" src="{{empresa.imagen}}" >
+        </div>
     </div>
+    <div class="informacion">
+        <div>
+            <p>Link para editar</p><!-- boton link para editar que te copie la url directamente-->
+        </div>
+    </div>
+    <div class="acciones">
+        
+        <button-main text="Contactar" />
+        
+        <button-main text="Eliminar" [flat]="true" />
+        
+    </div>
+
+    <div>
+        Generar formularios - peticiones
+    </div>
+
+
 </div>
