@@ -36,6 +36,7 @@ export class GestionFiltradoEmpresasService {
   //todo hacer dos computadas, una que filtra y otra que ordena dependiente de la primera
   //filtrar
   public empresasFiltradas = computed(() => {
+    console.log('filtrar');
 
 
 
@@ -114,8 +115,7 @@ export class GestionFiltradoEmpresasService {
   };
 
   actualizarFiltros(filtros : IFiltros ){
-   /*  console.log('actualizarfiltros');
-    console.log(filtros); */
+    console.log(filtros);
 
     this.filtros.set(filtros);
   };

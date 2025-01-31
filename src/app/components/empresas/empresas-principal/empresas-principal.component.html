@@ -1,0 +1,19 @@
+
+<div class="row justify-content-end">
+  <div class="col-3">
+    <orden-select [criterioOrdenacion]="['Nombre', 'Municipio','Nota', 'Vacantes']"></orden-select>
+  </div>
+</div>
+<div class="row">
+  <app-filtro-empresas class="col-3"> </app-filtro-empresas>
+
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-9">
+    <mat-tab label="Lista">
+      <company-list />
+    </mat-tab>
+
+    <mat-tab label="Mapa">
+      <company-map />
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "../node_modules/bootstrap/scss/bootstrap";
+//@import "../node_modules/bootstrap/scss/bootstrap";
 
   $blue: #46B6AC;
   $orange: #F08116;
@@ -15,3 +15,6 @@
   $gradient-red: #F12711;
   $gradient-orange: #F5AF19;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

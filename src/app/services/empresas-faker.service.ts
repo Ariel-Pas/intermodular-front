@@ -43,8 +43,8 @@ export class EmpresasFakerService extends IEmpresasService{
                 Math.floor(Math.random() * this.towns[prov].length)
               ],
             posicion: {
-              coordX: 40.416775,
-              coordY: -3.70379,
+              coordX: 38 + Math.random()*2.5,
+              coordY: -0.7 + Math.random()*1,
             },
           },
 

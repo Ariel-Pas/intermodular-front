@@ -4,3 +4,7 @@ import { AppComponent } from './app/app.component';
 import "bootstrap-icons/font/bootstrap-icons.scss"
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
+
+
+
+

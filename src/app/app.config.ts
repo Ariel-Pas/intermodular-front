@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -15,7 +15,8 @@ import { ILocalizacionService } from './services/localizacion/ILocalizacionServi
 import { LocalizacionesJsonService } from './services/localizacion/localizaciones-json.service';
 import { ICategoriaService } from './services/categorias/ICategoriasService';
 import { CategoriasJsonService } from './services/categorias/categorias-json.service';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,6 +27,8 @@ export const appConfig: ApplicationConfig = {
     {provide: API_BASE, useValue: 'http://localhost:3000'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
+    importProvidersFrom(SweetAlert2Module.forRoot()),
+    
   ]
 };

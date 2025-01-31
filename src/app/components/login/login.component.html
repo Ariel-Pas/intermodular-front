@@ -15,9 +15,8 @@
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1" #password>
       </div>
-      @if (this.error()) {
-        <span>Datos no válidos.</span>
-      }
+      <swal title="Error al acceder" text="Email o contraseña incorrectos" icon="error"></swal>
+
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>

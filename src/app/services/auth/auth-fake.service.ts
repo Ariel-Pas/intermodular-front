@@ -14,7 +14,7 @@ export class AuthFakeService extends IAuthenticationService {
     let credenciales : ICredenciales;
 
 
-    if(rnd <= 1){
+    if(rnd <= 0.8){
       //login correcto
       credenciales = {
         usuario : user,
