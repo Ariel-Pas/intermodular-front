@@ -18,9 +18,12 @@ export class EmpresaComponent {
   public empresa! : IEmpresaDisplay;
   ngOnInit(): void {
     this.route.data.subscribe(data => {
-      this.empresa = data['empresa']
+      this.empresa = data['empresa'];
+      this.urlEditar = `company/update/${this.empresa.id}`
     })
   }
+
+  protected urlEditar = '';
 
 }
 

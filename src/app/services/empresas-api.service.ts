@@ -1,7 +1,7 @@
 import { Inject, inject, Injectable } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { map, Observable } from 'rxjs';
-import { IEmpresaDisplay, EmpresaJson, UrlValue, INewEmpresa } from '../types';
+import { IEmpresaDisplay, EmpresaJson, UrlValue, INewEmpresa, IEmpresaCompleta } from '../types';
 import { HttpClient } from '@angular/common/http';
 import { API_BASE } from '../tokens/tokens';
 import { IAuthenticationService } from './auth/IAuthenticationService';
@@ -23,10 +23,15 @@ export class EmpresasApiService extends IEmpresasService {
 
   }
 
-  getEmpresa(idEmpresa: string): Observable<IEmpresaDisplay> {
+  getEmpresa(idEmpresa: string): Observable<IEmpresaCompleta> {
     return this.httpClient
-      .get<IEmpresaDisplay>(`${this.baseUrl}/empresa-completa/${idEmpresa}`)
+      .get<IEmpresaCompleta>(`${this.baseUrl}/empresa-completa/${idEmpresa}`)
 
+  }
+
+  getEmpresaByToken(token : string) : Observable<IEmpresaCompleta | undefined>{
+    return this.httpClient
+      .get<IEmpresaCompleta>(`${this.baseUrl}/empresas/token/${token}`)
   }
 
 

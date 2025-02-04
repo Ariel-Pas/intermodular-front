@@ -31,6 +31,12 @@ export interface IEmpresaDisplay {
   puntuacion: number
 }
 
+export interface IEmpresaCompleta extends IEmpresaDisplay{
+  urlEditar: string,
+  cif : string,
+  notas? : string
+}
+
 export interface EmpresaJson {
   id: string,
   name: string,
@@ -137,8 +143,11 @@ export interface INewEmpresa{
   finSemana : boolean,
   categorias: string[],
   servicios: {categoria: string, id:string}[];
-  imagen: string
+  imagen: string,
+  tipoImagen: string
 }
+
+
 
 
 export interface ICheckboxOption{

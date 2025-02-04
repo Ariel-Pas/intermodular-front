@@ -1,0 +1,262 @@
+<div class="container">
+  <h3>Información de la empresa</h3>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            id=""
+            name="nombre"
+            formControlName="nombre"
+          />
+
+          @if(form.controls.nombre.hasError('nombre-disponible')){
+          <span class="error-msg">Nombre no disponible</span>
+          } @if((form.get('nombre')?.touched || form.get('nombre')?.dirty) &&
+          form.get('nombre')?.hasError('required')){
+          <span class="error-msg">Introduce un nombre</span>
+          } @if(form.get('nombre')?.dirty &&
+          form.get('nombre')?.hasError('minlength')){
+          <span class="error-msg">Carácteres por debajo del minimo</span>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="cif" class="form-label">CIF</label>
+          <input
+            type="text"
+            class="form-control"
+            id=""
+            name="cif"
+            formControlName="cif"
+          />
+          @if(form.get('cif')?.touched && form.get('cif')?.hasError('pattern')){
+          <span class="error-msg">
+            Introduce un CIF válido con formato A12345678</span
+          >
+          } @else if(form.get('cif')?.touched &&
+          form.get('cif')?.hasError('required')){
+          <span class="error-msg">Introduce un CIF </span>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" formControlName="email" />
+          @if(form.get('email')?.touched &&
+          form.get('email')?.hasError('email')){
+          <span class="error-msg">Introduce un Email válido</span>
+          } @else if(form.get('email')?.touched &&
+          form.get('email')?.hasError('required')){
+          <span class="error-msg">Introduce un Email </span>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="descripcion">Descripcion</label>
+          <textarea
+            name="descripcion"
+            formControlName="descripcion"
+            class="form-control"
+          ></textarea>
+          @if(form.get('descripcion')?.touched &&
+          form.get('descripcion')?.hasError('minlength')){
+          <span class="error-msg">Descripción demasiado corta</span>
+          } @else if(form.get('descripcion')?.touched &&
+          form.get('descripcion')?.hasError('required')){
+          <span class="error-msg">Describe la empresa</span>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Vacantes</label>
+          <input
+            type="number"
+            class="form-control"
+            formControlName="vacantes"
+            min="1"
+          />
+          @if(form.get('vacantes')?.touched &&
+          form.get('vacantes')?.hasError('min')){
+          <span class="error-msg">Debe haber al menos una vacante</span>
+          } @else if(form.get('vacantes')?.touched &&
+          form.get('vacantes')?.hasError('required')){
+          <span class="error-msg">Indica el número de vacantes</span>
+          }
+        </div>
+
+        <!--fin row-->
+      </div>
+
+      <div class="col-md-6">
+        <fieldset formGroupName="direccion" class="mb-3">
+          <div class="mb-3">
+            <label class="form-label">Provincia</label>
+            <select
+              class="form-select"
+              name="provincia"
+              formControlName="provincia"
+            >
+              <option [ngValue]="null">Elige una provincia</option>
+              @for (provincia of provincias(); track provincia.id) {
+              <option [ngValue]="provincia">{{ provincia.name }}</option>
+              }
+            </select>
+            @if(form.get('direccion')?.get('provincia')?.touched &&
+            form.get('direccion')?.get('provincia')?.hasError('required')){
+            <span class="error-msg">Elige una provincia</span>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Localidad</label>
+            <select
+              class="form-select"
+              name="localidad"
+              formControlName="localidad"
+            >
+              <option [ngValue]="null">Elige una localidad</option>
+              @for (localidad of localidades$ |async; track localidad .id) {
+              <option [ngValue]="localidad">{{ localidad.name }}</option>
+              }
+            </select>
+            @if(form.get('direccion')?.get('localidad')?.touched &&
+            form.get('direccion')?.get('localidad')?.hasError('required')){
+            <span class="error-msg">Elige una localidad</span>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Dirección</label>
+            <input type="text" class="form-control" formControlName="calle" />
+            @if(form.get('direccion')?.get('calle')?.touched &&
+            form.get('direccion')?.get('calle')?.hasError('required')){
+            <span class="error-msg">Introduce una dirección</span>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="">Longitud</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="coordX"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="">Latitud</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="coordY"
+            />
+          </div>
+        </fieldset>
+
+        <fieldset formGroupName="horarios" class="mb-3">
+          <div>
+            <label class="form-label">Horario</label>
+            <input
+              type="time"
+              name="horarioManana"
+              id="horarioManana"
+              formControlName="horarioManana"
+            />
+            <input
+              type="time"
+              name="horarioTarde"
+              id="horario-tarde"
+              #horarioTarde
+              formControlName="horarioTarde"
+            />
+            @if ((form.controls.horarios.touched) &&
+            (form.controls.horarios.controls.horarioManana.hasError('required')
+            ||
+            form.controls.horarios.controls.horarioTarde.hasError('required')))
+            {
+            <span class="error-msg"
+              >Introduce una hora de apertura y de cierre</span
+            >
+            } @else if (form.controls.horarios.touched &&
+            form.controls.horarios.hasError('validarHorario')) {
+            <span class="error-msg"
+              >La hora de cierre debe ser posterior a la apertura</span
+            >
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="finsemana">Fines de semana</label>
+            <input type="checkbox" name="" id="" formControlName="finSemana" />
+          </div>
+        </fieldset>
+
+        <div class="mb-3">
+          <label for="imagen" class="form-label">Imagen de la empresa</label>
+          <input
+            type="file"
+            class="form-control"
+            (change)="leerImagen($event)"
+            formControlName="imagen"
+            name="imagen"
+          />
+          @if(form.controls.imagen.hasError('imagen-no-valida')){
+          <span class="error-msg">Selecciona un fichero imagen</span>
+          }
+          <div class="my-3">
+            <img class="img-fluid" id="img-preview" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <fieldset formGroupName="categorizacion" class="mb-3 row">
+      <div class="mb-3 col-md-6">
+        <label class="form-label">Categorias</label>
+        <select
+          class="form-select"
+          name="categoria"
+          formControlName="categoria"
+        >
+          <option [ngValue]="null">Elige una categoria</option>
+          @for (categoria of categorias(); track categoria.id) {
+          <option [ngValue]="categoria">{{ categoria.name }}</option>
+          }
+        </select>
+        @if ( form.get('categorizacion')?.get('categoria')?.touched &&
+        form.get('categorizacion')?.get('categoria')?.hasError('required')) {
+        <p class="error-msg">Selecciona al menos una categoria</p>
+        }
+      </div>
+      <div formGroupName="servicios">
+        <p>Servicios</p>
+
+        @for (servicio of
+        form.controls.categorizacion.controls.servicios.controls| keyvalue;
+        track servicio) {
+        <label [class.d-none]="ocultarServicio(servicio.key)"
+          >{{ servicio.key }}
+          <input
+            type="checkbox"
+            [formControlName]="servicio.key"
+            [checked]="servicio.value"
+            id=""
+        /></label>
+        } @if ( form.get('categorizacion')?.get('categoria')?.touched &&
+        form.controls.categorizacion.controls.servicios.hasError('validar-checkbox'))
+        {
+        <p class="error-msg">Selecciona al menos un servicio</p>
+        }
+      </div>
+    </fieldset>
+
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+      Enviar
+    </button>
+  </form>
+</div>
+
+<swal title=" " text=" " icon="success"></swal>

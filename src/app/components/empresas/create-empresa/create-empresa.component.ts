@@ -119,6 +119,7 @@ export class CreateEmpresaComponent {
     descripcion: new FormControl('',[Validators.required, Validators.minLength(10)]),
     vacantes: new FormControl(1, [Validators.min(1), Validators.required]),
     imagen: new FormControl('', [fileInputTodoImagenes('imagen')]),
+    tipoImagen: new FormControl(''),
     direccion: new FormGroup({
       provincia: new FormControl<IRegion | null>(null, [Validators.required]),
       localidad: new FormControl<ITown | null>(null, [Validators.required]),
@@ -308,6 +309,7 @@ export class CreateEmpresaComponent {
     return arrayServicios;
   }
 
+  
   modelToData(): INewEmpresa {
     return {
       nombre: this.form.controls.nombre.value ?? '',
@@ -317,6 +319,7 @@ export class CreateEmpresaComponent {
       direccion: this.form.get('direccion')?.get('calle')?.value ?? '',
       vacantes: this.form.get('vacantes')?.value ?? 1,
       imagen: this.form.controls.imagen.value ?? '',
+      tipoImagen: this.form.controls.tipoImagen.value ?? '',
       provincia:
         this.form.controls.direccion.controls.provincia.value?.id ?? '',
       localidad:
