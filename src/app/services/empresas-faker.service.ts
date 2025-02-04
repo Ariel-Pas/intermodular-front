@@ -7,7 +7,7 @@ import { Observable, of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresasFakerService extends IEmpresasService{
+export class EmpresasFakerService /* extends IEmpresasService */{
 
   private empresas : IEmpresaDisplay[];
 
@@ -24,7 +24,7 @@ export class EmpresasFakerService extends IEmpresasService{
 
   private ids = 0;
   constructor() {
-    super();
+   // super();
     this.empresas = (
       Array.from({ length: 10 }, (): IEmpresaDisplay => {
         const prov =
@@ -32,7 +32,6 @@ export class EmpresasFakerService extends IEmpresasService{
         let e: IEmpresaDisplay = {
           id: (this.ids++).toString(),
           nombre: faker.company.name(),
-          cif: 'B12345678',
           descripcion: faker.lorem.text().substring(0, 60),
           email: 'contacto@techsolutions.com',
           direccion: {
@@ -60,16 +59,8 @@ export class EmpresasFakerService extends IEmpresasService{
             this.categorias[Math.floor(Math.random() * this.categorias.length)],
           ],
           servicios: ['PHP', 'TS'],
-          vacantes: [
-            {
-              cantidad: Math.floor(Math.random() * 7),
-              anyo: 2024,
-            },
-          ],
-          puntuacion: {
-            profesor: Math.random()*10,
-            alumno: Math.random()*10
-          }
+          vacantes:  Math.floor(Math.random() * 7),
+          puntuacion: Math.random()*10
         };
         return e;
       })

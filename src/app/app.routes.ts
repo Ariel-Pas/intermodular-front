@@ -10,6 +10,7 @@ import { EmpresaComponent } from './components/empresas/empresa/empresa.componen
 import { CreateEmpresaComponent } from './components/empresas/create-empresa/create-empresa.component';
 import { empresaResolver } from './resolvers/empresa.resolver';
 import { EmpresasPrincipalComponent } from './components/empresas/empresas-principal/empresas-principal.component';
+import { ListaEmpresasAlumnosComponent } from './components/empresas/lista-empresas-alumnos/lista-empresas-alumnos.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'create-company', component: CreateEmpresaComponent,/*  canActivate: [()=>roleIs('profesor', 'admin')] */},
+  {path: 'empresas-alumnos/:id', component: ListaEmpresasAlumnosComponent},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   {path: '**', component: RouteNotFoundComponent}
 ];

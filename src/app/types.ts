@@ -8,10 +8,8 @@ export interface IUniqueResource{
 export interface IEmpresaDisplay {
   id: string;
   nombre: string;
-  cif: string;
   descripcion: string;
   email?: string;
-  telefono? : string;
   direccion: {
     calle: string;
     provincia: string;
@@ -29,16 +27,8 @@ export interface IEmpresaDisplay {
   imagen: string;
   categorias: string[];
   servicios: string[];
-  vacantes: [
-    {
-      anyo : number,
-      cantidad: number
-    }
-  ];
-  puntuacion: {
-    profesor: number,
-    alumno: number
-  }
+  vacantes: number;
+  puntuacion: number
 }
 
 export interface EmpresaJson {
@@ -113,7 +103,8 @@ export type stringPair = [string, string];
 export interface ICredenciales{
   usuario : string | null,
   rol : string | null,
-  token : string | null
+  token : string | null,
+  centro?: number | null
 }
 
 
@@ -132,18 +123,19 @@ export interface IServicio{
 
 export interface INewEmpresa{
   nombre: string,
-  provincia: string 
+  provincia: string
   localidad: string,
+  coordX: number,
+  coordY: number,
   direccion: string,
   cif: string,
   email: string,
   descripcion: string,
-  vacantes: number
-  horario: {
-    manana: string,
-    tarde: string
-  },
-  categoria: string[],
+  vacantes: number,
+  horario_manana: string,
+  horario_tarde: string,
+  finSemana : boolean,
+  categorias: string[],
   servicios: {categoria: string, id:string}[];
   imagen: string
 }
@@ -153,4 +145,12 @@ export interface ICheckboxOption{
   name: string,
   selected: boolean
   id: string
+}
+
+export interface UrlValue{
+  url: string
+}
+
+export interface ApiErrorMessage{
+  error:string
 }

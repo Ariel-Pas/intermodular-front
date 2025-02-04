@@ -62,7 +62,7 @@ export class GestionFiltradoEmpresasService {
 
       filtrado = filtrado.filter((x) =>{
         if(!this.filtros().vacantes) return true;
-        return x.vacantes[0].cantidad == this.filtros().vacantes;
+        return x.vacantes == this.filtros().vacantes;
 
       });
 
@@ -84,12 +84,12 @@ export class GestionFiltradoEmpresasService {
             else return right.nombre.localeCompare(left.nombre);
 
           case 'vacantes' :
-          if(this.orden() == 'asc') return left.vacantes[0].cantidad - right.vacantes[0].cantidad;
-            else return right.vacantes[0].cantidad - left.vacantes[0].cantidad;
+          if(this.orden() == 'asc') return left.vacantes - right.vacantes;
+            else return right.vacantes - left.vacantes;
 
           case 'nota' :
-            let notaMediaLeft = (left.puntuacion.alumno + left.puntuacion.profesor)/2;
-            let notaMediaRight = (right.puntuacion.alumno + right.puntuacion.profesor)/2;
+            let notaMediaLeft = (left.puntuacion + left.puntuacion)/2;
+            let notaMediaRight = (right.puntuacion + right.puntuacion)/2;
             if(this.orden() == 'asc') return notaMediaLeft - notaMediaRight;
             else return notaMediaRight - notaMediaLeft;
 

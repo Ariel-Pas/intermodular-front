@@ -4,7 +4,7 @@
     <h6 class="card-subtitle mb-2 text-body-secondary ">{{empresa().direccion.poblacion}} - ({{empresa().direccion.provincia}})</h6>
     <h5 class="card-title fw-bold fs-6">{{empresa().nombre}}</h5>
     <!--categorias-->
-    <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().categorias.join(', ')}}</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().categorias}}</h6>
     <!--Localizacion-->
     <div class="my-2 row align-items-center">
       <div class="col-1">
@@ -41,28 +41,20 @@
       </div>
       <div class="col-10">
         <p class="section-title mb-0">Puestos disponibles</p>
-        <p class="mb-1">{{empresa().vacantes[0].cantidad}} en {{empresa().vacantes[0].anyo}}</p>
+        <p class="mb-1">{{empresa().vacantes}}</p>
       </div>
     </div>
 
     <!--calificaciones-->
     <div class="my-2">
-      <div class="mb-2">
-        <div class="row justify-content-between">
-          <p class="section-title mb-0 col-9">Calificacion profesor</p>
-          <p class="col-3">{{(empresa().puntuacion.profesor * 10).toFixed(0)}}</p>
-        </div>
-        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" [style.width]="(empresa().puntuacion.profesor * 10) + '%'"></div>
-        </div>
-      </div>
+
       <div class="mt-2">
         <div class="row justify-content-between">
           <p class="section-title mb-0 col-9">Calificacion alumnado</p>
-          <p class="col-3">{{(empresa().puntuacion.alumno * 10).toFixed(0)}}</p>
+          <p class="col-3">{{(empresa().puntuacion* 10).toFixed(0)}}</p>
         </div>
         <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" [style.width]="(empresa().puntuacion.alumno * 10) + '%'"></div>
+          <div class="progress-bar" [style.width]="(empresa().puntuacion * 10) + '%'"></div>
         </div>
       </div>
     </div>

@@ -20,15 +20,15 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    {provide: IEmpresasService, useExisting: EmpresasFakerService},
+    {provide: IEmpresasService, useExisting: EmpresasApiService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
     {provide: ILocalizacionService, useExisting: LocalizacionesJsonService},
     {provide: ICategoriaService, useExisting: CategoriasJsonService},
-    {provide: API_BASE, useValue: 'http://localhost:3000'},
+    {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
     importProvidersFrom(SweetAlert2Module.forRoot()),
-    
+
   ]
 };

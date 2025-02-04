@@ -1,13 +1,7 @@
-
-<div class="row mt-3">
-
+<div>
   <div class=" col-12 row gx-5 gy-6  row-cols-2 row-cols-lg-3  row-cols-xxl-4 ">
-    @for (empresa of this.empresasFiltradasService.empresasFiltradas()  ; track empresa.id) {
+    @for (empresa of this.empresas()  ; track empresa.id) {
       <app-empresa-card [info-empresa]="empresa" class="col"></app-empresa-card>
     }
-  </div>
-
-  <div>
-    <p>Url para compartir : {{this.url()}}</p>
   </div>
 </div>
