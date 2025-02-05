@@ -18,3 +18,13 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+button{
+  background-color: $orange !important;
+  border: none !important;
+}
+
+.bg-orange{
+  background-color: $orange !important;
+  border: none !important;
+}
