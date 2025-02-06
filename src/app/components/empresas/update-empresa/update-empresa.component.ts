@@ -60,7 +60,7 @@ export class UpdateEmpresaComponent {
         calle: this.empresa.direccion.calle,
         coordX: this.empresa.direccion.posicion.coordX,
         coordY: this.empresa.direccion.posicion.coordY,
-        provincia: this.provincias().find(p => p.id == this.empresa.direccion.provincia.id)
+       /*  provincia: this.provincias().find(p => p.id == this.empresa.direccion.provincia.id) */
 
       })
 
@@ -199,7 +199,7 @@ export class UpdateEmpresaComponent {
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
     if (control.value === '' || control.value === null) return of(null);
-
+    if(control.value === this.empresa.nombre) return of(null);
     return this.empresasService.getByName(control.value).pipe(
       map((x) => ({ 'nombre-disponible': true })),
       catchError(() => of(null))

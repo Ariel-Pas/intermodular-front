@@ -93,10 +93,6 @@
           }
         </div>
 
-        <!--fin row-->
-      </div>
-
-      <div class="col-md-6">
         <fieldset formGroupName="direccion" class="mb-3">
           <div class="mb-3">
             <label class="form-label">Provincia</label>
@@ -144,7 +140,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="">Longitud</label>
+            <label for="" class="form-label">Longitud</label>
             <input
               type="number"
               class="form-control"
@@ -152,7 +148,7 @@
             />
           </div>
           <div class="mb-3">
-            <label for="">Latitud</label>
+            <label for="" class="form-label">Latitud</label>
             <input
               type="number"
               class="form-control"
@@ -161,20 +157,30 @@
           </div>
         </fieldset>
 
+        <!--fin row-->
+      </div>
+
+      <div class="col-md-6">
+        
+
         <fieldset formGroupName="horarios" class="mb-3">
-          <div>
+          <div class="mb-3">
             <label class="form-label">Horario</label>
+            <p>Apertura</p>
             <input
               type="time"
               name="horarioManana"
               id="horarioManana"
+              class="form-control"
               formControlName="horarioManana"
             />
+            <p class="mt-3">Cierre</p>
             <input
               type="time"
               name="horarioTarde"
               id="horario-tarde"
               #horarioTarde
+              class="form-control"
               formControlName="horarioTarde"
             />
             @if ((form.controls.horarios.touched) &&
@@ -193,10 +199,12 @@
             }
           </div>
 
-          <div class="mb-3">
-            <label for="finsemana">Fines de semana</label>
-            <input type="checkbox" name="" id="" formControlName="finSemana" />
+          <div class="mb-3 form-check">
+            <label for="finsemana" class="form-check-label">Fines de semana</label>
+            <input type="checkbox" class="form-check-input" name="" id="" formControlName="finSemana" />
           </div>
+
+         
         </fieldset>
 
         <div class="mb-3">
@@ -235,19 +243,20 @@
         <p class="error-msg">Selecciona al menos una categoria</p>
         }
       </div>
-      <div formGroupName="servicios">
-        <p>Servicios</p>
+      <div formGroupName="servicios" class="form-check">
+        <p class="fw-bold">Servicios</p>
 
         @for (servicio of
         form.controls.categorizacion.controls.servicios.controls| keyvalue;
         track servicio) {
         <label [class.d-none]="ocultarServicio(servicio.key)"
+        class="form-check-label mx-2"
           >{{ servicio.key }}
           <input
             type="checkbox"
             [formControlName]="servicio.key"
             [checked]="servicio.value"
-            id=""
+            class="mx-1"
         /></label>
         } @if ( form.get('categorizacion')?.get('categoria')?.touched &&
         form.controls.categorizacion.controls.servicios.hasError('validar-checkbox'))

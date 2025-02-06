@@ -1,6 +1,6 @@
 
 <div class="row justify-content-end">
-  <div class="col-3 d-none d-md-block">
+  <div class="col-4 col-lg-3 d-none d-md-block">
     <orden-select [criterioOrdenacion]="['Nombre', 'Municipio','Nota', 'Vacantes']"></orden-select>
   </div>
 </div>
@@ -9,7 +9,7 @@
 
 
  <div class="row justify-content-end">
-  <button class="btn btn-primary d-md-none col-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">Filtros</button>
+  <button class="btn btn-primary d-md-none col-2 col-sm-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive"> <i class="bi bi-funnel"></i></button>
  </div>
  
  <div class="offcanvas-md offcanvas-end col-md-3" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
@@ -25,7 +25,7 @@
    </div>
  </div>  
 
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-9">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-12 col-md-9">
     <mat-tab label="Lista">
       <company-list />
     </mat-tab>
@@ -33,5 +33,10 @@
     <mat-tab label="Mapa">
       <company-map />
     </mat-tab>
+
+    <mat-tab label="Mensajes">
+      <mail-empresa />
+    </mat-tab>
+    
   </mat-tab-group>
 </div>

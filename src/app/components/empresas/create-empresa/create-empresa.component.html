@@ -13,7 +13,9 @@
       <span class="error-msg">Introduce un CIF </span>
       }
   </form>
+
   <br>
+
   @if(mostrarForm()){
   <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
     <div class="row">
@@ -155,7 +157,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="">Longitud</label>
+            <label  class="form-label" for="">Longitud</label>
             <input
               type="number"
               class="form-control"
@@ -163,7 +165,7 @@
             />
           </div>
           <div class="mb-3">
-            <label for="">Latitud</label>
+            <label  class="form-label" for="">Latitud</label>
             <input
               type="number"
               class="form-control"
@@ -173,19 +175,23 @@
         </fieldset>
 
         <fieldset formGroupName="horarios" class="mb-3">
-          <div>
+          <div class="mb-3">
             <label class="form-label">Horario</label>
+            <p>Apertura</p>
             <input
               type="time"
               name="horarioManana"
               id="horarioManana"
+              class="form-control"
               formControlName="horarioManana"
             />
+            <p class="mt-3">Cierre</p>
             <input
               type="time"
               name="horarioTarde"
               id="horario-tarde"
               #horarioTarde
+              class="form-control"
               formControlName="horarioTarde"
             />
             @if ((form.controls.horarios.touched) &&
@@ -204,9 +210,9 @@
             }
           </div>
 
-          <div class="mb-3">
-            <label for="finsemana">Fines de semana</label>
-            <input type="checkbox" name="" id="" formControlName="finSemana" />
+          <div class="mb-3 form-check">
+            <label for="finsemana" class="form-check-label">Fines de semana</label>
+            <input type="checkbox" class="form-check-input" name="" id="" formControlName="finSemana" />
           </div>
         </fieldset>
 
@@ -247,18 +253,19 @@
         }
       </div>
       <div formGroupName="servicios">
-        <p>Servicios</p>
+        <p class="fw-bold">Servicios</p>
 
         @for (servicio of
         form.controls.categorizacion.controls.servicios.controls| keyvalue;
         track servicio) {
         <label [class.d-none]="ocultarServicio(servicio.key)"
-          >{{ servicio.key }}
+        class="form-check-label mx-2"  
+        >{{ servicio.key }}
           <input
             type="checkbox"
             [formControlName]="servicio.key"
             [checked]="servicio.value"
-            id=""
+            class="mx-1"
         /></label>
         } @if ( form.get('categorizacion')?.get('categoria')?.touched &&
         form.controls.categorizacion.controls.servicios.hasError('validar-checkbox'))
@@ -275,7 +282,7 @@
 
 }
 
-@if(empresaExistente()){
+@if(!mostrarForm && empresaExistente()){
   <div>La empresa {{empresaExistente()?.nombre}} ya está registrada en el sistema <br>
     Quieres asociarla a tu centro?
     <button-main text="Asociar" [onClick]="asociarEmpresa"></button-main>

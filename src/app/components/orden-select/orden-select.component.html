@@ -1,5 +1,6 @@
-<div class="row d-flex ">
-  <div class="col-6">
+<div class="row  justify-content-center mt-3">
+  <p class="col-10 col-md-6 d-md-none">Orden</p>
+  <div class="col-10 col-md-6 mb-3 ">
     <select name="" id="" class="form-select" #orden (change)="actualizarOrden()"
     [(ngModel)]="ordenModel.orden"
     >
@@ -8,7 +9,7 @@
     </select>
   </div>
 
-  <div class="col-6">
+  <div class="col-10 col-md-6">
     <select name="" id="" class="form-select" #criterio (change)="actualizarCriterioOrdenacion()"
     [(ngModel)]="ordenModel.criterio"
     >

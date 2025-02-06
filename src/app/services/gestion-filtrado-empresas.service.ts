@@ -31,7 +31,7 @@ export class GestionFiltradoEmpresasService {
     loader: () => this.servicioEmpresas.getEmpresas()
   })
 
-  private empresas = computed(()=> this.empresasRx.value() ?? []);
+  public empresas = computed(()=> this.empresasRx.value() ?? []);
 
   //todo hacer dos computadas, una que filtra y otra que ordena dependiente de la primera
   //filtrar

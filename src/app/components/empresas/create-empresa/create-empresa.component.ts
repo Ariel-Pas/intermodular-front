@@ -312,9 +312,9 @@ export class CreateEmpresaComponent {
 
 
   modelToData(): INewEmpresa {
-    //quitar data:image/webp;base64,
-    const regexBase64 = /data:image/webp;base64/;
-    console.log(this.form.controls.imagen.value?.replace(\data:image/webp;base64\, ''));
+    //quitar data:image/webp;base64, del base64 de la imagen
+    const regexBase64 = /data:image\/[a-z]+;base64,/;
+    //console.log(this.form.controls.imagen.value?.replace(regexBase64, ''));
 
     return {
       nombre: this.form.controls.nombre.value ?? '',
@@ -323,7 +323,7 @@ export class CreateEmpresaComponent {
       descripcion : this.form.get('descripcion')?.value ?? '',
       direccion: this.form.get('direccion')?.get('calle')?.value ?? '',
       vacantes: this.form.get('vacantes')?.value ?? 1,
-      imagen: this.form.controls.imagen.value ?? '',
+      imagen: this.form.controls.imagen.value?.replace(regexBase64, '') ?? '',
       tipoImagen: this.form.controls.tipoImagen.value ?? '',
       provincia:
         this.form.controls.direccion.controls.provincia.value?.id ?? '',

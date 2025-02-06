@@ -81,4 +81,40 @@ export class EmpresasFakerService /* extends IEmpresasService */{
       if(empresa) return of(empresa);
       return throwError(()=>({error : 'No existe la empresa'}))
   }
+
+  buscarPorCif(cif:string): Observable<IEmpresaDisplay>
+  {
+    let emp :IEmpresaDisplay = {
+      id: (this.ids++).toString(),
+    nombre: faker.company.name(),
+    descripcion: faker.lorem.text().substring(0, 60),
+    email: 'contacto@techsolutions.com',
+    direccion: {
+      calle: 'Calle Innovación, 123',
+      provincia: {id: '1', name: 'P', area: '10'},
+      poblacion: 'pob',
+      posicion: {
+        coordX: 38 + Math.random()*2.5,
+        coordY: -0.7 + Math.random()*1,
+      },
+    },
+
+    horario: {
+      horario_manana: '08:00 - 14:00',
+      horario_tarde: '15:00 - 18:00',
+      finSemana: false,
+    },
+
+    imagen: 'https://imagenes.elpais.com/resizer/v2/Y3W6QUFBBZLLTALRW6NBRPZ2RA.jpg?auth=d68f18251117888479d8fdc3210796bc86d9d3f41719da72c2877bcafc3504ea&width=414',
+    categorias: [
+      this.categorias[Math.floor(Math.random() * this.categorias.length)],
+      this.categorias[Math.floor(Math.random() * this.categorias.length)],
+    ],
+    servicios: ['PHP', 'TS'],
+    vacantes:  Math.floor(Math.random() * 7),
+    puntuacion: Math.random()*10
+  }
+    return of(emp);
+  
+  }
 }

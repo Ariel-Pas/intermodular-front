@@ -2,32 +2,46 @@
  -->
 <div class="container">
 
-    <sections-underline [lista]="[['Empresa', 'Empresa']]" [orden]="false"></sections-underline>
-    <div class="row align-items-center">
-        <div class="col-5">
-            <h3 class="nombre-empresa">{{empresa.nombre}}</h3>
-        </div>
-        <div class="col-4 col-md-2 col-xlg-2  offset-1">
-            <img class="img-fluid" src="{{empresa.imagen}}" >
-        </div>
-    </div>
-    <div class="informacion">
-        <div>
-            <p>Link para editar</p><!-- boton link para editar que te copie la url directamente-->
-        </div>
-    </div>
-    <div class="acciones">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-12 col-md-9">
+        <mat-tab label="Empresa">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <h3 class="nombre-empresa">{{empresa.nombre}}</h3>
+                </div>
+                <div class="col-4 col-md-2 col-xlg-2  offset-1">
+                    <img class="img-fluid" src="{{empresa.imagen}}" >
+                </div>
+            </div>
+            <div class="informacion">
+                <div>
+                    <p>Link para editar : {{urlEditarToken}}</p>
+                </div>
 
-        <button-main text="Contactar" />
+                <!--Notas-->
+                <form [formGroup]="formNotas" (ngSubmit)="actualizarNotas()">
+                    <label for="" class="form-label">Notas</label>
+                    <input type="text" class="form-control" formControlName="notas" name="" id="">
+                    <input type="submit" class="btn btn-primary" value="Actualizar">
+                </form>
 
-        <button-main text="Eliminar" [flat]="true" />
-        <button-main text="Editar" [href]="urlEditar"/>
 
-    </div>
+            </div>
+            <div class="acciones">
+        
+                <button-main text="Contactar" />
+        
+                <button-main text="Eliminar" [flat]="true" />
+                <button-main text="Editar" [href]="urlEditar"/>
+        
+            </div>
+        
+            
+        </mat-tab>
+    
+        
+      </mat-tab-group>
 
-    <div>
-        Generar formularios - peticiones
-    </div>
+    
 
 
 </div>
