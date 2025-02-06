@@ -242,6 +242,7 @@ export class CreateEmpresaComponent {
     );
   }
 
+
   fileInputTodoImagenesLocal(fileInputName : string) :  ValidatorFn {
     return (control : AbstractControl) : ValidationErrors | null =>{
       const fileInput = this.form.get('imagen');
@@ -309,8 +310,12 @@ export class CreateEmpresaComponent {
     return arrayServicios;
   }
 
-  
+
   modelToData(): INewEmpresa {
+    //quitar data:image/webp;base64,
+    const regexBase64 = /data:image/webp;base64/;
+    console.log(this.form.controls.imagen.value?.replace(\data:image/webp;base64\, ''));
+
     return {
       nombre: this.form.controls.nombre.value ?? '',
       cif: this.formComprobarCif.controls.cif.value ?? '',

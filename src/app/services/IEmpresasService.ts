@@ -10,6 +10,8 @@ export default abstract class IEmpresasService{
   abstract getUrlAbierta(): Observable<UrlValue>;
   abstract getEmpresasAlumnos(idEmpresa : string): Observable<IEmpresaDisplay[]>;
   abstract crearEmpresa(empresa : INewEmpresa): Observable<IEmpresaDisplay>;
+  abstract actualizarEmpresaAuth(id:string, empresa : INewEmpresa): Observable<IEmpresaDisplay>;
+  abstract actualizarEmpresaToken(token:string, empresa : INewEmpresa): Observable<IEmpresaDisplay>;
   abstract buscarPorCif(cif:string): Observable<IEmpresaDisplay>;
   abstract asociarEmpresa(idEmpresa: string) : Observable<boolean>;
 }

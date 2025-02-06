@@ -12,7 +12,7 @@ export interface IEmpresaDisplay {
   email?: string;
   direccion: {
     calle: string;
-    provincia: string;
+    provincia: IRegion;
     poblacion: string;
     posicion: {
       coordX: number;
@@ -35,6 +35,7 @@ export interface IEmpresaCompleta extends IEmpresaDisplay{
   urlEditar: string,
   cif : string,
   notas? : string
+
 }
 
 export interface EmpresaJson {

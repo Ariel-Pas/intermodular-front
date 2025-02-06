@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ICategoria, IEmpresaCompleta, IRegion, ITown } from '../../../types';
+import { ICategoria, IEmpresaCompleta, INewEmpresa, IRegion, ITown } from '../../../types';
 import {
   AbstractControl,
   FormControl,
@@ -22,8 +22,9 @@ import {
   fileInputTodoImagenes,
   validarHoraInicioPrecedeFin,
 } from '../../FormValidation/FormValidationsFn';
-import { catchError, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
 import { leerImagenBase64 } from '../../FuncionesGenerales';
+import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
 
 
 @Component({
@@ -47,7 +48,62 @@ export class UpdateEmpresaComponent {
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
       this.empresa = data['empresa'];
+      this.form.patchValue({
+        nombre: this.empresa.nombre,
+        cif: this.empresa.cif,
+        email: this.empresa.email,
+        descripcion: this.empresa.descripcion,
+        vacantes: this.empresa.vacantes
+      });
+
+      this.form.controls.direccion.patchValue({
+        calle: this.empresa.direccion.calle,
+        coordX: this.empresa.direccion.posicion.coordX,
+        coordY: this.empresa.direccion.posicion.coordY,
+        provincia: this.provincias().find(p => p.id == this.empresa.direccion.provincia.id)
+
+      })
+
+      //TODO esto por qué no va??
+      /* this.localizacionesService.getRegiones().pipe(
+        tap(x => {
+          console.log('pipe');
+
+          this.form.controls.direccion.patchValue({
+            provincia: x.find(reg => reg.id == this.empresa.direccion.provincia)
+          })
+        })
+      ) */
+
+        this.localizacionesService.getRegiones().subscribe({
+          next: (x) => {
+            console.log(x);
+
+            let provSelec = x.find(reg => reg.id == this.empresa.direccion.provincia.id)
+            this.form.controls.direccion.patchValue({
+            provincia: provSelec
+          })
+          }
+        })
+
+      this.form.controls.horarios.patchValue({
+        horarioManana: this.empresa.horario.horario_manana,
+        horarioTarde: this.empresa.horario.horario_tarde,
+        finSemana: this.empresa.horario.finSemana
+      })
     });
+
+    this.categoriasService.getAllServicios().subscribe({
+      next: (x) => {
+        x.forEach((element) => {
+          this.form.controls.categorizacion.controls.servicios.addControl(
+            element.name,
+            new FormControl<boolean>(false)
+          );
+        });
+      },
+    });
+
   }
 
   private empresasService = inject(IEmpresasService);
@@ -92,9 +148,10 @@ export class UpdateEmpresaComponent {
     cif: new FormControl('', [
       Validators.required,
       Validators.pattern(/^[A-Z][0-9]{8}$/),
-    ]),
+    ], this.cifEmpresaDisponible.bind(this)),
     vacantes: new FormControl(1, [Validators.min(1), Validators.required]),
-    imagen: new FormControl('', [fileInputTodoImagenes('imagen')]),
+    imagen: new FormControl(''),
+    tipoImagen: new FormControl(''),
     direccion: new FormGroup({
       provincia: new FormControl<IRegion | null>(null, [Validators.required]),
       localidad: new FormControl<ITown | null>(null, [Validators.required]),
@@ -153,6 +210,8 @@ export class UpdateEmpresaComponent {
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
     if (control.value === '' || control.value === null) return of(null);
+    //si no ha variado respecto al valor del cif de la empresa no hay error
+    if(control.value === this.empresa.cif) return of(null);
     //buscar la empresa por cif. si el id es igual al de la empresa de la respuesta ok. sino fallo
     return this.empresasService.buscarPorCif(control.value).pipe(
       map((x) => ({
@@ -187,7 +246,7 @@ export class UpdateEmpresaComponent {
         if (!fileList[0].type.startsWith("image/")) {
           return;
         }
-        this.form.controls.imagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false});
+        this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false});
         const reader = new FileReader();
 
         new Promise((resolve, reject) =>{
@@ -204,5 +263,125 @@ export class UpdateEmpresaComponent {
     }
   }
 
-  onSubmit() {}
+  private obtenerIdCategoria(servicio: string | undefined) {
+    const infoServicio = this.servicios().find((x) => x.name == servicio);
+    return infoServicio?.category ?? '';
+  }
+
+  //obtener categorias seleccionadas a partir de servicios seleccionados
+  private obtenerCategorias(): string[] {
+    const serviciosForm = this.form
+      .get('categorizacion')
+      ?.get('servicios')?.value;
+
+    const arrayCategorias: string[] = [];
+    for (let nombre in serviciosForm) {
+      if (serviciosForm[nombre]) {
+        const idCategoria = this.obtenerIdCategoria(nombre);
+        if (idCategoria && !arrayCategorias.includes(idCategoria))
+          arrayCategorias.push(idCategoria);
+      }
+    }
+
+    return arrayCategorias;
+  }
+
+  //obtener array de servicios de la forma {idServicio, categoria}
+  private obtenerServicios() {
+    const serviciosForm = this.form
+      .get('categorizacion')
+      ?.get('servicios')?.value;
+
+    const arrayServicios: { categoria: string; id: string }[] = [];
+    for (let nombre in serviciosForm) {
+      if (serviciosForm[nombre]) {
+        const infoServicio = this.servicios().find((x) => x.name == nombre);
+        if (infoServicio)
+          arrayServicios.push({
+            categoria: infoServicio.category,
+            id: infoServicio.id,
+          });
+      }
+    }
+
+    return arrayServicios;
+  }
+
+
+    modelToData(): INewEmpresa {
+      return {
+        nombre: this.form.controls.nombre.value ?? '',
+        cif: this.form.controls.cif.value ?? '',
+        email: this.form.get('email')?.value ?? '',
+        descripcion : this.form.get('descripcion')?.value ?? '',
+        direccion: this.form.get('direccion')?.get('calle')?.value ?? '',
+        vacantes: this.form.get('vacantes')?.value ?? 1,
+        imagen: this.form.controls.imagen.value ?? '',
+        tipoImagen: this.form.controls.tipoImagen.value ?? '',
+        provincia:
+          this.form.controls.direccion.controls.provincia.value?.id ?? '',
+        localidad:
+          this.form.controls.direccion.controls.localidad.value?.id ?? '',
+        coordX: this.form.controls.direccion.controls.coordX.value ?? 0,
+        coordY: this.form.controls.direccion.controls.coordY.value ?? 0,
+        horario_manana: this.form.controls.horarios.controls.horarioManana.value ?? '',
+        horario_tarde: this.form.controls.horarios.controls.horarioTarde.value ?? '',
+        finSemana: this.form.controls.horarios.controls.finSemana.value ?? false,
+        categorias: this.obtenerCategorias(),
+        servicios: this.obtenerServicios(),
+      };
+    }
+
+
+    private authService = inject(IAuthenticationService);
+    onSubmit() {
+
+
+      if(this.authService.token()){
+        this.empresasService.actualizarEmpresaAuth(this.empresa.id, this.modelToData()).subscribe({
+        next: (x)=>{
+          console.log(x);
+          this.form.reset();
+          this.alert().title = "Empresa actualizada correctamente";
+          this.alert().text = '';
+          this.alert().icon = "success";
+          this.alert().fire();
+          //this.router.navigate(['dashboard'])
+
+        },
+        error: ()=>{
+          console.log('error');
+          this.alert().title = "Ha ocurrido un error";
+          this.alert().text = "No se ha podido actualizar.";
+          this.alert().icon = "error";
+          this.alert().fire();
+        }
+
+      })
+    }
+    else{
+      this.empresasService.actualizarEmpresaToken(this.id(), this.modelToData()).subscribe({
+        next: (x)=>{
+          console.log(x);
+          this.form.reset();
+          this.alert().title = "Empresa actualizada correctamente";
+          this.alert().text = '';
+          this.alert().icon = "success";
+          this.alert().fire();
+          //this.router.navigate(['dashboard'])
+
+        },
+        error: ()=>{
+          console.log('error');
+          this.alert().title = "Ha ocurrido un error";
+          this.alert().text = "No se ha podido actualizar.";
+          this.alert().icon = "error";
+          this.alert().fire();
+        }
+
+      })
+    }
+
+
+    }
 }

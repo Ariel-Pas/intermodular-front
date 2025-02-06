@@ -17,12 +17,14 @@ import { ICategoriaService } from './services/categorias/ICategoriasService';
 import { CategoriasJsonService } from './services/categorias/categorias-json.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LocalizacionesApiService } from './services/localizacion/localizaciones-api.service';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
     {provide: IEmpresasService, useExisting: EmpresasApiService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
-    {provide: ILocalizacionService, useExisting: LocalizacionesJsonService},
+    {provide: ILocalizacionService, useExisting: LocalizacionesApiService},
     {provide: ICategoriaService, useExisting: CategoriasJsonService},
     {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),

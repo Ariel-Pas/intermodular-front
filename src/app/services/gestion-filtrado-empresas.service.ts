@@ -52,7 +52,7 @@ export class GestionFiltradoEmpresasService {
 
       //console.log(filtrado);
       filtrado = filtrado.filter((x) =>
-        this.filtros().provincia ? this.filtros().provincia.includes(x.direccion.provincia) : true
+        this.filtros().provincia ? this.filtros().provincia.includes(x.direccion.provincia.name) : true
       );
 
       filtrado = filtrado.filter((x) =>

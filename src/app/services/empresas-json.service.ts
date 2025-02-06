@@ -28,7 +28,7 @@ export class EmpresasJsonService /* extends IEmpresasService */ {
         email : empresa.email,
         direccion: {
           calle: empresa.address.street,
-          provincia: empresa.address.region,
+          provincia: {id: '1', name: 'P', area: '10'},
           poblacion: empresa.address.town,
           posicion: {
             coordX: empresa.address.position.lat,

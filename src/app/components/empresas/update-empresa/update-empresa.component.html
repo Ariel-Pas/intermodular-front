@@ -42,6 +42,10 @@
           form.get('cif')?.hasError('required')){
           <span class="error-msg">Introduce un CIF </span>
           }
+          @else if(form.get('cif')?.touched &&
+          form.get('cif')?.hasError('cif-disponible')){
+          <span class="error-msg">Introduce un CIF </span>
+          }
         </div>
 
         <div class="mb-3">
@@ -103,7 +107,7 @@
             >
               <option [ngValue]="null">Elige una provincia</option>
               @for (provincia of provincias(); track provincia.id) {
-              <option [ngValue]="provincia">{{ provincia.name }}</option>
+              <option [ngValue]="provincia" [selected]="provincia.id == empresa.direccion.provincia.id" >{{ provincia.name }}</option>
               }
             </select>
             @if(form.get('direccion')?.get('provincia')?.touched &&
@@ -260,3 +264,5 @@
 </div>
 
 <swal title=" " text=" " icon="success"></swal>
+
+

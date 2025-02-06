@@ -36,7 +36,7 @@ export class EmpresasFakerService /* extends IEmpresasService */{
           email: 'contacto@techsolutions.com',
           direccion: {
             calle: 'Calle Innovación, 123',
-            provincia: prov,
+            provincia: {id: '1', name: 'P', area: '10'},
             poblacion:
               this.towns[prov][
                 Math.floor(Math.random() * this.towns[prov].length)

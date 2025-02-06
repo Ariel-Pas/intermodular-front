@@ -57,6 +57,16 @@ export class EmpresasApiService extends IEmpresasService {
     return this.httpClient.post<IEmpresaDisplay>(`${this.baseUrl}/empresas`, empresa)
   }
 
+  actualizarEmpresaAuth(id: string, empresa : INewEmpresa): Observable<IEmpresaDisplay>
+  {
+    return this.httpClient.put<IEmpresaDisplay>(`${this.baseUrl}/empresas/${id}`, empresa)
+  }
+
+  actualizarEmpresaToken(token: string, empresa : INewEmpresa): Observable<IEmpresaDisplay>
+  {
+    return this.httpClient.put<IEmpresaDisplay>(`${this.baseUrl}/empresas/token/${token}`, empresa)
+  }
+
   buscarPorCif(cif:string): Observable<IEmpresaDisplay>
   {
     return this.httpClient
