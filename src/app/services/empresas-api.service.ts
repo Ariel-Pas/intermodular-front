@@ -78,4 +78,17 @@ export class EmpresasApiService extends IEmpresasService {
     return this.httpClient.get<boolean>(`${this.baseUrl}/empresas/asociar-centro/${idEmpresa}`);
   }
 
+  actualizarNota(idEmpresa: string, nota:string): Observable<boolean>{
+    return this.httpClient.post<boolean>(`${this.baseUrl}/empresas/notas/${idEmpresa}`, {notas: nota});
+  }
+
+  enviarMail(datos : {empresas: string[], mensaje: string}) : Observable<boolean>{
+    return this.httpClient.post<boolean>(`${this.baseUrl}/mail`, datos);
+  }
+
+  eliminarEmpresa(id: string) : Observable<boolean>
+  {
+    return this.httpClient.delete<boolean>(`${this.baseUrl}/empresas/${id}`);
+  }
+
 }

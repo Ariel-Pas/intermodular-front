@@ -196,6 +196,7 @@ export class CreateEmpresaComponent {
           if (!fileList[0].type.startsWith("image/")) {
             return;
           }
+          this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false})
 
           const reader = new FileReader();
 
@@ -242,7 +243,7 @@ export class CreateEmpresaComponent {
     );
   }
 
-
+/*
   fileInputTodoImagenesLocal(fileInputName : string) :  ValidatorFn {
     return (control : AbstractControl) : ValidationErrors | null =>{
       const fileInput = this.form.get('imagen');
@@ -261,7 +262,7 @@ export class CreateEmpresaComponent {
       return null;
 
     }
-  }
+  } */
 
 
 

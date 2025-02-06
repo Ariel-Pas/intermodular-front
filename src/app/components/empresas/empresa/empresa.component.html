@@ -2,7 +2,7 @@
  -->
 <div class="container">
 
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-12 col-md-9">
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-12 col-md-10">
         <mat-tab label="Empresa">
             <div class="row align-items-center">
                 <div class="col-5">
@@ -27,21 +27,23 @@
 
             </div>
             <div class="acciones">
-        
+
                 <button-main text="Contactar" />
-        
-                <button-main text="Eliminar" [flat]="true" />
+
+                <button-main text="Eliminar"  (click)="eliminarEmpresa($event)" [flat]="true" />
                 <button-main text="Editar" [href]="urlEditar"/>
-        
+
             </div>
-        
-            
+
+
         </mat-tab>
-    
-        
+
+
       </mat-tab-group>
 
-    
+
 
 
 </div>
+
+<swal title="" text="" icon="success"></swal>

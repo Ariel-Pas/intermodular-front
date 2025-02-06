@@ -247,6 +247,8 @@ export class UpdateEmpresaComponent {
           return;
         }
         this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false});
+        
+
         const reader = new FileReader();
 
         new Promise((resolve, reject) =>{
@@ -309,6 +311,7 @@ export class UpdateEmpresaComponent {
 
 
     modelToData(): INewEmpresa {
+      const regexBase64 = /data:image\/[a-z]+;base64,/;
       return {
         nombre: this.form.controls.nombre.value ?? '',
         cif: this.form.controls.cif.value ?? '',
@@ -316,7 +319,7 @@ export class UpdateEmpresaComponent {
         descripcion : this.form.get('descripcion')?.value ?? '',
         direccion: this.form.get('direccion')?.get('calle')?.value ?? '',
         vacantes: this.form.get('vacantes')?.value ?? 1,
-        imagen: this.form.controls.imagen.value ?? '',
+        imagen:  this.form.controls.imagen.value?.replace(regexBase64, '') ?? '',
         tipoImagen: this.form.controls.tipoImagen.value ?? '',
         provincia:
           this.form.controls.direccion.controls.provincia.value?.id ?? '',

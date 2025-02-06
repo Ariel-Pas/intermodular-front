@@ -259,7 +259,7 @@
         form.controls.categorizacion.controls.servicios.controls| keyvalue;
         track servicio) {
         <label [class.d-none]="ocultarServicio(servicio.key)"
-        class="form-check-label mx-2"  
+        class="form-check-label mx-2"
         >{{ servicio.key }}
           <input
             type="checkbox"
@@ -282,7 +282,7 @@
 
 }
 
-@if(!mostrarForm && empresaExistente()){
+@if(!mostrarForm() && empresaExistente()){
   <div>La empresa {{empresaExistente()?.nombre}} ya está registrada en el sistema <br>
     Quieres asociarla a tu centro?
     <button-main text="Asociar" [onClick]="asociarEmpresa"></button-main>

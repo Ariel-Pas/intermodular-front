@@ -22,9 +22,9 @@ import { LocalizacionesApiService } from './services/localizacion/localizaciones
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    {provide: IEmpresasService, useExisting: EmpresasFakerService},
+    {provide: IEmpresasService, useExisting: EmpresasApiService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
-    {provide: ILocalizacionService, useExisting: LocalizacionesJsonService},
+    {provide: ILocalizacionService, useExisting: LocalizacionesApiService},
     {provide: ICategoriaService, useExisting: CategoriasJsonService},
     {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),

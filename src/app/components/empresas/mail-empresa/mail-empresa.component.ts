@@ -6,6 +6,7 @@ import { checkboxValidation } from '../../FormValidation/FormValidationsFn';
 import { KeyValuePipe } from '@angular/common';
 import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { ApiErrorMessage } from '../../../types';
 
 @Component({
   selector: 'mail-empresa',
@@ -40,13 +41,13 @@ export class MailEmpresaComponent {
     asunto: new FormControl(
           '',
           [Validators.required, Validators.minLength(5)],
-          
+
         ),
     empresas: new FormRecord({}, [checkboxValidation({ min: 1 })]),
     mensaje: new FormControl(
       '',
       [Validators.required, Validators.minLength(5)],
-      
+
     ),
   })
 
@@ -73,11 +74,26 @@ export class MailEmpresaComponent {
 
   onSubmit(){
     const data = {
-      asunto : this.form.controls.asunto.value,
+     /*  asunto : this.form.controls.asunto.value, */
       empresas : this.generarArrayIdsEmpresa(),
-      mensaje : this.form.controls.mensaje.value
+      mensaje : this.form.controls.mensaje.value ?? ''
     }
-    
+    this.empresasService.enviarMail(data).subscribe({
+      next: ()=> {
+                    this.alert().title = "Mail enviado";
+                    this.alert().text = '';
+                    this.alert().icon = "success";
+                    this.alert().fire();
+
+                  },
+                  error: (errorMsg: ApiErrorMessage) => {
+                    this.alert().title = "Ha ocurrido un error";
+                    this.alert().text = "No se ha podido enviar";
+                    this.alert().icon = "error";
+                    this.alert().fire();
+                  }
+    })
+
     console.log(data);
     this.form.reset();
   }
