@@ -10,6 +10,8 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
+
+
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarNav">
@@ -52,6 +54,16 @@
 
         @if(this.rol())
         {
+          <li class="nav-item p-0 d-flex align-items-center">
+            <a class="nav-link" aria-current="page" routerLink="/create-solicitud">
+              <button-main
+              text="Crear solicitud"
+              btnIcon='<i class="bi bi-plus"></i>'
+              />
+            </a>
+          </li>
+
+
           <div class="nav-item p-0 d-flex align-items-center clickable">
             <div class="nav-link">
               <a  (click)="logout()">
@@ -60,8 +72,13 @@
               </a>
             </div>
           </div>
+
+
         }
+
+
       </ul>
     </div>
+
   </div>
 </nav>

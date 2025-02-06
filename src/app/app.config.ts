@@ -15,6 +15,17 @@ import { ILocalizacionService } from './services/localizacion/ILocalizacionServi
 import { LocalizacionesJsonService } from './services/localizacion/localizaciones-json.service';
 import { ICategoriaService } from './services/categorias/ICategoriasService';
 import { CategoriasJsonService } from './services/categorias/categorias-json.service';
+import { API_URL } from './tokens/token-formulario';
+import { IFormulariosService } from './services/formularios/IFormulariosService';
+import { FormulariosApiService } from './services/formularios/formularios-api.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { IReseniaService } from './services/resenias/IReseniaService';
+import { ReseniaApiService } from './services/resenias/resenia-api.service';
+import { ITokenService } from './services/token/ITokenService';
+import { TokenApiService } from './services/token/token-api.service';
+import { ISolicitudService } from './services/solicitudes/ISolicitudService';
+import { SolicitudApiService } from './services/solicitudes/solicitud-api.service';
 
 
 export const appConfig: ApplicationConfig = {
@@ -24,8 +35,17 @@ export const appConfig: ApplicationConfig = {
     {provide: ILocalizacionService, useExisting: LocalizacionesJsonService},
     {provide: ICategoriaService, useExisting: CategoriasJsonService},
     {provide: API_BASE, useValue: 'http://localhost:3000'},
+    // DEBORA NOBS
+    {provide: API_URL, useValue: 'http://localhost:8000/'},
+    {provide: IFormulariosService, useExisting: FormulariosApiService},
+    {provide: IReseniaService, useExisting: ReseniaApiService},
+    {provide: ITokenService, useExisting: TokenApiService},
+    {provide: ISolicitudService, useExisting: SolicitudApiService},
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    // DEBORA NOBS
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()
   ]
 };
+
