@@ -6,7 +6,7 @@ import { ButtonMainComponent } from '../../button-main/button-main.component';
 
 @Component({
   selector: 'app-empresa-card',
-  imports: [ButtonMainComponent, RouterLink],
+  imports: [ButtonMainComponent],
   templateUrl: './card-empresa.component.html',
   styleUrl: './empresa-card.component.scss'
 })

@@ -1,0 +1,269 @@
+<div class="container-fluid">
+
+  <div class="text-center p-5 bg-white shadow rounded">
+    <h3 class="display-4"> Formulario de creacion de solicitudes: </h3>
+  </div>
+
+  <div class="container mt-5">
+    <h3 class="mb-4">Información de la Empresa</h3>
+
+    <form (ngSubmit)="onSubmit()" (reset)="form.reset()" [formGroup]="form">
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label class="form-label"> Nombre de la empresa</label>
+          <input type="text" class="form-control"
+            placeholder="Coloque aquí el nombre de su empresa"
+            formControlName="nombreEmpresa">
+
+          @if (form.get('nombre')?.invalid && (form.get('nombre')?.touched ||
+          form.get('nombre')?.dirty)) {
+          <span class="error-msg">
+            @if (form.get('nombreEmpresa')?.hasError('required')) {
+            'El campo es obligatorio' }
+            @else if (form.get('nombreEmpresa')?.hasError('minlength')) {
+            'El nombre debe tener al menos 3 caracteres' }
+            @else if (form.get('nombreEmpresa')?.hasError('maxlength')) {
+            'El nombre no puede tener más de 100 caracteres' }
+          </span>
+          } @else if(form.get('nombreEmpresa')?.valid &&
+          form.get('nombreEmpresa')?.touched) {
+          <span class="msg-valido">Es válido!</span>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="cif" class="form-label">CIF</label>
+          <input type="text" class="form-control" id="cif"
+            placeholder="B47362837" formControlName="cif">
+
+          @if (form.get('cif')?.invalid && (form.get('cif')?.touched ||
+          form.get('cif')?.dirty)) {
+          <span class="error-msg">
+            @if (form.get('cif')?.hasError('required')) {
+            'El campo CIF es obligatorio' }
+            @else if (form.get('cif')?.hasError('pattern')) {
+            'Formato de CIF incorrecto. Debe ser una letra seguida de 7 números y una letra/número.'
+            }
+          </span>
+          } @else if(form.get('cif')?.valid && form.get('cif')?.touched) {
+          <span class="msg-valido">Es válido!</span>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="actividad" class="form-label">Actividad</label>
+          <input type="text" class="form-control" id="actividad"
+            placeholder="Escriba aquí la actividad de su empresa"
+            formControlName="actividad">
+
+          @if (form.get('actividad')?.invalid && (form.get('actividad')?.touched
+          || form.get('actividad')?.dirty)) {
+          <span class="error-msg">
+            @if (form.get('actividad')?.hasError('required')) {
+            'El campo actividad es obligatorio' }
+            @else if (form.get('actividad')?.hasError('maxlength')) {
+            'La actividad no puede tener más de 50 caracteres' }
+          </span>
+          } @else if(form.get('actividad')?.valid &&
+          form.get('actividad')?.touched) {
+          <span class="msg-valido">Es válido!</span>
+          }
+        </div>
+
+        <div>
+
+          <div class="col-md-6">
+            <label for="provincia" class="form-label">Provincia</label>
+            <select class="form-select" id="provincia"
+              formControlName="provincia" name="provincia">
+
+              @for (provincia of provinciasComputada(); track provincia.id) {
+              @if($first) {
+              <option [ngValue]="null" selected>Seleccione una
+                provincia</option>
+              }
+              <option [ngValue]="provincia"> {{ provincia.name }}</option>
+              } @empty {
+              <option [ngValue]="null">No hay provincias disponibles</option>
+              }
+            </select>
+
+            @if(form.get('provincia')?.touched &&
+            form.get('provincia')?.hasError('required')){
+            <span class="error-msg">Elige una provincia</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="localidad" class="form-label"> Localidad</label>
+            <select class="form-select"
+              formControlName="localidad" name="localidad">
+
+              @for(town of localidades$ | async; track town.id) {
+              @if($first) {
+              <option [ngValue]="null" selected>Seleccione una
+                localidad</option>
+              }
+              <option [ngValue]="town"> {{ town.name }}</option>
+              } @empty {
+              <option [ngValue]="null">No hay localidades disponibles</option>
+              }
+            </select>
+
+            @if(form.get('localidad')?.touched &&
+            form.get('localidad')?.hasError('required')){
+            <span class="error-msg">Elige una localidad</span>
+            }
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label>Horario</label>
+          <div class="d-flex">
+            <label for="horario_comienzo" class="form-label">
+              <input type="time" class="form-control" name="horario_comienzo"
+                formControlName="horario_comienzo">
+
+              @if (form.get('horario_comienzo')?.invalid &&
+              (form.get('horario_comienzo')?.touched ||
+              form.get('horario_comienzo')?.dirty)) {
+              <span class="error-msg">
+                @if (form.get('horario_comienzo')?.hasError('required')) {
+                'El campo es obligatorio' }
+                @else if (form.hasError('horarioValidadoValidacion')) {
+                <span class="error-msg">El horario de mañana debe ser inferior
+                  al horario de tarde</span>
+                }
+              </span>
+              } @else if(form.get('horario_comienzo')?.valid &&
+              form.get('horario_comienzo')?.touched) {
+              <span class="msg-valido">Es válido!</span>
+              }
+            </label>
+
+            <label for="horario_fin" class="form-label">
+              <input type="time" class="form-control" name="horario_fin"
+                formControlName="horario_fin">
+
+              @if (form.get('horario_fin')?.invalid &&
+              (form.get('horario_fin')?.touched ||
+              form.get('horario_fin')?.dirty)) {
+              <span class="error-msg">
+                @if (form.get('horario_fin')?.hasError('required')) {
+                'El campo es obligatorio'}
+                @else if (form.hasError('horarioValidadoValidacion')) {
+                <span>El horario de mañana debe ser inferior al horario de
+                  tarde</span>
+                }
+              </span>
+              } @else if(form.get('horario_fin')?.valid &&
+              form.get('horario_fin')?.touched &&
+              !form.hasError('horarioValidadoValidacion')) {
+              <span class="msg-valido">Es válido!</span>
+              }
+
+              @if (form.hasError('horarioValidadoValidacion')) {
+              <span class="error-msg">El horario de mañana debe ser inferior al
+                horario de tarde</span>
+              }
+            </label>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email"
+            placeholder="contact@pixel78.com"
+            formControlName="email">
+
+          @if(form.get('email')?.invalid && (form.get('email')?.touched ||
+          form.get('email')?.dirty)) {
+          <span class="error-msg">
+            @if (form.get('email')?.hasError('required')) {
+            'El email es obligatorio' }
+            @else if (form.get('email')?.hasError('email')) {
+            'El formato de email no es válido' }
+          </span>
+          } @else if(form.get('email')?.valid && form.get('email')?.touched) {
+          <span class="msg-valido">Es válido!</span>
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label for="titularidad">Titularidad</label> <br>
+          <input type="radio" formControlName="titularidad" name="titularidad"
+            value="Publica">Publica
+          <input type="radio" formControlName="titularidad" name="titularidad"
+            value="Privada">Privada
+        </div>
+
+        <div class="col-md-6">
+          <label for="centro_id" class="form-label">Centro</label>
+          <select class="form-select" id="centro_id"
+            formControlName="centro_id" name="centro_id">
+
+            @for (centro of centrosComputada(); track centro.id) {
+            @if($first) {
+            <option [ngValue]="null" selected>Seleccione un centro</option>
+            }
+            <option [ngValue]="centro"> {{ centro.nombre }}</option>
+            } @empty {
+            <option [ngValue]="null">No hay centros disponibles</option>
+            }
+          </select>
+
+          @if(form.get('centro')?.touched &&
+          form.get('centro')?.hasError('required')){
+          <span class="error-msg">Elige un centro</span>
+          }
+        </div>
+
+        <!-- <div class="col-md-6">
+          <label for="centro_id" class="form-label">Centro</label>
+          <select class="form-select" id="centro_id"
+            formControlName="centro_id" name="centro_id">
+
+            @for (centro of centrosComputada(); track centro.id) {
+            @if($first) {
+            <option [ngValue]="null" selected>Seleccione un centro</option>
+            }
+            <option [ngValue]="centro"> {{ centro.nombre }}</option>
+            } @empty {
+            <option [ngValue]="null">No hay centros disponibles</option>
+            }
+          </select>
+
+          @if(form.get('centro')?.touched &&
+          form.get('centro')?.hasError('required')){
+          <span class="error-msg">Elige un centro</span>
+          }
+        </div> -->
+
+        <!-- <div class="col-md-6">
+                    <label for="puestos" class="form-label">Puestos disponibles</label>
+                    <select class="form-select" name="vacantes" formControlName="vacantes"
+                    aria-label="Seleccionar vacantes" name="vacantes">
+                    @for (vacante of numeroVacantes; track vacante) {
+                      @if($first) {
+                        <option [ngValue]="null" selected>Elige una opcion...</option>
+                      }
+                    <option [ngValue]="vacante"> {{ vacante }} </option>
+                    }
+                  </select>
+                </div> -->
+
+        <input type="hidden" formControlName="empresa_id">
+
+      </div>
+
+      <input [disabled]="form.invalid" name="submit" type="submit"
+        value="Registrar">
+      <input type="reset" value="Limpiar">
+
+    </form>
+  </div>
+
+</div>
+
+<pre>{{ form.value | json }}</pre>

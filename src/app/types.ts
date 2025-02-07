@@ -157,10 +157,73 @@ export interface ICheckboxOption{
   id: string
 }
 
+
 export interface UrlValue{
   url: string
 }
 
 export interface ApiErrorMessage{
   error:string
+}
+// Tipos formularios
+export interface IFormulario {
+  id: string,
+  nombre: string | null,
+  descripcion: string,
+  tipo: string
+}
+
+export interface IPregunta {
+  id: string;
+  titulo: string;
+  tipo: 'text' | 'textarea' | 'estrellas';
+  orden: string;
+}
+
+export interface IToken {
+  id: string | null;
+  token: string;
+  formulario_id: number | null;
+  centro_id: number | null;
+  empresa_id: number | null;
+}
+
+export interface IResenia {
+  respuesta: string | number | null;
+  pregunta_id: string;
+  formulario_id: number; //string
+  centro_id: number;
+  empresa_id: number;
+  [key: string]: any;
+}
+
+export interface IRespuesta {
+  pregunta_id: number;
+  respuesta: string | number | null;  // Puede ser texto, número o null
+}
+
+export interface ISolicitud {
+  nombreEmpresa: string;
+  actividad: string;
+  cif: string,
+  provincia: string | null,
+  localidad: string | null,
+  email: string,
+  titularidad: string,
+  horario_comienzo: string | null;
+  horario_fin: string | null;
+  empresa_id: number | null;
+  centro_id: ICentro | number | null;
+}
+
+
+export interface ICentro {
+  id: number;
+  nombre: string;
+  codigo: string;
+  email: string;
+  password: string;
+  direccion: string;
+  telefono: string;
+
 }
