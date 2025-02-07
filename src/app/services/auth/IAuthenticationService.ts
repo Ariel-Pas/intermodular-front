@@ -12,4 +12,5 @@ export abstract class IAuthenticationService{
   public user = signal<string | null>(null);
   public rol = signal<string | null>(null);
   public token = signal<string | null>(null);
+  public centro = signal<number|null>(null);
 }

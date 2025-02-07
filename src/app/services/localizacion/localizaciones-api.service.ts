@@ -16,12 +16,10 @@ export class LocalizacionesApiService extends ILocalizacionService {
   private httpClient = inject(HttpClient);
 
   public getRegiones(): Observable<IRegion[]> {
-    return this.httpClient.get<IRegion[]>(`${this.baseUrl}/regions?area=10`);
+    return this.httpClient.get<IRegion[]>(`${this.baseUrl}/provincias`);
   }
 
   public getPoblaciones(idRegion: string): Observable<ITown[]> {
-    return this.httpClient.get<ITown[]>(`${this.baseUrl}/towns`, {
-      params: { region: idRegion },
-    });
+    return this.httpClient.get<ITown[]>(`${this.baseUrl}/municipios/${idRegion}`);
   }
 }

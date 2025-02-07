@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'company-map',
   imports: [GoogleMap, MapMarker, MapInfoWindow, RouterLink],
   templateUrl: './company-map.component.html',
-  styleUrl: './company-map.component.scss'
+  
 })
 export class CompanyMapComponent {
   protected gestionEmpresas = inject(GestionFiltradoEmpresasService);

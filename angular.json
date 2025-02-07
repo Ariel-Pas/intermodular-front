@@ -55,6 +55,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/rose-red.css",
+              "src/global-styles.css",
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],

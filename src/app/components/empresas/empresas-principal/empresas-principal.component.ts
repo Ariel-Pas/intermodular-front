@@ -4,10 +4,11 @@ import { CompanyMapComponent } from '../company-map/company-map.component';
 import { CompanyListComponent } from '../company-list/company-list.component';
 import { FiltroEmpresasComponent } from '../filtro-empresas/filtro-empresas.component';
 import { OrdenSelectComponent } from '../../orden-select/orden-select.component';
+import { MailEmpresaComponent } from '../mail-empresa/mail-empresa.component';
 
 @Component({
   selector: 'app-empresas-principal',
-  imports: [MatTabContent, MatTabGroup, MatTab, CompanyMapComponent, CompanyListComponent, FiltroEmpresasComponent, OrdenSelectComponent],
+  imports: [MatTabContent, MatTabGroup, MatTab, CompanyMapComponent,MailEmpresaComponent, CompanyListComponent, FiltroEmpresasComponent, OrdenSelectComponent],
   templateUrl: './empresas-principal.component.html',
   styleUrl: './empresas-principal.component.scss'
 })

@@ -1,0 +1,45 @@
+<div class="container mt-3">
+    <h3>Enviar mensaje</h3>
+
+    <form [formGroup] ="form" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="" class="form-label">Asunto</label>
+            <input type="text" class="form-control" formControlName="asunto">
+        </div>
+        <div>
+            <label for="" class="form-label">Mensaje</label>
+            <input type="text" class="form-control" formControlName="mensaje">
+        </div>
+        <div formGroupName="empresas">
+            
+            <label for="" class="form-label">Empresas</label>
+            <br>
+
+            @for (empresa of
+            form.controls.empresas.controls| keyvalue;
+            track empresa) {
+
+                <label
+                class="form-check-label mx-2"  
+                >{{ empresa.key }}
+                <input
+                    type="checkbox"
+                    [formControlName]="empresa.key"
+                    [checked]="empresa.value"
+                    class="mx-1"
+                /></label>
+                } @if ( form.get('empresas')?.touched &&
+                form.controls.empresas.hasError('validar-checkbox'))
+                {
+                <p class="error-msg">Selecciona al menos una empresa</p>
+            }
+
+            
+        </div>
+
+        <input type="submit" value="Enviar" class="btn btn-primary" [disabled]="form.invalid">
+    </form>
+
+</div>
+
+<swal title="" text="" icon="success" />

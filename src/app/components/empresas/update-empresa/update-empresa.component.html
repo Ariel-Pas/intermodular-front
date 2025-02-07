@@ -1,22 +1,6 @@
 <div class="container">
   <h3>Información de la empresa</h3>
 
-  <form [formGroup]="formComprobarCif">
-    <label for="cif" class="form-label">CIF</label>
-    <input type="text" class="form-control" id="" name="cif" formControlName="cif" [value]="cif()" [disabled]="true"/>
-    @if(formComprobarCif.get('cif')?.touched && formComprobarCif.get('cif')?.hasError('pattern')){
-      <span class="error-msg"
-        >Introduce un CIF válido con formato A12345678</span
-      >
-      } @else if(formComprobarCif.get('cif')?.touched &&
-      formComprobarCif.get('cif')?.hasError('required')){
-      <span class="error-msg">Introduce un CIF </span>
-      }
-  </form>
-
-  <br>
-
-  @if(mostrarForm()){
   <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
     <div class="row">
       <div class="col-md-6">
@@ -41,7 +25,7 @@
           }
         </div>
 
-        <!-- <div class="mb-3">
+        <div class="mb-3">
           <label for="cif" class="form-label">CIF</label>
           <input
             type="text"
@@ -49,17 +33,20 @@
             id=""
             name="cif"
             formControlName="cif"
-          /> -->
-          <!-- @if(form.get('cif')?.touched && form.get('cif')?.hasError('pattern')){
-          <span class="error-msg"
-            >Introduce un CIF válido con formato A12345678</span
+          />
+          @if(form.get('cif')?.touched && form.get('cif')?.hasError('pattern')){
+          <span class="error-msg">
+            Introduce un CIF válido con formato A12345678</span
           >
           } @else if(form.get('cif')?.touched &&
           form.get('cif')?.hasError('required')){
           <span class="error-msg">Introduce un CIF </span>
-          </div>
-          } -->
-
+          }
+          @else if(form.get('cif')?.touched &&
+          form.get('cif')?.hasError('cif-disponible')){
+          <span class="error-msg">Introduce un CIF </span>
+          }
+        </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -106,10 +93,6 @@
           }
         </div>
 
-        <!--fin row-->
-      </div>
-
-      <div class="col-md-6">
         <fieldset formGroupName="direccion" class="mb-3">
           <div class="mb-3">
             <label class="form-label">Provincia</label>
@@ -119,8 +102,8 @@
               formControlName="provincia"
             >
               <option [ngValue]="null">Elige una provincia</option>
-              @for (provincia of provincias(); track provincia.id) {
-              <option [ngValue]="provincia">{{ provincia.name }}</option>
+              @for (provincia of provinciasInit(); track provincia.id) {
+              <option [ngValue]="provincia" >{{ provincia.name }}</option>
               }
             </select>
             @if(form.get('direccion')?.get('provincia')?.touched &&
@@ -137,7 +120,7 @@
               formControlName="localidad"
             >
               <option [ngValue]="null">Elige una localidad</option>
-              @for (localidad of localidades$ |async; track localidad .id) {
+              @for (localidad of poblacionesInit(); track localidad .id) {
               <option [ngValue]="localidad">{{ localidad.name }}</option>
               }
             </select>
@@ -157,7 +140,7 @@
           </div>
 
           <div class="mb-3">
-            <label  class="form-label" for="">Longitud</label>
+            <label for="" class="form-label">Longitud</label>
             <input
               type="number"
               class="form-control"
@@ -165,7 +148,7 @@
             />
           </div>
           <div class="mb-3">
-            <label  class="form-label" for="">Latitud</label>
+            <label for="" class="form-label">Latitud</label>
             <input
               type="number"
               class="form-control"
@@ -173,6 +156,12 @@
             />
           </div>
         </fieldset>
+
+        <!--fin row-->
+      </div>
+
+      <div class="col-md-6">
+
 
         <fieldset formGroupName="horarios" class="mb-3">
           <div class="mb-3">
@@ -214,6 +203,8 @@
             <label for="finsemana" class="form-check-label">Fines de semana</label>
             <input type="checkbox" class="form-check-input" name="" id="" formControlName="finSemana" />
           </div>
+
+
         </fieldset>
 
         <div class="mb-3">
@@ -252,7 +243,7 @@
         <p class="error-msg">Selecciona al menos una categoria</p>
         }
       </div>
-      <div formGroupName="servicios">
+      <div formGroupName="servicios" class="form-check">
         <p class="fw-bold">Servicios</p>
 
         @for (servicio of
@@ -260,7 +251,7 @@
         track servicio) {
         <label [class.d-none]="ocultarServicio(servicio.key)"
         class="form-check-label mx-2"
-        >{{ servicio.key }}
+          >{{ servicio.key }}
           <input
             type="checkbox"
             [formControlName]="servicio.key"
@@ -279,15 +270,8 @@
       Enviar
     </button>
   </form>
-
-}
-
-@if(!mostrarForm() && empresaExistente()){
-  <div>La empresa {{empresaExistente()?.nombre}} ya está registrada en el sistema <br>
-    Quieres asociarla a tu centro?
-    <button-main text="Asociar" [onClick]="asociarEmpresa"></button-main>
-  </div>
-}
 </div>
 
 <swal title=" " text=" " icon="success"></swal>
+
+

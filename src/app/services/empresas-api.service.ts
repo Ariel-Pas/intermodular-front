@@ -1,9 +1,10 @@
 import { Inject, inject, Injectable } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { map, Observable } from 'rxjs';
-import { IEmpresaDisplay, EmpresaJson } from '../types';
+import { IEmpresaDisplay, EmpresaJson, UrlValue, INewEmpresa, IEmpresaCompleta } from '../types';
 import { HttpClient } from '@angular/common/http';
 import { API_BASE } from '../tokens/tokens';
+import { IAuthenticationService } from './auth/IAuthenticationService';
 
 
 @Injectable({
@@ -13,111 +14,81 @@ export class EmpresasApiService extends IEmpresasService {
   constructor(@Inject(API_BASE) private baseUrl: string) {
     super();
   }
-
+  private authService = inject(IAuthenticationService);
   private httpClient = inject(HttpClient);
 
   getEmpresas(): Observable<IEmpresaDisplay[]> {
     return this.httpClient
-      .get<EmpresaJson[]>(`${this.baseUrl}/companies`)
-      .pipe(
-        //mapear al tipo que se usa en la web
-        //se recibe un array de EmpresJson y hay que mapearlo a array de IEmpresaDisplay
+      .get<IEmpresaDisplay[]>(`${this.baseUrl}/empresas-usuario`)
 
-        map((empresas) => {
-          return empresas.map((empresa) => {
-            let e: IEmpresaDisplay = {
-              id: empresa.id,
-              nombre: empresa.name,
-              cif: '00000000X',
-              descripcion: 'Empresa',
-              email: empresa.email,
-              telefono: empresa.phone,
-              direccion: {
-                calle: empresa.address.street,
-                provincia: empresa.address.region,
-                poblacion: empresa.address.town,
-                posicion: {
-                  coordX: empresa.address.position.lat,
-                  coordY: empresa.address.position.lng,
-                },
-              },
-              horario: {
-                horario_manana: empresa.workingHours.start,
-                horario_tarde: empresa.workingHours.end,
-                finSemana: true,
-              },
-              imagen: empresa.image,
-              categorias: empresa.categories,
-              servicios: ['PHP', 'RRSS'],
-              vacantes: [
-                {
-                  anyo: empresa.openings[0].year,
-                  cantidad: empresa.openings[0].count,
-                },
-              ],
-              puntuacion: {
-                profesor: empresa.score.teacher / 10,
-                alumno: empresa.score.student / 10,
-              },
-            };
-
-            return e;
-          });
-        })
-      );
   }
 
-  getEmpresa(idEmpresa: string): Observable<IEmpresaDisplay> {
+  getEmpresa(idEmpresa: string): Observable<IEmpresaCompleta> {
     return this.httpClient
-      .get<EmpresaJson>(`${this.baseUrl}/companies/${idEmpresa}`)
-      .pipe(
-        map((empresa) => {
-          let e: IEmpresaDisplay = {
-            id: empresa.id,
-            nombre: empresa.name,
-            cif: '00000000X',
-            descripcion: 'Empresa',
-            email: empresa.email,
-            telefono: empresa.phone,
-            direccion: {
-              calle: empresa.address.street,
-              provincia: empresa.address.region,
-              poblacion: empresa.address.town,
-              posicion: {
-                coordX: empresa.address.position.lat,
-                coordY: empresa.address.position.lng,
-              },
-            },
-            horario: {
-              horario_manana: empresa.workingHours.start,
-              horario_tarde: empresa.workingHours.end,
-              finSemana: true,
-            },
-            imagen: empresa.image,
-            categorias: empresa.categories,
-            servicios: ['PHP', 'RRSS'],
-            vacantes: [
-              {
-                anyo: empresa.openings[0].year,
-                cantidad: empresa.openings[0].count,
-              },
-            ],
-            puntuacion: {
-              profesor: empresa.score.teacher / 10,
-              alumno: empresa.score.student / 10,
-            },
-          };
+      .get<IEmpresaCompleta>(`${this.baseUrl}/empresa-completa/${idEmpresa}`)
 
-          return e;
-        })
-      );
+  }
+
+  getEmpresaByToken(token : string) : Observable<IEmpresaCompleta | undefined>{
+    return this.httpClient
+      .get<IEmpresaCompleta>(`${this.baseUrl}/empresas/token/${token}`)
   }
 
 
   getByName(nombreEmpresa: string): Observable<IEmpresaDisplay | undefined>{
     return this.httpClient
     .get<IEmpresaDisplay>(`${this.baseUrl}/companies/name/${nombreEmpresa}`);
+  }
 
+  getUrlAbierta(): Observable<UrlValue>
+  {
+    return this.httpClient
+    .get<UrlValue>(`${this.baseUrl}/empresas-centro-url`);
+  }
+
+  getEmpresasAlumnos(idEmpresa : string): Observable<IEmpresaDisplay[]> {
+    return this.httpClient
+      .get<IEmpresaDisplay[]>(`${this.baseUrl}/empresas-centro/${idEmpresa}`)
 
   }
+
+  crearEmpresa(empresa : INewEmpresa): Observable<IEmpresaDisplay>
+  {
+    return this.httpClient.post<IEmpresaDisplay>(`${this.baseUrl}/empresas`, empresa)
+  }
+
+  actualizarEmpresaAuth(id: string, empresa : INewEmpresa): Observable<IEmpresaDisplay>
+  {
+    return this.httpClient.put<IEmpresaDisplay>(`${this.baseUrl}/empresas/${id}`, empresa)
+  }
+
+  actualizarEmpresaToken(token: string, empresa : INewEmpresa): Observable<IEmpresaDisplay>
+  {
+    return this.httpClient.put<IEmpresaDisplay>(`${this.baseUrl}/empresas/token/${token}`, empresa)
+  }
+
+  buscarPorCif(cif:string): Observable<IEmpresaDisplay>
+  {
+    return this.httpClient
+      .get<IEmpresaDisplay>(`${this.baseUrl}/empresas/comprobar-cif/${cif}`);
+  }
+
+  asociarEmpresa(idEmpresa: string) : Observable<boolean>
+  {
+    return this.httpClient.get<boolean>(`${this.baseUrl}/empresas/asociar-centro/${idEmpresa}`);
+  }
+
+  actualizarNota(idEmpresa: string, nota:string): Observable<boolean>{
+    return this.httpClient.post<boolean>(`${this.baseUrl}/empresas/notas/${idEmpresa}`, {notas: nota});
+  }
+
+  enviarMail(datos : {empresas: string[], mensaje: string}) : Observable<boolean>{
+    return this.httpClient.post<boolean>(`${this.baseUrl}/mail`, datos);
+  }
+
+  eliminarEmpresa(id: string) : Observable<boolean>
+  {
+    return this.httpClient.delete<boolean>(`${this.baseUrl}/empresas/${id}`);
+  }
+
 }

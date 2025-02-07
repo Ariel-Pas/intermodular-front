@@ -10,6 +10,9 @@ import { EmpresaComponent } from './components/empresas/empresa/empresa.componen
 import { CreateEmpresaComponent } from './components/empresas/create-empresa/create-empresa.component';
 import { empresaResolver } from './resolvers/empresa.resolver';
 import { EmpresasPrincipalComponent } from './components/empresas/empresas-principal/empresas-principal.component';
+import { ListaEmpresasAlumnosComponent } from './components/empresas/lista-empresas-alumnos/lista-empresas-alumnos.component';
+import { UpdateEmpresaComponent } from './components/empresas/update-empresa/update-empresa.component';
+import { MailEmpresaComponent } from './components/empresas/mail-empresa/mail-empresa.component';
 
 
 export const routes: Routes = [
@@ -20,7 +23,10 @@ export const routes: Routes = [
   {path: 'dashboard', component: EmpresasPrincipalComponent, /* canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'login', component: LoginComponent},
   {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
+  {path: 'company/update/:id', component: UpdateEmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'create-company', component: CreateEmpresaComponent,/*  canActivate: [()=>roleIs('profesor', 'admin')] */},
+  {path: 'company/contact', component: MailEmpresaComponent},
+  {path: 'empresas-alumnos/:id', component: ListaEmpresasAlumnosComponent},
   {path: '', redirectTo: 'login', pathMatch:'full'},
   {path: '**', component: RouteNotFoundComponent}
 ];
