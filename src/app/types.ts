@@ -199,6 +199,9 @@ export interface ISolicitud {
   horario_fin: string | null;
   empresa_id: number | null;
   centro_id: ICentro | number | null;
+  ciclo_id: ICentro | number | null;
+  numero_puestos: number; // nuevo
+  // solicitud_id: number; // nuevo
 }
 
 
@@ -210,4 +213,10 @@ export interface ICentro {
   password: string;
   direccion: string;
   telefono: string;
+}
+
+export interface ICiclo {
+  id: number;
+  nombre: string;
+  areasciclo_id: number;
 }

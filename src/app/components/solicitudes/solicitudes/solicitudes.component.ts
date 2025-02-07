@@ -1,16 +1,18 @@
 import { Component, computed, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { ICentro, IRegion, ISolicitud, ITown } from '../../../types';
+import { ICentro, ICiclo, IRegion, ISolicitud, ITown } from '../../../types';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { ILocalizacionService } from '../../../services/localizacion/ILocalizacionService';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of, switchMap } from 'rxjs';
 import IEmpresasService from '../../../services/IEmpresasService';
 import { ISolicitudService } from '../../../services/solicitudes/ISolicitudService';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-solicitudes',
-  imports: [ReactiveFormsModule, JsonPipe, AsyncPipe],
+  imports: [ReactiveFormsModule, JsonPipe, AsyncPipe, SweetAlert2Module],
   templateUrl: './solicitudes.component.html',
   styleUrl: './solicitudes.component.scss'
 })
@@ -18,14 +20,17 @@ export class SolicitudesComponent {
   private serviciosLocalizacion = inject(ILocalizacionService);
   private servicioSolicitudes = inject(ISolicitudService);
   empresaId: number | null = 100;
+  numero_puestos: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   form = new FormGroup({
     nombreEmpresa: new FormControl('',
       [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
     actividad: new FormControl('',
       [Validators.required, Validators.maxLength(50)]),
-    cif: new FormControl('',
-      [Validators.required, Validators.pattern(/^[A-Z][0-9]{8}$/)]),
+      cif: new FormControl('', [
+        Validators.required,
+        Validators.pattern('^\\d{8}[A-Z]$')
+      ]),
     provincia: new FormControl<IRegion | null>(null, Validators.required),
     localidad: new FormControl<ITown | null>(null, Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -33,9 +38,9 @@ export class SolicitudesComponent {
     horario_comienzo: new FormControl('', [Validators.required]),
     horario_fin: new FormControl('', [Validators.required]),
     empresa_id:  new FormControl(1, [Validators.required]),
-    centro_id: new FormControl<ICentro | null>(null, Validators.required)
-    // centro_id: new FormControl<ICentro| null>(null, Validators.required)
-    // centro_id: new FormControl(2, [Validators.required]) // number; no los rellena nadie, los envio con input type hidden
+    centro_id: new FormControl<ICentro | null>(null, Validators.required),
+    ciclo_id: new FormControl <ICiclo | null>(null, Validators.required), // debo tener un tipo ICiclo al cual lo relaciono para obtener y asignar el id
+    numero_puestos: new FormControl<number | null>(null, [Validators.required]),
   },
   SolicitudesComponent.validacionHorasValidadas('horario_comienzo', 'horario_fin'));
 
@@ -61,11 +66,19 @@ export class SolicitudesComponent {
   protected centrosComputada = computed(() => this.centrosResource.value() ?? []);
 
   // Ciclos
-
+  ciclos$ = this.form.controls.centro_id.valueChanges.pipe(
+    switchMap((centro) =>
+      centro ? this.servicioSolicitudes.cargarCiclosSegunCentro(centro) : of([])
+    )
+  )
 
   onSubmit() {
     if (this.form.invalid) {
-      console.error('El formulario contiene errores');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error en el formulario',
+        text: 'Por favor, corrija los errores antes de enviar.',
+      });
       return;
     }
 
@@ -79,19 +92,55 @@ export class SolicitudesComponent {
       horario_fin : this.form.controls.horario_fin.value ?? null,
       email: this.form.controls.email.value ?? '',
       titularidad: this.form.controls.titularidad.value ?? '',
-      empresa_id: 1,
+      empresa_id: this.form.controls.empresa_id.value ?? null,
       centro_id: this.form.controls.centro_id.value?.id ?? null,
+      ciclo_id: this.form.controls.ciclo_id.value?.id ?? null,
+      numero_puestos: this.form.controls.numero_puestos.value ?? 0,
     }
+
     console.log('Datos enviados:', solicitud);
 
       this.servicioSolicitudes.crearSolicitud(solicitud).subscribe({
-        next: (res) => console.log('Solicitud creada exitosamente', res),
-        error: (err) => console.error('Error al crear solicitud', err),
+        // next: (res) =>
+        //   console.log('Solicitud creada exitosamente', res),
+        next: (res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Solicitud enviada',
+            text: 'La solicitud se ha creado correctamente.',
+          });
+          this.form.reset();
+        },
+        // error: (err) => console.error('Error al crear solicitud', err),
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al enviar',
+            text: 'Hubo un problema al procesar la solicitud.',
+          });
+          console.error('Error al crear solicitud', err);
+        },
         complete: () => console.log('Operación completada'),
       });
 
   }
 
+  onLimpiar() {
+    if (this.form.pristine) { // si el formulario no ha sido modificado
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El formulario ya está vacío.',
+      });
+    } else {
+      this.form.reset(); // si el formulario si tenía datos
+      Swal.fire({
+        icon: 'success',
+        title: 'Formulario limpiado',
+        text: 'Todos los campos han sido restablecidos.',
+      });
+    }
+  }
 
   // Validación cruzada horario
   static conventirASegundos(horario: string): number {

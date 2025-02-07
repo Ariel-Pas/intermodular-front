@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -26,6 +26,7 @@ import { ITokenService } from './services/token/ITokenService';
 import { TokenApiService } from './services/token/token-api.service';
 import { ISolicitudService } from './services/solicitudes/ISolicitudService';
 import { SolicitudApiService } from './services/solicitudes/solicitud-api.service';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 export const appConfig: ApplicationConfig = {
@@ -42,6 +43,7 @@ export const appConfig: ApplicationConfig = {
     {provide: ITokenService, useExisting: TokenApiService},
     {provide: ISolicitudService, useExisting: SolicitudApiService},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    importProvidersFrom(SweetAlert2Module.forRoot()),
     // DEBORA NOBS
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),

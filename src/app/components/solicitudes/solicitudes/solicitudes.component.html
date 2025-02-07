@@ -35,7 +35,7 @@
         <div class="col-md-6">
           <label for="cif" class="form-label">CIF</label>
           <input type="text" class="form-control" id="cif"
-            placeholder="B47362837" formControlName="cif">
+            placeholder="47362837B" formControlName="cif">
 
           @if (form.get('cif')?.invalid && (form.get('cif')?.touched ||
           form.get('cif')?.dirty)) {
@@ -43,7 +43,7 @@
             @if (form.get('cif')?.hasError('required')) {
             'El campo CIF es obligatorio' }
             @else if (form.get('cif')?.hasError('pattern')) {
-            'Formato de CIF incorrecto. Debe ser una letra seguida de 7 números y una letra/número.'
+            'Formato de CIF incorrecto.'
             }
           </span>
           } @else if(form.get('cif')?.valid && form.get('cif')?.touched) {
@@ -219,49 +219,46 @@
           }
         </div>
 
-        <!-- <div class="col-md-6">
-          <label for="centro_id" class="form-label">Centro</label>
-          <select class="form-select" id="centro_id"
-            formControlName="centro_id" name="centro_id">
 
-            @for (centro of centrosComputada(); track centro.id) {
+        <div class="col-md-6">
+          <label for="ciclo_id" class="form-label"> Ciclos</label>
+          <select class="form-select"
+            formControlName="ciclo_id" name="ciclo_id">
+
+            @for(ciclo of ciclos$ | async; track ciclo.id) {
             @if($first) {
-            <option [ngValue]="null" selected>Seleccione un centro</option>
+            <option [ngValue]="null" selected>Seleccione un ciclo</option>
             }
-            <option [ngValue]="centro"> {{ centro.nombre }}</option>
+            <option [ngValue]="ciclo"> {{ ciclo.nombre }}</option>
             } @empty {
-            <option [ngValue]="null">No hay centros disponibles</option>
+            <option [ngValue]="null">No hay ciclos disponibles</option>
             }
           </select>
+        </div>
 
-          @if(form.get('centro')?.touched &&
-          form.get('centro')?.hasError('required')){
-          <span class="error-msg">Elige un centro</span>
-          }
-        </div> -->
-
-        <!-- <div class="col-md-6">
-                    <label for="puestos" class="form-label">Puestos disponibles</label>
-                    <select class="form-select" name="vacantes" formControlName="vacantes"
-                    aria-label="Seleccionar vacantes" name="vacantes">
-                    @for (vacante of numeroVacantes; track vacante) {
-                      @if($first) {
-                        <option [ngValue]="null" selected>Elige una opcion...</option>
-                      }
-                    <option [ngValue]="vacante"> {{ vacante }} </option>
-                    }
-                  </select>
-                </div> -->
+        <div class="col-md-6">
+          <label for="numero_puestos" class="form-label">Numero puestos solicitados</label>
+          <select class="form-select" name="numero_puestos" formControlName="numero_puestos"
+            aria-label="Seleccionar vacantes" name="numero_puestos">
+            @for (vacante of numero_puestos; track vacante) {
+            @if($first) {
+            <option [ngValue]="null" selected>Elige una opcion...</option>
+            }
+            <option [ngValue]="vacante"> {{ vacante }} </option>
+            }
+          </select>
+        </div>
 
         <input type="hidden" formControlName="empresa_id">
+        <input type="hidden" formControlName="ciclo_id">
 
       </div>
 
       <input [disabled]="form.invalid" name="submit" type="submit"
         value="Registrar">
-      <input type="reset" value="Limpiar">
+      <input type="reset" (click)="onLimpiar()" value="Limpiar">
 
-    </form>
+  </form>
   </div>
 
 </div>

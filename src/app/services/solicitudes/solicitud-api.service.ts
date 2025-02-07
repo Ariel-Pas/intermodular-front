@@ -26,7 +26,7 @@ export class SolicitudApiService extends ISolicitudService {
     return this.http.get<ICentro[]>(`${this.api_url}api/centros`);
   }
 
-  cargarCiclosSegunCentro(centro: ICentro): Observable<ICentro> {
-    return this.http.get<ICentro>(`${this.api_url}api/ciclosPorCentro/${centro.id}`);
+  cargarCiclosSegunCentro(centro: ICentro): Observable<ICentro[]> {
+    return this.http.get<ICentro[]>(`${this.api_url}api/ciclosPorCentro/${centro.id}`);
   }
 }
