@@ -219,6 +219,25 @@
           }
         </div>
 
+        <!-- <table class="table">
+          <thead>
+            <tr>
+              <th>Ciclo formativo</th>
+              <th>Nº de alumnos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              @for(ciclo of ciclos$ | async; track ciclo.id) {
+                <td>{{ ciclo.nombre }}</td>
+                <td>
+                  <input type="number" class="form-control" formControlName="numero_puestos" min="0">
+                </td>
+              }
+            </tr>
+          </tbody>
+        </table> -->
+
 
         <div class="col-md-6">
           <label for="ciclo_id" class="form-label"> Ciclos</label>

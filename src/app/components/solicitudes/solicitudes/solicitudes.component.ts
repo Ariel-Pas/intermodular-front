@@ -87,7 +87,7 @@ export class SolicitudesComponent {
       actividad: this.form.controls.actividad.value ?? '',
       cif: this.form.controls.cif.value ?? '',
       provincia: this.form.controls.provincia.value?.name ?? null,
-      localidad: this.form.controls.localidad.value?.name ?? null,
+      localidad: this.form.controls.localidad.value?.id ?? null, // antes era name
       horario_comienzo : this.form.controls.horario_comienzo.value ?? null,
       horario_fin : this.form.controls.horario_fin.value ?? null,
       email: this.form.controls.email.value ?? '',
@@ -101,8 +101,6 @@ export class SolicitudesComponent {
     console.log('Datos enviados:', solicitud);
 
       this.servicioSolicitudes.crearSolicitud(solicitud).subscribe({
-        // next: (res) =>
-        //   console.log('Solicitud creada exitosamente', res),
         next: (res) => {
           Swal.fire({
             icon: 'success',
@@ -111,7 +109,6 @@ export class SolicitudesComponent {
           });
           this.form.reset();
         },
-        // error: (err) => console.error('Error al crear solicitud', err),
         error: (err) => {
           Swal.fire({
             icon: 'error',
