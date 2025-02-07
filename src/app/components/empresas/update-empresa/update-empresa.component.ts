@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, viewChild } from '@angular/core';
+import { Component, computed, inject, input, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICategoria, IEmpresaCompleta, INewEmpresa, IRegion, ITown } from '../../../types';
 import {
@@ -22,7 +22,7 @@ import {
   fileInputTodoImagenes,
   validarHoraInicioPrecedeFin,
 } from '../../FormValidation/FormValidationsFn';
-import { catchError, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 import { leerImagenBase64 } from '../../FuncionesGenerales';
 import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
 
@@ -42,27 +42,74 @@ import { IAuthenticationService } from '../../../services/auth/IAuthenticationSe
 export class UpdateEmpresaComponent {
   private route = inject(ActivatedRoute);
   public id = input.required<string>();
-
+  public empresaInfo : IEmpresaCompleta | null = null;
   public empresa!: IEmpresaCompleta;
+  private empresasService = inject(IEmpresasService);
+  private localizacionesService = inject(ILocalizacionService);
+  private categoriasService = inject(ICategoriaService);
+  private router = inject(Router);
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
-      this.empresa = data['empresa'];
-      this.form.patchValue({
-        nombre: this.empresa.nombre,
-        cif: this.empresa.cif,
-        email: this.empresa.email,
-        descripcion: this.empresa.descripcion,
-        vacantes: this.empresa.vacantes
-      });
+    this.route.data.pipe(
+      //pedirle todos los observables
+      switchMap((data)=> forkJoin({empresa: of(data['empresa'] as IEmpresaCompleta), provincias: this.localizacionesService.getRegiones(), localidades: this.localizacionesService.getPoblaciones(data['empresa'].direccion.provincia.id)})),
+      tap((datos)=>{
+        //this.poblacionesInit.set = this.localizacionesService.getPoblaciones(datos.empresa.direccion.provincia.id)
+        this.empresaInfo = datos.empresa;
 
-      this.form.controls.direccion.patchValue({
+        console.log(datos.empresa.direccion
+        );
+
+        this.provinciasInit.set(datos.provincias);
+        this.poblacionesInit.set(datos.localidades);
+        //));
+
+
+        this.form.patchValue({
+          nombre: datos.empresa.nombre,
+          cif: datos.empresa.cif,
+          email: datos.empresa.email,
+          descripcion:datos.empresa.descripcion,
+          vacantes: datos.empresa.vacantes
+        })
+
+        this.form.controls.direccion.patchValue({
+          calle: datos.empresa.direccion.calle,
+          coordX: datos.empresa.direccion.posicion.coordX,
+          coordY: datos.empresa.direccion.posicion.coordY,
+          provincia: this.provinciasInit()?.find(p => p.id == datos.empresa.direccion.provincia.id),
+          localidad: this.poblacionesInit()?.find(l => l.id == datos.empresa.direccion.poblacion.id)
+
+
+        })
+
+        this.form.controls.horarios.patchValue({
+          horarioManana: datos.empresa.horario.horario_manana,
+          horarioTarde: datos.empresa.horario.horario_tarde,
+          finSemana: datos.empresa.horario.finSemana
+        })
+
+      })
+
+    ).subscribe((datos) => {
+       /* data['empresa'] ; */
+      /* this.form.patchValue({
+        nombre: datos.empresa.nombre,
+        cif: datos.empresa.cif,
+        email: datos.empresa.email,
+        descripcion: datos.empresa.descripcion,
+        vacantes: datos.empresa.vacantes
+      }); */
+
+      /* this.form.controls.direccion.patchValue({
         calle: this.empresa.direccion.calle,
         coordX: this.empresa.direccion.posicion.coordX,
         coordY: this.empresa.direccion.posicion.coordY,
-       /*  provincia: this.provincias().find(p => p.id == this.empresa.direccion.provincia.id) */
+        provincia: this.provincias().find(p => p.id == this.empresa.direccion.provincia.id)
 
-      })
+      }) */
+
+    })
 
       //TODO esto por qué no va??
       /* this.localizacionesService.getRegiones().pipe(
@@ -75,7 +122,7 @@ export class UpdateEmpresaComponent {
         })
       ) */
 
-        this.localizacionesService.getRegiones().subscribe({
+       /*  this.localizacionesService.getRegiones().subscribe({
           next: (x) => {
             console.log(x);
 
@@ -91,7 +138,7 @@ export class UpdateEmpresaComponent {
         horarioTarde: this.empresa.horario.horario_tarde,
         finSemana: this.empresa.horario.finSemana
       })
-    });
+    }); */
 
     this.categoriasService.getAllServicios().subscribe({
       next: (x) => {
@@ -106,10 +153,7 @@ export class UpdateEmpresaComponent {
 
   }
 
-  private empresasService = inject(IEmpresasService);
-  private localizacionesService = inject(ILocalizacionService);
-  private categoriasService = inject(ICategoriaService);
-  private router = inject(Router);
+
 
   alert = viewChild.required(SwalComponent);
 
@@ -117,10 +161,14 @@ export class UpdateEmpresaComponent {
     loader: () => this.localizacionesService.getRegiones(),
   });
 
+  //this.provinciasRx.set() //actualizar array y clonar con filter
+
   public provincias = computed(() => this.provinciasRx.value() ?? []);
+  public provinciasInit = signal<IRegion[] | null>(null)
+  public poblacionesInit = signal<ITown[] | null>(null)
+
 
   //categorias y servicios
-
   private categoriasRx = rxResource({
     loader: () => this.categoriasService.getCategorias(),
   });
@@ -185,21 +233,21 @@ export class UpdateEmpresaComponent {
   });
 
   //cambiar localidades al cambiar provincia
-  localidades$ =
+  /* localidades$ =
     this.form.controls.direccion.controls.provincia.valueChanges.pipe(
       switchMap((provincia) =>
         provincia
           ? this.localizacionesService.getPoblaciones(provincia.id)
           : of([])
       )
-    );
+    ); */
 
   //Funciones validación
   nombreEmpresaDisponible(
     control: AbstractControl
   ): Observable<ValidationErrors | null> {
     if (control.value === '' || control.value === null) return of(null);
-    if(control.value === this.empresa.nombre) return of(null);
+    if(control.value === this.empresaInfo?.nombre) return of(null);
     return this.empresasService.getByName(control.value).pipe(
       map((x) => ({ 'nombre-disponible': true })),
       catchError(() => of(null))
@@ -211,7 +259,7 @@ export class UpdateEmpresaComponent {
   ): Observable<ValidationErrors | null> {
     if (control.value === '' || control.value === null) return of(null);
     //si no ha variado respecto al valor del cif de la empresa no hay error
-    if(control.value === this.empresa.cif) return of(null);
+    if(control.value === this.empresaInfo?.cif) return of(null);
     //buscar la empresa por cif. si el id es igual al de la empresa de la respuesta ok. sino fallo
     return this.empresasService.buscarPorCif(control.value).pipe(
       map((x) => ({
@@ -247,7 +295,7 @@ export class UpdateEmpresaComponent {
           return;
         }
         this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false});
-        
+
 
         const reader = new FileReader();
 
@@ -339,9 +387,9 @@ export class UpdateEmpresaComponent {
     private authService = inject(IAuthenticationService);
     onSubmit() {
 
-
+      //decidir qué método utilizar dependiendo de si el usuario está autenticado
       if(this.authService.token()){
-        this.empresasService.actualizarEmpresaAuth(this.empresa.id, this.modelToData()).subscribe({
+        this.empresasService.actualizarEmpresaAuth(this.empresaInfo?.id ?? '', this.modelToData()).subscribe({
         next: (x)=>{
           console.log(x);
           this.form.reset();

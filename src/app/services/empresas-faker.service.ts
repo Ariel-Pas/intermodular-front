@@ -37,10 +37,10 @@ export class EmpresasFakerService /* extends IEmpresasService */{
           direccion: {
             calle: 'Calle Innovación, 123',
             provincia: {id: '1', name: 'P', area: '10'},
-            poblacion:
-              this.towns[prov][
+            poblacion: {id: '1', name: 'p', region :'1'}
+              /* this.towns[prov][
                 Math.floor(Math.random() * this.towns[prov].length)
-              ],
+              ] */,
             posicion: {
               coordX: 38 + Math.random()*2.5,
               coordY: -0.7 + Math.random()*1,
@@ -92,7 +92,7 @@ export class EmpresasFakerService /* extends IEmpresasService */{
     direccion: {
       calle: 'Calle Innovación, 123',
       provincia: {id: '1', name: 'P', area: '10'},
-      poblacion: 'pob',
+      poblacion: {id: '1', name: 'p', region :'1'},
       posicion: {
         coordX: 38 + Math.random()*2.5,
         coordY: -0.7 + Math.random()*1,
@@ -115,6 +115,6 @@ export class EmpresasFakerService /* extends IEmpresasService */{
     puntuacion: Math.random()*10
   }
     return of(emp);
-  
+
   }
 }

@@ -56,7 +56,7 @@ export class GestionFiltradoEmpresasService {
       );
 
       filtrado = filtrado.filter((x) =>
-        this.filtros().localidad ? x.direccion.poblacion == this.filtros().localidad : true
+        this.filtros().localidad ? x.direccion.poblacion.name == this.filtros().localidad : true
       );
 
 
@@ -94,8 +94,8 @@ export class GestionFiltradoEmpresasService {
             else return notaMediaRight - notaMediaLeft;
 
           case 'municipio' :
-            if(this.orden() == 'asc') return left.direccion.poblacion.localeCompare(right.direccion.poblacion);
-            else return right.direccion.poblacion.localeCompare(left.direccion.poblacion);
+            if(this.orden() == 'asc') return left.direccion.poblacion.name.localeCompare(right.direccion.poblacion.name);
+            else return right.direccion.poblacion.name.localeCompare(left.direccion.poblacion.name);
 
         }
 

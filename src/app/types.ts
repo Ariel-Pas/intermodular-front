@@ -13,7 +13,7 @@ export interface IEmpresaDisplay {
   direccion: {
     calle: string;
     provincia: IRegion;
-    poblacion: string;
+    poblacion: ITown;
     posicion: {
       coordX: number;
       coordY: number;

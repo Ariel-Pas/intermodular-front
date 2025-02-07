@@ -29,7 +29,7 @@ export class EmpresasJsonService /* extends IEmpresasService */ {
         direccion: {
           calle: empresa.address.street,
           provincia: {id: '1', name: 'P', area: '10'},
-          poblacion: empresa.address.town,
+          poblacion: {id: '1', name: 'p', region :'1'},
           posicion: {
             coordX: empresa.address.position.lat,
             coordY: empresa.address.position.lng

@@ -102,8 +102,8 @@
               formControlName="provincia"
             >
               <option [ngValue]="null">Elige una provincia</option>
-              @for (provincia of provincias(); track provincia.id) {
-              <option [ngValue]="provincia" [selected]="provincia.id == empresa.direccion.provincia.id" >{{ provincia.name }}</option>
+              @for (provincia of provinciasInit(); track provincia.id) {
+              <option [ngValue]="provincia" >{{ provincia.name }}</option>
               }
             </select>
             @if(form.get('direccion')?.get('provincia')?.touched &&
@@ -120,7 +120,7 @@
               formControlName="localidad"
             >
               <option [ngValue]="null">Elige una localidad</option>
-              @for (localidad of localidades$ |async; track localidad .id) {
+              @for (localidad of poblacionesInit(); track localidad .id) {
               <option [ngValue]="localidad">{{ localidad.name }}</option>
               }
             </select>
@@ -161,7 +161,7 @@
       </div>
 
       <div class="col-md-6">
-        
+
 
         <fieldset formGroupName="horarios" class="mb-3">
           <div class="mb-3">
@@ -204,7 +204,7 @@
             <input type="checkbox" class="form-check-input" name="" id="" formControlName="finSemana" />
           </div>
 
-         
+
         </fieldset>
 
         <div class="mb-3">
