@@ -8,14 +8,12 @@ export interface IUniqueResource{
 export interface IEmpresaDisplay {
   id: string;
   nombre: string;
-  cif: string;
   descripcion: string;
   email?: string;
-  telefono? : string;
   direccion: {
     calle: string;
-    provincia: string;
-    poblacion: string;
+    provincia: IRegion;
+    poblacion: ITown;
     posicion: {
       coordX: number;
       coordY: number;
@@ -29,16 +27,15 @@ export interface IEmpresaDisplay {
   imagen: string;
   categorias: string[];
   servicios: string[];
-  vacantes: [
-    {
-      anyo : number,
-      cantidad: number
-    }
-  ];
-  puntuacion: {
-    profesor: number,
-    alumno: number
-  }
+  vacantes: number;
+  puntuacion: number
+}
+
+export interface IEmpresaCompleta extends IEmpresaDisplay{
+  urlEditar: string,
+  cif : string,
+  notas? : string
+
 }
 
 export interface EmpresaJson {
@@ -113,7 +110,8 @@ export type stringPair = [string, string];
 export interface ICredenciales{
   usuario : string | null,
   rol : string | null,
-  token : string | null
+  token : string | null,
+  centro?: number | null
 }
 
 
@@ -132,20 +130,100 @@ export interface IServicio{
 
 export interface INewEmpresa{
   nombre: string,
-  provincia: string //aqui meter el id?
-  localidad: string
+  provincia: string
+  localidad: string,
+  coordX: number,
+  coordY: number,
+  direccion: string,
   cif: string,
-  horario: {
-    manana: string,
-    tarde: string
-  },
-  categoria: string[],
+  email: string,
+  descripcion: string,
+  vacantes: number,
+  horario_manana: string,
+  horario_tarde: string,
+  finSemana : boolean,
+  categorias: string[],
   servicios: {categoria: string, id:string}[];
+  imagen: string,
+  tipoImagen: string
 }
+
+
 
 
 export interface ICheckboxOption{
   name: string,
   selected: boolean
   id: string
+}
+
+
+export interface UrlValue{
+  url: string
+}
+
+export interface ApiErrorMessage{
+  error:string
+}
+// Tipos formularios
+export interface IFormulario {
+  id: string,
+  nombre: string | null,
+  descripcion: string,
+  tipo: string
+}
+
+export interface IPregunta {
+  id: string;
+  titulo: string;
+  tipo: 'text' | 'textarea' | 'estrellas';
+  orden: string;
+}
+
+export interface IToken {
+  id: string | null;
+  token: string;
+  formulario_id: number | null;
+  centro_id: number | null;
+  empresa_id: number | null;
+}
+
+export interface IResenia {
+  respuesta: string | number | null;
+  pregunta_id: string;
+  formulario_id: number; //string
+  centro_id: number;
+  empresa_id: number;
+  [key: string]: any;
+}
+
+export interface IRespuesta {
+  pregunta_id: number;
+  respuesta: string | number | null;  // Puede ser texto, número o null
+}
+
+export interface ISolicitud {
+  nombreEmpresa: string;
+  actividad: string;
+  cif: string,
+  provincia: string | null,
+  localidad: string | null,
+  email: string,
+  titularidad: string,
+  horario_comienzo: string | null;
+  horario_fin: string | null;
+  empresa_id: number | null;
+  centro_id: ICentro | number | null;
+}
+
+
+export interface ICentro {
+  id: number;
+  nombre: string;
+  codigo: string;
+  email: string;
+  password: string;
+  direccion: string;
+  telefono: string;
+
 }

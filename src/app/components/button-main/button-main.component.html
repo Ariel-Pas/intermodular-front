@@ -9,7 +9,7 @@
   </button>
 }
 @else if(href()) {
-  <a  routerLink="{{href()}}" class="btn btn-primary{{flat()? 'background-flat' : ''}}">
+  <a  routerLink="{{'/'+href()}}" class="btn btn-primary{{flat()? 'background-flat' : ''}}">
     <span [innerHTML]="btnIcon()">
       <!-- <ng-content select="[icon]"></ng-content> -->
 

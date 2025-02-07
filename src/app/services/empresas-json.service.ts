@@ -11,27 +11,25 @@ import { Observable, of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresasJsonService extends IEmpresasService {
+export class EmpresasJsonService /* extends IEmpresasService */ {
   private empresas : IEmpresaDisplay[];
   private towns: InfoGeografia = townsJson;
 
   private data : EmpresaJson[] = empresasData['companies'];
 
   constructor() {
-    super();
+   // super();
     let ids = 0;
     this.empresas = this.data.map(empresa => {
       let e : IEmpresaDisplay =  {
         id: (ids++).toString(),
         nombre: empresa.name,
-        cif : '00000000X',
         descripcion: 'Empresa',
         email : empresa.email,
-        telefono: empresa.phone,
         direccion: {
           calle: empresa.address.street,
-          provincia: empresa.address.region,
-          poblacion: empresa.address.town,
+          provincia: {id: '1', name: 'P', area: '10'},
+          poblacion: {id: '1', name: 'p', region :'1'},
           posicion: {
             coordX: empresa.address.position.lat,
             coordY: empresa.address.position.lng
@@ -45,16 +43,8 @@ export class EmpresasJsonService extends IEmpresasService {
         imagen : empresa.image,
         categorias : empresa.categories,
         servicios: ['PHP', 'RRSS'],
-        vacantes: [
-          {
-            anyo: empresa.openings[0].year,
-            cantidad: empresa.openings[0].count
-          }
-        ],
-        puntuacion: {
-          profesor: empresa.score.teacher /10,
-          alumno: empresa.score.student /10
-        }
+        vacantes: 5,
+        puntuacion: empresa.score.student /10
 
       };
 

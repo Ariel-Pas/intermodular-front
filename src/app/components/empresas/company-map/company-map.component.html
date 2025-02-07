@@ -1,0 +1,32 @@
+<google-map
+  height="500px"
+  width="90%"
+  [zoom] = "10"
+  [center]="{ lat: 38.531533001869406, lng: -0.16290458405179312 }"
+>
+
+  @for (empresa of this.gestionEmpresas.empresasFiltradas(); track empresa.id) {
+    <map-marker
+    [position]="{lat: empresa.direccion.posicion.coordX, lng: empresa.direccion.posicion.coordY}"
+    [title]="empresa.nombre"
+    #marcador = "mapMarker"
+    (mapClick)="openInfoWindow(marcador, empresa)"
+    >
+
+    </map-marker>
+  }
+
+  <map-info-window>
+    <a routerLink="/company/{{marcadorSeleccionado?.id}}">
+      <h6>{{marcadorSeleccionado?.nombre}}</h6>
+    </a>
+    <span>Horario : {{marcadorSeleccionado?.horario?.horario_manana}} -{{marcadorSeleccionado?.horario?.horario_tarde}} </span>
+    <br>
+    <span>{{marcadorSeleccionado?.categorias?.join(', ')}}</span>
+    <br>
+    
+    <br>
+    <span>Email : <a href="mailto:{{marcadorSeleccionado?.email}}">{{marcadorSeleccionado?.email}}</a></span>
+  </map-info-window>
+
+</google-map>

@@ -2,6 +2,8 @@
 
 /* You can add global styles to this file, and also import other style files */
 
+//@import "../node_modules/bootstrap/scss/bootstrap";
+
   $blue: #46B6AC;
   $orange: #F08116;
   $red : #F08116;
@@ -18,3 +20,32 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+button{
+  background-color: $orange !important;
+  border: none !important;
+}
+
+.bg-orange{
+  background-color: $orange !important;
+  border: none !important;
+}
+
+//forms crud
+
+form{
+  .error-msg{
+  color: red;
+  }
+
+  .ng-invalid.ng-touched:not(form),
+  .ng-invalid.ng-dirty:not(form)
+  {
+    border-color: rgb(141, 63, 63);
+  }
+
+  label{
+    font-weight: bold;
+  }
+}

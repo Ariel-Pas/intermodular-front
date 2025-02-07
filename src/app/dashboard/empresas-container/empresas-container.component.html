@@ -1,32 +1,20 @@
-<!--Aqui solo va la barrita de arriba porque los hijos se proyectan-->
-<!-- <ul class="nav nav-underline mb-4" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" data-bs-toggle="list" id="lista-tab"
-    data-bs-target="#lista" role="tab" aria-controls="lista" aria-selected="true"
-    href="#lista"
-    >Listado</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-bs-toggle="list" id="mapa-tab"
-    data-bs-target="#mapa" role="tab" aria-controls="mapa"
-    href="#mapa"
-    >Mapa</a>
-  </li>
 
-</ul> -->
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+  <mat-tab label="Lista">
 
- <sections-underline [lista]="listaSecciones" [criteriosOrdenacion]="['Nombre', 'Vacantes', 'Municipio', 'Nota']"/>
-
-<div class="tab-content">
-  <div  class="tab-pane active" id="lista" role="tabpanel" aria-labelledby="lista-tab" tabindex="0">
     <div class="row gx-5 gy-6  row-cols-2 row-cols-lg-3  row-cols-xxl-4 ">
       <ng-content select="app-empresa-card"></ng-content>
     </div>
-  </div>
 
-  <div  class="tab-pane" id="mapa" role="tabpanel" aria-labelledby="mapa-tab" tabindex="0">
-    <ng-content></ng-content>
-  </div>
-</div>
+  </mat-tab>
+
+  <mat-tab label="Mapa">
+
+    <company-map/>
+  </mat-tab>
+
+</mat-tab-group>
+
+
 
 

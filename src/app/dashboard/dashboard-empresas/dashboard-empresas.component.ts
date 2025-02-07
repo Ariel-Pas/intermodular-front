@@ -1,4 +1,4 @@
-import { Component, computed, effect, model, Signal, signal } from '@angular/core';
+/* import { Component, computed, effect, model, Signal, signal } from '@angular/core';
 import { FiltroEmpresasComponent } from '../filtro-empresas/filtro-empresas.component';
 import { EmpresasContainerComponent } from '../empresas-container/empresas-container.component';
 import { EmpresaCardComponent } from '../card-empresa/card-empresa.component';
@@ -12,9 +12,9 @@ import { SectionsUnderlineComponent } from '../../components/sections-underline/
   selector: 'dashboard-empresas',
   imports: [
     FiltroEmpresasComponent,
-    EmpresasContainerComponent,
+
     EmpresaCardComponent,
-    SectionsUnderlineComponent
+
   ],
   templateUrl: './dashboard-empresas.component.html',
   styleUrl: './dashboard-empresas.component.scss',
@@ -33,3 +33,4 @@ export class DashboardEmpresasComponent {
 
 
 }
+ */

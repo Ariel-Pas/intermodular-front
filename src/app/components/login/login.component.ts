@@ -1,13 +1,14 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { IAuthenticationService } from '../../services/auth/IAuthenticationService';
 import { ICredenciales } from '../../types';
 import { Observable } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [SweetAlert2Module],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -17,8 +18,7 @@ export class LoginComponent {
   private router = inject(Router);
   public email = signal<string>('');
   public password = signal<string>('');
-  public error = signal<boolean>(false);
-
+  public aviso= viewChild.required(SwalComponent)
 
 
   //on init comprobar si hay que redireccionar
@@ -36,11 +36,9 @@ export class LoginComponent {
       {
         next: (value) => {
           if(value.token != null) this.router.navigate(['/profile']);
-          //else this.error.set(true);
-
         },
         error: ()=> {
-          this.error.set(true)
+          this.aviso().fire();
         }
 
       }

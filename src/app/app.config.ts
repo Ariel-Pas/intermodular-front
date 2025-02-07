@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -16,16 +16,51 @@ import { LocalizacionesJsonService } from './services/localizacion/localizacione
 import { ICategoriaService } from './services/categorias/ICategoriasService';
 import { CategoriasJsonService } from './services/categorias/categorias-json.service';
 
+//import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { LocalizacionesApiService } from './services/localizacion/localizaciones-api.service';
+
+import { API_URL } from './tokens/token-formulario';
+import { IFormulariosService } from './services/formularios/IFormulariosService';
+import { FormulariosApiService } from './services/formularios/formularios-api.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { IReseniaService } from './services/resenias/IReseniaService';
+import { ReseniaApiService } from './services/resenias/resenia-api.service';
+import { ITokenService } from './services/token/ITokenService';
+import { TokenApiService } from './services/token/token-api.service';
+import { ISolicitudService } from './services/solicitudes/ISolicitudService';
+import { SolicitudApiService } from './services/solicitudes/solicitud-api.service';
+
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    {provide: IEmpresasService, useExisting: EmpresasFakerService},
+    {provide: IEmpresasService, useExisting: EmpresasApiService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
-    {provide: ILocalizacionService, useExisting: LocalizacionesJsonService},
+    {provide: ILocalizacionService, useExisting: LocalizacionesApiService},
     {provide: ICategoriaService, useExisting: CategoriasJsonService},
-    {provide: API_BASE, useValue: 'http://localhost:3000'},
+
+    {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
+    importProvidersFrom(SweetAlert2Module.forRoot()),
+
+
+    //{provide: API_BASE, useValue: 'http://localhost:3000'},
+    // DEBORA NOBS
+    //{provide: API_URL, useValue: 'http://localhost:8000/'},
+    {provide: IFormulariosService, useExisting: FormulariosApiService},
+    {provide: IReseniaService, useExisting: ReseniaApiService},
+    {provide: ITokenService, useExisting: TokenApiService},
+    {provide: ISolicitudService, useExisting: SolicitudApiService},
+    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    // DEBORA NOBS
+   // provideHttpClient(withInterceptors([AuthTokenInterceptor])),
+    //provideRouter(routes, withComponentInputBinding()),
+    //provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), ////provideAnimationsAsync()
+
   ]
 };
+

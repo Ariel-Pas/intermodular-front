@@ -1,0 +1,97 @@
+<div class="container w-75 mx-auto my-5">
+  <div class="card border-0 shadow-lg overflow-hidden">
+    <div class="card-header text-white text-center py-5" style="background: linear-gradient(135deg, #F12711, #F5AF19);">
+      <h1 class="display-4 mb-3">Formulario de Evaluación</h1>
+      <p class="lead mb-0">Por favor, completa el siguiente formulario</p>
+    </div>
+    <div class="card-body p-5">
+      <form (ngSubmit)="onSubmit()" (reset)="form.reset()" [formGroup]="form">
+        <ul class="list-unstyled">
+
+          @for (pregunta of preguntas; track pregunta.id) {
+          <li class="mb-5">
+            <h3 class="h4 mb-4 font-weight-bold" style="color: black;">{{ pregunta.titulo }}</h3>
+
+            @if (pregunta.tipo === 'text') {
+              <div class="form-group">
+                <input
+                  class="form-control form-control-lg border-0 shadow-sm rounded-pill"
+                  formControlName="{{pregunta.id.toString()}}"
+                  placeholder="Escribe tu respuesta"
+                  style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;"
+                />
+                @if (form.get(pregunta.id.toString())?.invalid && form.get(pregunta.id.toString())?.touched) {
+                   @if(form.get(pregunta.id.toString())?.hasError('maxlength')) {
+                    <small class="text-danger">No puedes superar los 60 caracteres</small>
+                  }
+                  @if (form.get(pregunta.id.toString())?.hasError('required')) {
+                    <small class="text-danger">El campo es obligatorio</small>
+                  }
+                }
+              </div>
+            }
+            @if (pregunta.tipo === 'textarea') {
+              <div class="form-group">
+                <textarea
+                  class="form-control form-control-lg border-0 shadow-sm rounded-lg"
+                  formControlName="{{pregunta.id.toString()}}"
+                  rows="4"
+                  placeholder="Escribe tu respuesta"
+                  style="background: rgba(241, 39, 17, 0.1); border: 1px solid #F12711;"
+                ></textarea>
+                @if (form.get(pregunta.id.toString())?.invalid && form.get(pregunta.id.toString())?.touched) {
+                  @if(form.get(pregunta.id.toString())?.hasError('maxlength')) {
+                   <small class="text-danger">No puedes superar los 200 caracteres</small>
+                 }
+                 @if (form.get(pregunta.id.toString())?.hasError('required')) {
+                   <small class="text-danger">El campo es obligatorio</small>
+                 }
+               }
+              </div>
+            }
+            @if (pregunta.tipo === 'estrellas') {
+              <div class="star-rating mb-4">
+                @for (star of [0, 1, 2, 3, 4]; track star) {
+                  <button
+                    type="button"
+                    class="btn btn-star btn-lg"
+                    (click)="onClick(pregunta.id.toString(), star + 1)"
+                    [matTooltip]="'Rate ' + (star + 1)"
+                    matTooltipPosition="above"
+                    [style.background]="ratings[pregunta.id] >= star + 1 ? 'linear-gradient(135deg, #F12711, #F5AF19)' : '#ddd'"
+                    [style.color]="ratings[pregunta.id] >= star + 1 ? '#fff' : '#888'"
+                  >
+                    <mat-icon>star</mat-icon>
+                  </button>
+                  @if (form.get(pregunta.id.toString())?.invalid && form.get(pregunta.id.toString())?.touched) {
+                   @if (form.get(pregunta.id.toString())?.hasError('required')) {
+                     <small class="text-danger">El campo es obligatorio</small>
+                   }
+                 }
+                }
+                <input type="hidden" formControlName="{{pregunta.id.toString()}}">
+              </div>
+              <p class="text-muted font-italic">Tu calificación: {{ ratings[pregunta.id] || 0 }} / {{ starCount }}</p>
+            }
+          </li>
+          }
+        </ul>
+
+        <!-- Inputs ocultos para los IDs -->
+        <input type="hidden" formControlName="formulario_id">
+        <input type="hidden" formControlName="centro_id">
+        <input type="hidden" formControlName="empresa_id">
+
+
+        <div class="text-center mt-5">
+
+          <button type="submit" class="btn btn-lg px-5 py-3 rounded-pill shadow-lg" [disabled]="form.invalid" style="background: linear-gradient(135deg, #F12711, #F5AF19); color: #fff; border: none;">
+            <mat-icon>send</mat-icon> Enviar Respuestas
+          </button>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

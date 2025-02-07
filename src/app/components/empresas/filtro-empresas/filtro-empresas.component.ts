@@ -10,19 +10,13 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { InfoGeografia, IFiltros, ITown, IRegion, IFiltrosModel } from '../../types';
-import townsJson from '../../data/towns.json';
-import { ButtonMainComponent } from '../../components/button-main/button-main.component';
-import { CaracteresProhibidosInputDirective } from '../../directives/caracteres-prohibidos-input.directive';
-import IEmpresasService from '../../services/IEmpresasService';
-import { GestionFiltradoEmpresasService } from '../../services/gestion-filtrado-empresas.service';
-import { ILocalizacionService } from '../../services/localizacion/ILocalizacionService';
-import { LocalizacionesJsonService } from '../../services/localizacion/localizaciones-json.service';
-import { LocalizacionesApiService } from '../../services/localizacion/localizaciones-api.service';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { ICategoriaService } from '../../services/categorias/ICategoriasService';
-import { CategoriasApiService } from '../../services/categorias/categorias-api.service';
-import { CategoriasJsonService } from '../../services/categorias/categorias-json.service';
+import { ButtonMainComponent } from '../../button-main/button-main.component';
+import { CaracteresProhibidosInputDirective } from '../../../directives/caracteres-prohibidos-input.directive';
+import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
+import { ILocalizacionService } from '../../../services/localizacion/ILocalizacionService';
+import { ICategoriaService } from '../../../services/categorias/ICategoriasService';
+import { IFiltros, IFiltrosModel } from '../../../types';
 
 
 interface IFiltrosForm extends HTMLFormControlsCollection {
@@ -146,6 +140,7 @@ export class FiltroEmpresasComponent {
   }
 
   onSubmit(){
+
     this.empresasService.actualizarFiltros(FiltroEmpresasComponent.modelToData(this.model))
   }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DashboardEmpresasComponent } from './dashboard/dashboard-empresas/dashboard-empresas.component';
+
 import { PlantillaComponent } from './components/plantilla/plantilla.component';
 
 @Component({

@@ -1,1 +1,121 @@
-<p>Empresa {{empresa.nombre}} con id {{this.id()}} de {{empresa.direccion.provincia}}</p>
+
+<!-- <p>Empresa {{empresa.nombre}} con id {{this.id()}} de {{empresa.direccion.provincia}}</p>
+ -->
+<div class="container">
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="col-12 col-md-10">
+        <mat-tab label="Empresa">
+            <div class="row align-items-center">
+                <div class="col-5">
+                    <h3 class="nombre-empresa">{{empresa.nombre}}</h3>
+                </div>
+                <div class="col-4 col-md-2 col-xlg-2  offset-1">
+                    <img class="img-fluid" src="{{empresa.imagen}}" >
+                </div>
+            </div>
+            <div class="informacion">
+                <div>
+                    <p>Link para editar : {{urlEditarToken}}</p>
+                </div>
+
+                <!--Notas-->
+                <form [formGroup]="formNotas" (ngSubmit)="actualizarNotas()">
+                    <label for="" class="form-label">Notas</label>
+                    <input type="text" class="form-control" formControlName="notas" name="" id="">
+                    <input type="submit" class="btn btn-primary" value="Actualizar">
+                </form>
+
+
+            </div>
+            <div class="acciones">
+
+                <button-main text="Contactar" />
+
+                <button-main text="Eliminar"  (click)="eliminarEmpresa($event)" [flat]="true" />
+                <button-main text="Editar" [href]="urlEditar"/>
+
+            </div>
+
+
+        </mat-tab>
+
+
+      </mat-tab-group>
+
+
+
+
+</div>
+
+<swal title="" text="" icon="success"></swal>
+
+
+
+<div class="container mt-4">
+  <div class="card p-4 shadow-sm">
+    <h5 class="card-title">
+      Empresa <strong>{{ empresa.nombre }}</strong> con ID <strong>{{ this.id() }}</strong> de <strong>{{ empresa.direccion.provincia }}</strong>
+    </h5>
+
+    <form (submit)="crearToken($event)" class="mt-3">
+      <div class="mb-3">
+        <label for="formulario" class="form-label">Seleccione un formulario:</label>
+        <select class="form-select" [(ngModel)]="formularioId" name="formulario">
+          <option value="1" selected>Crear Token Formulario 1 (Empresas)</option>
+          <option value="2">Crear Token Formulario 2 (Alumnos)</option>
+        </select>
+
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Generar Token</button>
+    </form>
+
+  <div class="mt-3">
+      <label for="token" class="form-label">Token Generado:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="token"
+        [value]="tokenIngresado"
+        (input)="onInputChange($event)"
+        placeholder=""
+      /> <!--[(ngModel)]="tokenIngresado" -->
+    </div>
+<!--
+    @if (urlFormulario) {
+      <div class="mt-3">
+        <p class="text-success">
+          URL: <a [href]="urlFormulario" target="_blank">{{ urlFormulario }}</a>
+        </p>
+      </div>
+    } -->
+
+    <button class="btn btn-success mt-3 w-100" (click)="buscarFormulario()">
+      Buscar Formulario
+    </button>
+
+
+  </div>
+</div>
+
+
+
+<!-- <p>Empresa {{ empresa.nombre }} con id {{ this.id() }} de {{ empresa.direccion.provincia }}</p>
+
+<form (submit)="crearToken($event)">
+  <select [(ngModel)]="formularioId" name="formulario">
+    <option value="1" selected>Crear Token Formulario 1 (Empresas)</option>
+    <option value="2">Crear Token Formulario 2 (Alumnos)</option>
+  </select>
+
+  <button type="submit">Generar Token</button>
+</form>
+
+<input type="text" [(ngModel)]="tokenIngresado" placeholder="Ingrese el token" />
+<button (click)="buscarFormulario()">Buscar Formulario</button>
+
+ @if (urlFormulario) {
+  <p>URL: <a [href]="urlFormulario" target="_blank">{{ urlFormulario }}</a></p>
+}
+ -->
+
