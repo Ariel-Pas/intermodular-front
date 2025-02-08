@@ -125,6 +125,12 @@ export interface IServicio{
   category : string,
   id : string,
   name : string
+  categories? : string[]
+}
+
+export interface CategoryService{
+  servicio: string,
+  categoria: string
 }
 
 
@@ -142,8 +148,7 @@ export interface INewEmpresa{
   horario_manana: string,
   horario_tarde: string,
   finSemana : boolean,
-  categorias: string[],
-  servicios: {categoria: string, id:string}[];
+  servicios: CategoryService[];
   imagen: string,
   tipoImagen: string
 }
@@ -227,3 +232,6 @@ export interface ICentro {
   telefono: string;
 
 }
+
+
+

@@ -10,6 +10,15 @@ import { rxResource } from '@angular/core/rxjs-interop';
 })
 export class GestionFiltradoEmpresasService {
 
+  constructor(){
+    effect(()=> {
+      console.log(
+        this.empresas()
+      );
+
+    })
+  }
+
   //private empresas = signal<IEmpresaDisplay[]>([]);
   private filtros = signal<IFiltros>({
     nombre: '',
@@ -20,6 +29,7 @@ export class GestionFiltradoEmpresasService {
     servicio: ''
   });
 
+  
   public orden = signal<string>('asc');
   //tipo asc|desc
   public criterio = signal<string>('nombre');

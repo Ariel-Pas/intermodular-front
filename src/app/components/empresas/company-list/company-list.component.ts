@@ -4,9 +4,7 @@ import { EmpresaCardComponent } from '../card-empresa/card-empresa.component';
 import IEmpresasService from '../../../services/IEmpresasService';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
-import { tap } from 'rxjs';
-import { ur } from '@faker-js/faker';
-;
+
 
 @Component({
   selector: 'company-list',
@@ -21,28 +19,28 @@ export class CompanyListComponent {
       console.log('url',this.url());
 
     })
+
+    effect(()=>{
+      console.log(this.empresasFiltradasService.empresas());
+    })
+
+
+
   }
+
+
 
 
   public empresasFiltradasService = inject(GestionFiltradoEmpresasService);
   public empresasService = inject(IEmpresasService);
 
-/*   protected url = signal('');
-  url$ = this.empresasService.getUrlAbierta().pipe(
-    tap(response => {
-      this.url.set(response.url)
-      console.log('tap');
 
-      console.log(response);
 
+    private empresasRx = rxResource({
+      loader: () => this.empresasService.getEmpresas()
     })
-  ) */
 
-/*   url$ = this.empresasService.getUrlAbierta().subscribe({
-    next(x) {
-      this.url.set(x.url)
-    }
-  }) */
+    public empresas = computed(()=> this.empresasRx.value() ?? []);
 
 
   private urlCompartirRx = rxResource({
@@ -54,10 +52,5 @@ export class CompanyListComponent {
   protected baseurl = `${window.origin}/empresas-alumnos/`;
   protected url = computed(() => this.urlCompartir() ? `${this.baseurl}${this.urlCompartir().url}`  : '');
 
-  /* private empresasRx = rxResource({
-    loader: () => this.servicioEmpresas.getEmpresas()
-  })
-
-    private empresas = computed(()=> this.empresasRx.value() ?? []);*/
 
 }

@@ -3,6 +3,7 @@ import { ILocalizacionService } from '../../../services/localizacion/ILocalizaci
 import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ApiErrorMessage,
+  CategoryService,
   ICategoria,
   ICheckboxOption,
   IEmpresaDisplay,
@@ -224,12 +225,11 @@ export class CreateEmpresaComponent {
     if (!infoServicio) return true;
     //comparar la categoria del servicio encontrado con el valor seleccionado
     //para saber si hay que esconderlo o no
-    let esconder =
-      infoServicio.category !=
-      this.form.controls.categorizacion.controls.categoria.value?.id;
+    let esconder = !infoServicio.categories?.includes(this.form.controls.categorizacion.controls.categoria.value?.id ?? '');
 
     return esconder;
   }
+
 
   //Funciones validación
   nombreEmpresaDisponible(
@@ -242,6 +242,7 @@ export class CreateEmpresaComponent {
       catchError(() => of(null))
     );
   }
+
 
 /*
   fileInputTodoImagenesLocal(fileInputName : string) :  ValidatorFn {
@@ -264,7 +265,34 @@ export class CreateEmpresaComponent {
     }
   } */
 
+  private infoServiciosSeleccionados :  IServicio[] = [];
 
+  //método que mantiene actualizado el array inforServiciosSeleccionados
+  protected onChangeServicio(event: Event){
+
+    const checkbox = event.target as HTMLInputElement;
+    //obtener servicio correspondiente
+    const servicioSeleccionado = this.servicios().find(serv => serv.name == checkbox.name);
+
+    if(servicioSeleccionado && this.form.controls.categorizacion.controls.categoria.value){
+      //buscar la categoría seleccionada
+      let categoriaSeleccionada = this.form.controls.categorizacion.controls.categoria.value?.id;
+      //crear un objeto con la información del servicio y la categoría
+      let infoServicio = {...servicioSeleccionado, category : categoriaSeleccionada};
+      //buscar si este servicio con esta categoría ya está en el array de seleccionados
+      const servicioYaSeleccionado = this.infoServiciosSeleccionados.findIndex(serv => serv.name == servicioSeleccionado.name && serv.category == categoriaSeleccionada);
+      //si ya está en el array lo quitamos porque ha sido deseleccionado
+      if(servicioYaSeleccionado >= 0) this.infoServiciosSeleccionados.splice(servicioYaSeleccionado, 1);
+      //si no está se añade al array
+      else this.infoServiciosSeleccionados.push(infoServicio);
+
+    }
+
+  }
+
+  obtenerServiciosYCategorias(): CategoryService[]{
+    return this.infoServiciosSeleccionados.map(infoServ => {return {servicio: infoServ.id, categoria: infoServ.category}})
+  }
 
   //obtener id de la categoria de un servicio a partir de su nombre
   private obtenerIdCategoria(servicio: string | undefined) {
@@ -335,8 +363,8 @@ export class CreateEmpresaComponent {
       horario_manana: this.form.controls.horarios.controls.horarioManana.value ?? '',
       horario_tarde: this.form.controls.horarios.controls.horarioTarde.value ?? '',
       finSemana: this.form.controls.horarios.controls.finSemana.value ?? false,
-      categorias: this.obtenerCategorias(),
-      servicios: this.obtenerServicios(),
+      servicios: this.obtenerServiciosYCategorias(),
+
     };
   }
 

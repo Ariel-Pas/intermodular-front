@@ -54,7 +54,7 @@
 <div class="container mt-4">
   <div class="card p-4 shadow-sm">
     <h5 class="card-title">
-      Empresa <strong>{{ empresa.nombre }}</strong> con ID <strong>{{ this.id() }}</strong> de <strong>{{ empresa.direccion.provincia }}</strong>
+      Empresa <strong>{{ empresa.nombre }}</strong> con ID <strong>{{ this.id() }}</strong> de <strong>{{ empresa.direccion.provincia.name }}</strong>
     </h5>
 
     <form (submit)="crearToken($event)" class="mt-3">

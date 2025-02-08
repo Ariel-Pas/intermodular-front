@@ -1,6 +1,6 @@
 import { Component, computed, inject, input, signal, viewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ICategoria, IEmpresaCompleta, INewEmpresa, IRegion, ITown } from '../../../types';
+import { CategoryService, ICategoria, IEmpresaCompleta, INewEmpresa, IRegion, IServicio, ITown } from '../../../types';
 import {
   AbstractControl,
   FormControl,
@@ -233,14 +233,18 @@ export class UpdateEmpresaComponent {
   });
 
   //cambiar localidades al cambiar provincia
-  /* localidades$ =
+  localidades$ =
     this.form.controls.direccion.controls.provincia.valueChanges.pipe(
       switchMap((provincia) =>
         provincia
           ? this.localizacionesService.getPoblaciones(provincia.id)
           : of([])
+      ),
+      tap(datos =>
+        this.poblacionesInit.set(datos)
       )
-    ); */
+    );
+
 
   //Funciones validación
   nombreEmpresaDisponible(
@@ -313,6 +317,35 @@ export class UpdateEmpresaComponent {
     }
   }
 
+  private infoServiciosSeleccionados :  IServicio[] = [];
+
+    //método que mantiene actualizado el array inforServiciosSeleccionados
+    protected onChangeServicio(event: Event){
+
+      const checkbox = event.target as HTMLInputElement;
+      //obtener servicio correspondiente
+      const servicioSeleccionado = this.servicios().find(serv => serv.name == checkbox.name);
+
+      if(servicioSeleccionado && this.form.controls.categorizacion.controls.categoria.value){
+        //buscar la categoría seleccionada
+        let categoriaSeleccionada = this.form.controls.categorizacion.controls.categoria.value?.id;
+        //crear un objeto con la información del servicio y la categoría
+        let infoServicio = {...servicioSeleccionado, category : categoriaSeleccionada};
+        //buscar si este servicio con esta categoría ya está en el array de seleccionados
+        const servicioYaSeleccionado = this.infoServiciosSeleccionados.findIndex(serv => serv.name == servicioSeleccionado.name && serv.category == categoriaSeleccionada);
+        //si ya está en el array lo quitamos porque ha sido deseleccionado
+        if(servicioYaSeleccionado >= 0) this.infoServiciosSeleccionados.splice(servicioYaSeleccionado, 1);
+        //si no está se añade al array
+        else this.infoServiciosSeleccionados.push(infoServicio);
+
+      }
+
+    }
+
+    obtenerServiciosYCategorias(): CategoryService[]{
+      return this.infoServiciosSeleccionados.map(infoServ => {return {servicio: infoServ.id, categoria: infoServ.category}})
+    }
+
   private obtenerIdCategoria(servicio: string | undefined) {
     const infoServicio = this.servicios().find((x) => x.name == servicio);
     return infoServicio?.category ?? '';
@@ -378,8 +411,7 @@ export class UpdateEmpresaComponent {
         horario_manana: this.form.controls.horarios.controls.horarioManana.value ?? '',
         horario_tarde: this.form.controls.horarios.controls.horarioTarde.value ?? '',
         finSemana: this.form.controls.horarios.controls.finSemana.value ?? false,
-        categorias: this.obtenerCategorias(),
-        servicios: this.obtenerServicios(),
+        servicios: this.obtenerServiciosYCategorias(),
       };
     }
 

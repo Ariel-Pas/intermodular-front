@@ -263,8 +263,12 @@
         >{{ servicio.key }}
           <input
             type="checkbox"
+            value = {{servicio.key}}
+            name = {{servicio.key}}
+            [value] = "servicio.key"
             [formControlName]="servicio.key"
             [checked]="servicio.value"
+            (change)="onChangeServicio($event)"
             class="mx-1"
         /></label>
         } @if ( form.get('categorizacion')?.get('categoria')?.touched &&
@@ -291,3 +295,4 @@
 </div>
 
 <swal title=" " text=" " icon="success"></swal>
+
