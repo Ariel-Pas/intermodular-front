@@ -36,12 +36,19 @@ export class CategoriasApiService extends ICategoriaService {
 
 
   getServicios(idCategoria: string): Observable<IServicio[]> {
-    return this.httpClient.get<IServicio[]>(`${this.baseUrl}/services`, {
-      params: { category: idCategoria },
-    });
+    return this.httpClient.get<IServicioApi[]>(`${this.baseUrl}/categoria/servicios/${idCategoria}`).pipe(
+      map(x => x.map(elem => {
+        return {
+          id: elem.id,
+          name: elem.nombre,
+          categories: elem.categorias,
+          category: ''
+        }
+      }))
+    );
   }
 
-  
+
   getAllServicios() : Observable<IServicio[]>
   {
     return this.httpClient.get<IServicioApi[]>(`${this.baseUrl}/servicios-simple`).pipe(

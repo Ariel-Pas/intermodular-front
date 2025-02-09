@@ -24,7 +24,7 @@ export interface IEmpresaDisplay {
     horario_tarde: string;
     finSemana: boolean;
   };
-  imagen: string;
+  imagen: string | null;
   categorias: string[];
   servicios: string[];
   vacantes: number;
