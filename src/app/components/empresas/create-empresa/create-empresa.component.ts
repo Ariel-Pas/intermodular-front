@@ -195,6 +195,7 @@ export class CreateEmpresaComponent {
         const fileList = event.target.files;
         if(fileList && fileList.length == 1){
           if (!fileList[0].type.startsWith("image/")) {
+        
             return;
           }
           this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false})
@@ -295,12 +296,12 @@ export class CreateEmpresaComponent {
   }
 
   //obtener id de la categoria de un servicio a partir de su nombre
-  private obtenerIdCategoria(servicio: string | undefined) {
+/*   private obtenerIdCategoria(servicio: string | undefined) {
     const infoServicio = this.servicios().find((x) => x.name == servicio);
     return infoServicio?.category ?? '';
-  }
+  } */
 
-  //obtener categorias seleccionadas a partir de servicios seleccionados
+/*   //obtener categorias seleccionadas a partir de servicios seleccionados
   private obtenerCategorias(): string[] {
     const serviciosForm = this.form
       .get('categorizacion')
@@ -337,7 +338,7 @@ export class CreateEmpresaComponent {
     }
 
     return arrayServicios;
-  }
+  } */
 
 
   modelToData(): INewEmpresa {

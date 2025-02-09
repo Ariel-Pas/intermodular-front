@@ -29,7 +29,7 @@ export class GestionFiltradoEmpresasService {
     servicio: ''
   });
 
-  
+
   public orden = signal<string>('asc');
   //tipo asc|desc
   public criterio = signal<string>('nombre');
@@ -78,11 +78,11 @@ export class GestionFiltradoEmpresasService {
 
       filtrado = filtrado.filter((x) =>
         this.filtros().categoria
-          ? x.categorias.includes(this.filtros().categoria)
+          ? x.categorias.find(cat => cat.name == this.filtros().categoria)
           : true
       );
 
-      filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.includes(this.filtros().servicio) : true);
+      filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.find(serv => serv.name == this.filtros().servicio) : true);
 
 
 

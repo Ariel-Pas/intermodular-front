@@ -3,8 +3,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import IEmpresasService from './services/IEmpresasService';
-import { EmpresasFakerService } from './services/empresas-faker.service';
-import { EmpresasJsonService } from './services/empresas-json.service';
+//import { EmpresasFakerService } from './services/empresas-faker.service';
+//import { EmpresasJsonService } from './services/empresas-json.service';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { EmpresasApiService } from './services/empresas-api.service';
 import { IAuthenticationService } from './services/auth/IAuthenticationService';

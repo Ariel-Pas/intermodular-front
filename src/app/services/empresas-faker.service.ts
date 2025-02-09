@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+/* import { Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, InfoGeografia } from '../types';
 import townsJson from '../data/towns.json';
@@ -7,7 +7,7 @@ import { Observable, of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresasFakerService /* extends IEmpresasService */{
+export class EmpresasFakerService /* extends IEmpresasService {
 
   private empresas : IEmpresaDisplay[];
 
@@ -40,7 +40,7 @@ export class EmpresasFakerService /* extends IEmpresasService */{
             poblacion: {id: '1', name: 'p', region :'1'}
               /* this.towns[prov][
                 Math.floor(Math.random() * this.towns[prov].length)
-              ] */,
+              ] ,
             posicion: {
               coordX: 38 + Math.random()*2.5,
               coordY: -0.7 + Math.random()*1,
@@ -117,4 +117,4 @@ export class EmpresasFakerService /* extends IEmpresasService */{
     return of(emp);
 
   }
-}
+} */

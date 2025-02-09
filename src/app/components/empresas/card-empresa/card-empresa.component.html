@@ -4,7 +4,11 @@
     <h6 class="card-subtitle mb-2 text-body-secondary ">{{empresa().direccion.poblacion.name}} - ({{empresa().direccion.provincia.name}})</h6>
     <h5 class="card-title fw-bold fs-6">{{empresa().nombre}}</h5>
     <!--categorias-->
-    <h6 class="card-subtitle mb-2 text-body-secondary">{{empresa().categorias}}</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">
+      @for (cat of empresa().categorias; track cat) {
+        {{cat.name}},
+      }
+    </h6>
     <!--Localizacion-->
     <div class="my-2 row align-items-center">
       <div class="col-1">

@@ -255,8 +255,10 @@
           <input
             type="checkbox"
             [formControlName]="servicio.key"
+            [name]="servicio.key"
             [checked]="servicio.value"
             class="mx-1"
+            (change)="onChangeServicio($event)"
         /></label>
         } @if ( form.get('categorizacion')?.get('categoria')?.touched &&
         form.controls.categorizacion.controls.servicios.hasError('validar-checkbox'))

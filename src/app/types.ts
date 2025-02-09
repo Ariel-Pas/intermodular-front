@@ -25,8 +25,8 @@ export interface IEmpresaDisplay {
     finSemana: boolean;
   };
   imagen: string | null;
-  categorias: string[];
-  servicios: string[];
+  categorias: ICategoria[];
+  servicios: IServicio[];
   vacantes: number;
   puntuacion: number
 }
