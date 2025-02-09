@@ -1,4 +1,6 @@
-<plantilla-nav> </plantilla-nav>
+@if (!(currentRoute| async)?.includes('login')) {
+  <plantilla-nav> </plantilla-nav>
+}
 
 <main>
   <router-outlet></router-outlet>
