@@ -1,7 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, IFiltros } from '../types';
-import { Subscription } from 'rxjs';
+import { startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 
@@ -10,14 +10,6 @@ import { rxResource } from '@angular/core/rxjs-interop';
 })
 export class GestionFiltradoEmpresasService {
 
-  constructor(){
-    effect(()=> {
-      console.log(
-        this.empresas()
-      );
-
-    })
-  }
 
   //private empresas = signal<IEmpresaDisplay[]>([]);
   private filtros = signal<IFiltros>({
@@ -33,17 +25,28 @@ export class GestionFiltradoEmpresasService {
   public orden = signal<string>('asc');
   //tipo asc|desc
   public criterio = signal<string>('nombre');
-  //keyof Icompany porque tiene que ser algo de la interfaz
-//obtener empresas del servicio
+  //debería ser keyof Icompany porque tiene que ser algo de la interfaz
+
+  //obtener empresas del servicio
   private servicioEmpresas = inject(IEmpresasService);
 
+
+
   private empresasRx = rxResource({
-    loader: () => this.servicioEmpresas.getEmpresas()
+    loader: ()=>this.servicioEmpresas.getEmpresas()
+
+
   })
 
-  public empresas = computed(()=> this.empresasRx.value() ?? []);
 
-  //todo hacer dos computadas, una que filtra y otra que ordena dependiente de la primera
+  //se supone que al llamar este método hace la petición de nuevo pero no va
+  public recargarEmpresas () {
+    this.empresasRx.reload();
+  };
+
+ // public empresas = computed(()=> this.empresasRx.value() ?? []);
+    public empresas = computed(()=> this.empresasRx.value() ?? []);
+
   //filtrar
   public empresasFiltradas = computed(() => {
     console.log('filtrar');

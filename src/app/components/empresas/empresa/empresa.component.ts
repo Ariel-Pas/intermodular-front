@@ -15,6 +15,7 @@ import { ITokenService } from '../../../services/token/ITokenService';
 import { FormsModule } from '@angular/forms';
 import { FormulariosApiService } from '../../../services/formularios/formularios-api.service';
 import { switchMap } from 'rxjs';
+import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
 
 
 
@@ -35,7 +36,7 @@ export class EmpresaComponent {
   private navigator = inject(Router);
   private empresasService = inject(IEmpresasService);
   public id = input.required<string>();
-
+  private gestionEmpresasService = inject(GestionFiltradoEmpresasService);
 
   alert = viewChild.required(SwalComponent);
 
@@ -92,6 +93,7 @@ export class EmpresaComponent {
         this.alert().text = '';
         this.alert().icon = "success";
         this.alert().fire();
+        this.gestionEmpresasService.recargarEmpresas();
         this.navigator.navigate(['/dashboard']);
 
       },

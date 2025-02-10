@@ -32,6 +32,8 @@ export class EmpresasApiService extends IEmpresasService {
       .pipe(map((x) => x.map((empresa) => this.mapToEmpresaDisplay(empresa))));
   }
 
+
+
   getEmpresa(idEmpresa: string): Observable<IEmpresaCompleta> {
     return this.httpClient.get<IEmpresaJSON>(
       `${this.baseUrl}/empresa-completa/${idEmpresa}`
@@ -116,6 +118,9 @@ export class EmpresasApiService extends IEmpresasService {
   eliminarEmpresa(id: string): Observable<boolean> {
     return this.httpClient.delete<boolean>(`${this.baseUrl}/empresas/${id}`);
   }
+
+
+
 
   //Esto está hecho con el chatgpt para ahorrar tiempo
   mapToEmpresaDisplay(data: any): IEmpresaDisplay {

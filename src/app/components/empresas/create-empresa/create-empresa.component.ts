@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { ILocalizacionService } from '../../../services/localizacion/ILocalizacionService';
 import { rxResource, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -31,7 +31,6 @@ import { catchError, filter, map, Observable, of, switchMap, tap } from 'rxjs';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
 import {
   checkboxValidation,
-  fileInputTodoImagenes,
   validarHoraInicioPrecedeFin,
 } from '../../FormValidation/FormValidationsFn';
 
@@ -39,6 +38,7 @@ import IEmpresasService from '../../../services/IEmpresasService';
 import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { Router } from '@angular/router';
 import { ButtonMainComponent } from "../../button-main/button-main.component";
+import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
 
 
 
@@ -64,10 +64,14 @@ export class CreateEmpresaComponent {
     });
   }
 
+
+
+
   private empresasService = inject(IEmpresasService);
   private localizacionesService = inject(ILocalizacionService);
   private categoriasService = inject(ICategoriaService);
   private router = inject(Router);
+  private gestionEmpresasService = inject(GestionFiltradoEmpresasService);
 
   alert = viewChild.required(SwalComponent);
 
@@ -104,11 +108,9 @@ export class CreateEmpresaComponent {
   })
 
 
-
-
-
-
-
+  protected formValido = computed(()=> {
+    return (this.form.valid && (this.imagenValida() === true))
+  })
   //Form reactivo
   form = new FormGroup({
     nombre: new FormControl(
@@ -119,7 +121,9 @@ export class CreateEmpresaComponent {
     email: new FormControl('',[Validators.required, Validators.email]),
     descripcion: new FormControl('',[Validators.required, Validators.minLength(10)]),
     vacantes: new FormControl(1, [Validators.min(1), Validators.required]),
-    imagen: new FormControl('', [fileInputTodoImagenes('imagen')]),
+
+    imagen: new FormControl(''),
+
     tipoImagen: new FormControl(''),
     direccion: new FormGroup({
       provincia: new FormControl<IRegion | null>(null, [Validators.required]),
@@ -186,7 +190,8 @@ export class CreateEmpresaComponent {
       })
     }
 
-
+    protected imagenInvalida = signal<boolean|null>(null);
+    protected imagenValida = signal<boolean|null>(null);
     //Cargar imagen cuando se selecciona
     leerImagen(event : Event){
       if(event.target instanceof HTMLInputElement){
@@ -195,9 +200,12 @@ export class CreateEmpresaComponent {
         const fileList = event.target.files;
         if(fileList && fileList.length == 1){
           if (!fileList[0].type.startsWith("image/")) {
-        
+            this.imagenInvalida.set(true);
+            this.imagenValida.set(false);
             return;
           }
+          this.imagenValida.set(true);
+          this.imagenInvalida.set(false);
           this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false})
 
           const reader = new FileReader();
@@ -212,6 +220,32 @@ export class CreateEmpresaComponent {
           })
 
         }
+
+      }
+    }
+
+    ngAfterViewInit(){
+      this.form.controls.imagen.addValidators(this.fileInputTodoImagenes());
+      this.form.updateValueAndValidity();
+    }
+
+    imagenInput = viewChild<ElementRef<HTMLInputElement>>('imagen');
+
+    fileInputTodoImagenes() :  ValidatorFn {
+      return (control : AbstractControl) : ValidationErrors | null =>{
+
+          //const fileList = fileInput.files;
+          const fileList = this.imagenInput()?.nativeElement.files;
+          if(fileList){
+            for (const file of fileList) {
+              if (!file.type.startsWith("image/")) {
+                return {'imagen-no-valida' : true};
+              }
+            }
+          }
+          return null;
+
+        //return null;
 
       }
     }
@@ -245,27 +279,6 @@ export class CreateEmpresaComponent {
   }
 
 
-/*
-  fileInputTodoImagenesLocal(fileInputName : string) :  ValidatorFn {
-    return (control : AbstractControl) : ValidationErrors | null =>{
-      const fileInput = this.form.get('imagen');
-      if(fileInput instanceof HTMLInputElement)
-      {
-        const fileList = fileInput.files;
-        if(fileList ){
-          for (const file of fileList) {
-            if (!file.type.startsWith("image/")) {
-              return {'imagen-no-valida' : true};
-            }
-          }
-        }
-        return null;
-      }
-      return null;
-
-    }
-  } */
-
   private infoServiciosSeleccionados :  IServicio[] = [];
 
   //método que mantiene actualizado el array inforServiciosSeleccionados
@@ -295,56 +308,12 @@ export class CreateEmpresaComponent {
     return this.infoServiciosSeleccionados.map(infoServ => {return {servicio: infoServ.id, categoria: infoServ.category}})
   }
 
-  //obtener id de la categoria de un servicio a partir de su nombre
-/*   private obtenerIdCategoria(servicio: string | undefined) {
-    const infoServicio = this.servicios().find((x) => x.name == servicio);
-    return infoServicio?.category ?? '';
-  } */
-
-/*   //obtener categorias seleccionadas a partir de servicios seleccionados
-  private obtenerCategorias(): string[] {
-    const serviciosForm = this.form
-      .get('categorizacion')
-      ?.get('servicios')?.value;
-
-    const arrayCategorias: string[] = [];
-    for (let nombre in serviciosForm) {
-      if (serviciosForm[nombre]) {
-        const idCategoria = this.obtenerIdCategoria(nombre);
-        if (idCategoria && !arrayCategorias.includes(idCategoria))
-          arrayCategorias.push(idCategoria);
-      }
-    }
-
-    return arrayCategorias;
-  }
-
-  //obtener array de servicios de la forma {idServicio, categoria}
-  private obtenerServicios() {
-    const serviciosForm = this.form
-      .get('categorizacion')
-      ?.get('servicios')?.value;
-
-    const arrayServicios: { categoria: string; id: string }[] = [];
-    for (let nombre in serviciosForm) {
-      if (serviciosForm[nombre]) {
-        const infoServicio = this.servicios().find((x) => x.name == nombre);
-        if (infoServicio)
-          arrayServicios.push({
-            categoria: infoServicio.category,
-            id: infoServicio.id,
-          });
-      }
-    }
-
-    return arrayServicios;
-  } */
 
 
   modelToData(): INewEmpresa {
     //quitar data:image/webp;base64, del base64 de la imagen
     const regexBase64 = /data:image\/[a-z]+;base64,/;
-    //console.log(this.form.controls.imagen.value?.replace(regexBase64, ''));
+
 
     return {
       nombre: this.form.controls.nombre.value ?? '',
@@ -378,6 +347,7 @@ export class CreateEmpresaComponent {
         this.alert().text = '';
         this.alert().icon = "success";
         this.alert().fire();
+        this.gestionEmpresasService.recargarEmpresas();
         this.router.navigate(['dashboard'])
 
       },

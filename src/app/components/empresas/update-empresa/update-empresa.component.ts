@@ -48,6 +48,7 @@ import {
 } from 'rxjs';
 import { leerImagenBase64 } from '../../FuncionesGenerales';
 import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
+import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
 
 @Component({
   selector: 'update-empresa',
@@ -70,6 +71,7 @@ export class UpdateEmpresaComponent {
   private localizacionesService = inject(ILocalizacionService);
   private categoriasService = inject(ICategoriaService);
   private router = inject(Router);
+  private gestionEmpresasService = inject(GestionFiltradoEmpresasService);
 
   ngOnInit(): void {
     this.route.data
@@ -223,9 +225,7 @@ export class UpdateEmpresaComponent {
       ]
     ),
     categorizacion: new FormGroup({
-      categoria: new FormControl<ICategoria | null>(null, [
-        Validators.required,
-      ]),
+      categoria: new FormControl<ICategoria | null>(null),
       servicios: new FormRecord({}, [checkboxValidation({ min: 1 })]),
     }),
   });
@@ -390,13 +390,13 @@ export class UpdateEmpresaComponent {
         .actualizarEmpresaAuth(this.empresaInfo?.id ?? '', this.modelToData())
         .subscribe({
           next: (x) => {
-            console.log(x);
-            this.form.reset();
+            
+            this.gestionEmpresasService.recargarEmpresas();
             this.alert().title = 'Empresa actualizada correctamente';
             this.alert().text = '';
             this.alert().icon = 'success';
             this.alert().fire();
-            //this.router.navigate(['dashboard'])
+            this.router.navigate(['dashboard'])
           },
           error: () => {
             console.log('error');
@@ -412,7 +412,6 @@ export class UpdateEmpresaComponent {
         .subscribe({
           next: (x) => {
             console.log(x);
-            this.form.reset();
             this.alert().title = 'Empresa actualizada correctamente';
             this.alert().text = '';
             this.alert().icon = 'success';

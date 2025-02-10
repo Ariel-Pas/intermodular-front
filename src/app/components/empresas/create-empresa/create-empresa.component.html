@@ -204,12 +204,26 @@
             type="file"
             class="form-control"
             (change)="leerImagen($event)"
+
             formControlName="imagen"
             name="imagen"
+            #imagen
           />
-          @if(form.controls.imagen.hasError('imagen-no-valida')){
-          <span class="error-msg">Selecciona un fichero imagen</span>
+          @if ((form.controls.imagen.touched) &&
+          (form.controls.imagen.hasError('required')))
+          {
+          <span class="error-msg"
+            >Sube una imagen</span
+          >
+          } @else if (form.controls.imagen.touched &&
+          form.controls.imagen.hasError('imagen-no-valida')) {
+          <span class="error-msg"
+            >Elige un archivo de imagen .png, .jpg o .webp</span
+          >
           }
+         <!--  @if(imagenInvalida()){
+          <span class="error-msg">Selecciona un fichero imagen</span>
+          } -->
           <div class="my-3">
             <img class="img-fluid" id="img-preview" />
           </div>
@@ -252,6 +266,7 @@
             [checked]="servicio.value"
             (change)="onChangeServicio($event)"
             class="mx-1"
+            #imagen
         /></label>
         } @if ( form.get('categorizacion')?.get('categoria')?.touched &&
         form.controls.categorizacion.controls.servicios.hasError('validar-checkbox'))
@@ -278,3 +293,7 @@
 
 <swal title=" " text=" " icon="success"></swal>
 
+<pre>{{formValido() ? 'valido' : 'no valido'}}</pre>
+<pre>{{form.valid ? 'form valido' : 'form no valido'}}</pre>
+
+<pre>ImagenVlaida {{imagenValida() ? 'val' : 'no val'}}</pre>

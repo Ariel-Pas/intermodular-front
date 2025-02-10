@@ -1,7 +1,9 @@
 import { Observable } from "rxjs";
 import { IEmpresaCompleta, IEmpresaDisplay, INewEmpresa, UrlValue } from "../types";
+import { resource } from "@angular/core";
 
 export default abstract class IEmpresasService{
+  //abstract empresasResource : resource<Response, IEmpresaDisplay[]>;
   abstract getEmpresas(): Observable<IEmpresaDisplay[]>;
   abstract getEmpresa(idEmpresa : string): Observable<IEmpresaCompleta | undefined> ;
   abstract getEmpresaByToken(token : string) : Observable<IEmpresaCompleta | undefined> ;
