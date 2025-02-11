@@ -61,7 +61,7 @@ export class EmpresaComponent {
   formNotas = new FormGroup ({
     notas: new FormControl(
               '',
-              [Validators.required, Validators.minLength(5)],
+              
             ),
   })
 
