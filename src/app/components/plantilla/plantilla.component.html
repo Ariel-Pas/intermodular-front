@@ -1,4 +1,4 @@
-@if (!(currentRoute| async)?.includes('login')) {
+@if (!(currentRoute| async)?.includes('login') && !(currentRoute | async)?.includes('unauthorized')) {
   <plantilla-nav> </plantilla-nav>
 }
 

@@ -20,15 +20,15 @@ import { CentroProfileComponent } from './components/profiles/centro-profile/cen
 import { AuthGuard } from './guards/authguard.guard';
 import { RoleGuard } from './guards/roleguard.guard';
 import { SelectRoleComponent } from './components/login/select-role/select-role.component';
+import { UnauthorizedComponent } from './components/login/unauthorized/unauthorized.component';
 
 
 export const routes: Routes = [
   //PERFILES
-  // {path: 'profile', component: CentroProfileComponent, canMatch: [()=>roleIs('Centro')]},
-  // {path: 'profile', component: ProfesorProfileComponent, canMatch: [()=>roleIs('Tutor')]},
   {path: 'profile/Centro', component: CentroProfileComponent, canMatch: [RoleGuard], data: {expectedRole: 'Centro'}},
   {path: 'profile/Tutor', component: ProfesorProfileComponent, canMatch: [RoleGuard], data: {expectedRole: 'Tutor'}},
   {path: 'select-role', component: SelectRoleComponent, canActivate: [AuthGuard]},
+  {path: 'unauthorized', component: UnauthorizedComponent},
 
   {path: 'dashboard', component: EmpresasPrincipalComponent, /* canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'login', component: LoginComponent},

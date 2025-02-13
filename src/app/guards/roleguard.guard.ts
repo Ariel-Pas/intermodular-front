@@ -13,12 +13,19 @@ export class RoleGuard implements CanMatch {
 
   canMatch(route: Route, segments: UrlSegment[]): boolean {
     const expectedRole = route.data?.['expectedRole'] as role;
-    const currentRole = this.authService.sessionSubject.value?.activatedRole;
+    const currentRole = this.authService.sesionSubject.value?.activatedRole;
 
-    if (currentRole !== expectedRole) {
-      this.router.navigate(['/unauthorized']);
+    if(!currentRole){
+      this.router.navigate(['/select-role']);
       return false;
     }
-    return true;
+
+    //Permitir el acceso si el rol esperado es el activado o si el usuario tiene Admin
+    if(currentRole === expectedRole || this.authService.hasRole('Admin')){
+      return true;
+    }
+
+    this.router.navigate(['/unauthorized']);
+    return false;
   }
 }

@@ -9,13 +9,14 @@ import { AuthApiBetaService } from '../../../services/auth/auth-api-beta.service
   styleUrl: './select-role.component.scss'
 })
 export class SelectRoleComponent {
-  availableRoles: role[] = [];
+  rolesDisponibles: role[] = [];
 
   constructor(private authService: AuthApiBetaService){
-    this.availableRoles = this.authService.sessionSubject.value?.roles || [];
+    //Filtrar el rol Admin al mostrar los roles disponibles
+    this.rolesDisponibles = this.authService.sesionSubject.value?.roles.filter(role => role !== 'Admin') || [];
   }
 
-  selectRole(role: role) : void {
-    this.authService.selectRole(role);
+  elegirRol(role: role) : void {
+    this.authService.elegirRol(role);
   }
 }

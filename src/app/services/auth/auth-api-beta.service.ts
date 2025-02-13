@@ -8,26 +8,26 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 
-//CORREGIR
 export class AuthApiBetaService {
 
   private API_URL = 'http://localhost:8000/api';
-  // private API_URL2 = 'http://127.0.0.1:8000/api';
-  sessionSubject = new BehaviorSubject<ISession | null>(null);
+  //BehaviorSubject, permite acceder siempre al ultimo estado de la variable, y a su vez actualiza a todos los suscritos
+  //Observables DIAPOSITIVA 65
+  sesionSubject = new BehaviorSubject<ISession | null>(null);
 
   constructor(private http: HttpClient, private router: Router) {
-    this.initializeSession();
+    this.inicializarSesion();
   }
 
-  private initializeSession(): void{
-    const savedSession = localStorage.getItem('session');
-    if(savedSession){
-      this.sessionSubject.next(JSON.parse(savedSession));
+  private inicializarSesion(): void{
+    const sesionGuardada = localStorage.getItem('session');
+    if(sesionGuardada){
+      this.sesionSubject.next(JSON.parse(sesionGuardada));
     }
   }
 
   get session$(): Observable<ISession|null>{
-    return this.sessionSubject.asObservable();
+    return this.sesionSubject.asObservable();
   }
 
   login(email: string, password: string): Observable<ISession>{
@@ -44,50 +44,69 @@ export class AuthApiBetaService {
           activatedRole: null
         };
 
-        //EXPERIMENTAL
-        // if(session.roles.length === 0){
-        //   throw new Error('Usuario sin roles validos');
-        // }
-
+        //Si solo tiene un rol, activarlo automaticamente
         if(session.roles.length === 1){
           session.activatedRole = session.roles[0];
         }
 
-        this.persistSession(session);
-        this.redirectBasedOnRole();
+        this.mantenerSesion(session);
+        this.redirigirPorRol();
 
         return session;
       })
     );
   }
 
-  private persistSession(session: ISession): void{
+  private mantenerSesion(session: ISession): void{
     localStorage.setItem('session', JSON.stringify(session));
-    this.sessionSubject.next(session);
+    this.sesionSubject.next(session);
   }
 
-  selectRole(role:role) : void{
-    const currentSession = this.sessionSubject.value;
-    if(!currentSession || !currentSession.roles.includes(role)){
+  elegirRol(role:role) : void{
+    const sesionActual = this.sesionSubject.value;
+    if(!sesionActual || !sesionActual.roles.includes(role)){
       throw new Error('Rol no valido para este usuario');
     }
     const updatedSession: ISession = {
-      ...currentSession,
+      ...sesionActual,
       activatedRole: role
     }
-    this.persistSession(updatedSession);
-    this.redirectBasedOnRole();
+    this.mantenerSesion(updatedSession);
+    this.redirigirPorRol();
   }
 
-  private redirectBasedOnRole(): void{
+  private redirigirPorRol(): void{
 
-    const currentSession = this.sessionSubject.value;
+    const sesionActual = this.sesionSubject.value;
+    if(!sesionActual) return;
 
-    if(!currentSession) return;
+    const roles = sesionActual.roles;
+    const activatedRole = sesionActual.activatedRole;
 
-    const role = currentSession.activatedRole;
+    //Si el usuario tiene el rol Admin, pero no tiene otros roles, no permitir acceso
+    if(roles.includes('Admin') && roles.length === 1){
+      this.router.navigate(['/unauthorized']);
+      return;
+    }
 
-    switch(role) {
+    //Si el usuario tiene Admin y otros roles, ignorar Admin y permitir seleccion
+    if(roles.includes('Admin') && roles.length > 1){
+      const rolesSinAdmin = roles.filter(role => role !== 'Admin');
+      if(rolesSinAdmin.length === 1){
+        //Si solo tiene un rol ademas de Admin, redirigir automaticamente
+        sesionActual.activatedRole = rolesSinAdmin[0];
+        this.mantenerSesion(sesionActual);
+        this.redirigirPorRol();
+        return;
+      }else{
+        //Si tiene multiples roles ademas de Admin, redirigir a la seleccion de roles
+        this.router.navigate(['/select-role']);
+        return;
+      }
+    }
+
+    //Redirigir segun el rol activado
+    switch(activatedRole) {
       case 'Centro' :
         this.router.navigate(['/profile/Centro']);
         break;
@@ -95,8 +114,10 @@ export class AuthApiBetaService {
         this.router.navigate(['/profile/Tutor']);
         break;
       default:
-        if(currentSession.roles.length > 1) {
+        if(roles.length > 1) {
           this.router.navigate(['/select-role']);
+        }else{
+          this.router.navigate(['/unauthorized']);
         }
     }
   }
@@ -104,16 +125,16 @@ export class AuthApiBetaService {
   logout() : void {
     this.http.post(`${this.API_URL}/logout`, {}).subscribe(() => {
       localStorage.removeItem('session');
-      this.sessionSubject.next(null);
+      this.sesionSubject.next(null);
       this.router.navigate(['/loogin']);
     });
   }
 
   hasRole(role: role) : boolean {
-    return this.sessionSubject.value?.roles.includes(role) ?? false;
+    return this.sesionSubject.value?.roles.includes(role) ?? false;
   }
 
   get currentToken() : string | null {
-    return this.sessionSubject.value?.token ?? null;
+    return this.sesionSubject.value?.token ?? null;
   }
 }
