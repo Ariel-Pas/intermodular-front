@@ -114,6 +114,16 @@ export interface ICredenciales{
   centro?: number | null
 }
 
+//AUTH BETA
+export type role = 'Admin' | 'Centro' | 'Tutor';
+
+export interface ISession{
+  username: string,
+  roles: role[],
+  token: string,
+  activatedRole: role | null;
+}
+//AUTH BETA
 
 //Categorias y servicios
 export interface ICategoria{
@@ -147,8 +157,6 @@ export interface INewEmpresa{
   imagen: string,
   tipoImagen: string
 }
-
-
 
 
 export interface ICheckboxOption{

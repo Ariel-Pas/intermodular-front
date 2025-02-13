@@ -1,0 +1,11 @@
+<p>select-role works!</p>
+<div class="role-selection">
+  <h2>Selecciona tu rol</h2>
+ @for(role of availableRoles; track role){
+  <button (click)="selectRole(role)">{{role}}</button>
+ }
+  <!-- <button *ngFor="let role of availableRoles"
+          (click)="selectRole(role)">
+    {{ role }}
+  </button> -->
+</div>
