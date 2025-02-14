@@ -4,15 +4,14 @@
 
     <div class="d-flex">
 
-      @if (['admin', 'profesor'].includes(this.rol() ?? '')) {
-
+      <!-- @if (['Admin', 'Tutor'].includes(this.rol() ?? '')) { -->
+        @if(session()?.activatedRole === 'Tutor' || session()?.activatedRole === 'Centro'){
           <a class="nav-link d-sm-none nav-add" aria-current="page" routerLink="/create-company">
             <button-main
             text=""
             btnIcon='<i class="bi bi-plus"></i>'
             />
           </a>
-
 
         }
 
@@ -31,7 +30,8 @@
 
     <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarNav">
       <ul class="navbar-nav">
-        @if (['admin', 'profesor', 'centro'].includes(this.rol() ?? '')) {
+          <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
+           @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
         <li class="nav-item d-flex align-items-center">
           <a class="nav-link active d-flex align-items-center border" aria-current="page" routerLink="/dashboard"
             ><i class="bi bi-globe"></i
@@ -41,10 +41,12 @@
 
         <li class="nav-item d-flex align-items-center">
 
-          @if (this.nombreUsuario() != null) {
+          <!-- @if (this.nombreUsuario() != null) { -->
+           @if(session()?.username){
           <a class="nav-link border" routerLink="/profile">
             <i class="bi bi-person me-2"></i>
-            <span>{{this.nombreUsuario()}}</span>
+            <!-- <span>{{this.nombreUsuario()}}</span> -->
+            <span>{{session()?.username}}</span>
           </a>
           }
           @else {
@@ -55,7 +57,21 @@
           }
         </li>
 
-        @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) {
+        <!-- @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){ -->
+        @if(session()?.activatedRole === 'Centro'){
+          <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
+            <a class="nav-link" aria-current="page" routerLink="/create-user">
+              <button-main
+              text="Crear usuario"
+              btnIcon='<i class="bi bi-plus"></i>'
+              />
+            </a>
+
+          </li>
+          }
+
+        <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
+        @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
           <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
             <a class="nav-link" aria-current="page" routerLink="/create-company">
               <button-main
@@ -67,7 +83,8 @@
           </li>
           }
 
-        @if(this.rol())
+        <!-- @if(this.rol()) -->
+         @if(session()?.activatedRole)
         {
           <li class="nav-item p-0 d-flex align-items-center">
             <a class="nav-link" aria-current="page" routerLink="/create-solicitud">

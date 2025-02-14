@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { ISession, role } from '../../types';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -19,23 +19,23 @@ export class AuthApiBetaService {
     this.inicializarSesion();
   }
 
-  private inicializarSesion(): void{
+  private inicializarSesion(): void {
     const sesionGuardada = localStorage.getItem('session');
-    if(sesionGuardada){
+    if (sesionGuardada) {
       this.sesionSubject.next(JSON.parse(sesionGuardada));
     }
   }
 
-  get session$(): Observable<ISession|null>{
+  get session$(): Observable<ISession | null> {
     return this.sesionSubject.asObservable();
   }
 
-  login(email: string, password: string): Observable<ISession>{
+  login(email: string, password: string): Observable<ISession> {
     return this.http.post<{
       access_token: string,
       roles: role[],
       nombre: string,
-    }>(`${this.API_URL}/login`, {email, password}).pipe(
+    }>(`${this.API_URL}/login`, { email, password }).pipe(
       map(response => {
         const session: ISession = {
           username: response.nombre,
@@ -45,7 +45,7 @@ export class AuthApiBetaService {
         };
 
         //Si solo tiene un rol, activarlo automaticamente
-        if(session.roles.length === 1){
+        if (session.roles.length === 1) {
           session.activatedRole = session.roles[0];
         }
 
@@ -57,14 +57,14 @@ export class AuthApiBetaService {
     );
   }
 
-  private mantenerSesion(session: ISession): void{
+  private mantenerSesion(session: ISession): void {
     localStorage.setItem('session', JSON.stringify(session));
     this.sesionSubject.next(session);
   }
 
-  elegirRol(role:role) : void{
+  elegirRol(role: role): void {
     const sesionActual = this.sesionSubject.value;
-    if(!sesionActual || !sesionActual.roles.includes(role)){
+    if (!sesionActual || !sesionActual.roles.includes(role)) {
       throw new Error('Rol no valido para este usuario');
     }
     const updatedSession: ISession = {
@@ -75,30 +75,30 @@ export class AuthApiBetaService {
     this.redirigirPorRol();
   }
 
-  private redirigirPorRol(): void{
+  private redirigirPorRol(): void {
 
     const sesionActual = this.sesionSubject.value;
-    if(!sesionActual) return;
+    if (!sesionActual) return;
 
     const roles = sesionActual.roles;
     const activatedRole = sesionActual.activatedRole;
 
     //Si el usuario tiene el rol Admin, pero no tiene otros roles, no permitir acceso
-    if(roles.includes('Admin') && roles.length === 1){
+    if (roles.includes('Admin') && roles.length === 1) {
       this.router.navigate(['/unauthorized']);
       return;
     }
 
     //Si el usuario tiene Admin y otros roles, ignorar Admin y permitir seleccion
-    if(roles.includes('Admin') && roles.length > 1){
+    if (roles.includes('Admin') && roles.length > 1) {
       const rolesSinAdmin = roles.filter(role => role !== 'Admin');
-      if(rolesSinAdmin.length === 1){
+      if (rolesSinAdmin.length === 1) {
         //Si solo tiene un rol ademas de Admin, redirigir automaticamente
         sesionActual.activatedRole = rolesSinAdmin[0];
         this.mantenerSesion(sesionActual);
         this.redirigirPorRol();
         return;
-      }else{
+      } else {
         //Si tiene multiples roles ademas de Admin, redirigir a la seleccion de roles
         this.router.navigate(['/select-role']);
         return;
@@ -106,35 +106,54 @@ export class AuthApiBetaService {
     }
 
     //Redirigir segun el rol activado
-    switch(activatedRole) {
-      case 'Centro' :
+    switch (activatedRole) {
+      case 'Centro':
         this.router.navigate(['/profile/Centro']);
         break;
       case 'Tutor':
         this.router.navigate(['/profile/Tutor']);
         break;
       default:
-        if(roles.length > 1) {
+        if (roles.length > 1) {
           this.router.navigate(['/select-role']);
-        }else{
+        } else {
           this.router.navigate(['/unauthorized']);
         }
     }
   }
 
-  logout() : void {
-    this.http.post(`${this.API_URL}/logout`, {}).subscribe(() => {
-      localStorage.removeItem('session');
-      this.sesionSubject.next(null);
-      this.router.navigate(['/loogin']);
-    });
+  logout(): void {
+    const token = this.currentToken;
+
+    // Enviar petición solo si hay token
+    if (token) {
+      this.http.post(`${this.API_URL}/logout`, {}, {
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+        })
+      }).subscribe({
+        next: () => this.limpiarSesion(),
+        // Limpiar incluso si falla
+        error: () => this.limpiarSesion()
+      });
+    } else {
+      this.limpiarSesion();
+    }
   }
 
-  hasRole(role: role) : boolean {
+  private limpiarSesion(): void {
+    localStorage.removeItem('session');
+    this.sesionSubject.next(null);
+    this.router.navigate(['/login']);
+  }
+
+
+
+  hasRole(role: role): boolean {
     return this.sesionSubject.value?.roles.includes(role) ?? false;
   }
 
-  get currentToken() : string | null {
+  get currentToken(): string | null {
     return this.sesionSubject.value?.token ?? null;
   }
 }
