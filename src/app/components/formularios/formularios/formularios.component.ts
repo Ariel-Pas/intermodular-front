@@ -114,6 +114,7 @@ export class FormulariosComponent implements OnInit {
             text: 'La reseña se ha creado correctamente.',
           });
           this.form.reset();
+          //hola
         },
         error: (err) => {
             Swal.fire({
