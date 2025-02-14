@@ -27,6 +27,7 @@ import { TokenApiService } from './services/token/token-api.service';
 import { ISolicitudService } from './services/solicitudes/ISolicitudService';
 import { SolicitudApiService } from './services/solicitudes/solicitud-api.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatIconModule } from '@angular/material/icon';
 
 
 export const appConfig: ApplicationConfig = {
@@ -45,9 +46,10 @@ export const appConfig: ApplicationConfig = {
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     importProvidersFrom(SweetAlert2Module.forRoot()),
     // DEBORA NOBS
+    MatIconModule,
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
-    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync()
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideAnimationsAsync()
   ]
 };
 

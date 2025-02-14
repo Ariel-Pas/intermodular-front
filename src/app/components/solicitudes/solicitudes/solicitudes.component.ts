@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, computed, inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ICentro, ICiclo, IRegion, ISolicitud, ITown } from '../../../types';
 import { AsyncPipe, JsonPipe } from '@angular/common';
@@ -9,16 +9,20 @@ import IEmpresasService from '../../../services/IEmpresasService';
 import { ISolicitudService } from '../../../services/solicitudes/ISolicitudService';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
+import {MatIconModule} from '@angular/material/icon';
+
 
 @Component({
   selector: 'app-solicitudes',
-  imports: [ReactiveFormsModule, JsonPipe, AsyncPipe, SweetAlert2Module],
+  imports: [ReactiveFormsModule, AsyncPipe, SweetAlert2Module, MatIconModule],
   templateUrl: './solicitudes.component.html',
   styleUrl: './solicitudes.component.scss'
 })
 export class SolicitudesComponent {
   private serviciosLocalizacion = inject(ILocalizacionService);
   private servicioSolicitudes = inject(ISolicitudService);
+  private cdr = inject(ChangeDetectorRef);
+
   empresaId: number | null = 100;
   numero_puestos: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
@@ -39,8 +43,7 @@ export class SolicitudesComponent {
     horario_fin: new FormControl('', [Validators.required]),
     empresa_id:  new FormControl(1, [Validators.required]),
     centro_id: new FormControl<ICentro | null>(null, Validators.required),
-    ciclo_id: new FormControl <ICiclo | null>(null, Validators.required), // debo tener un tipo ICiclo al cual lo relaciono para obtener y asignar el id
-    numero_puestos: new FormControl<number | null>(null, [Validators.required]),
+    ciclos: new FormGroup({})
   },
   SolicitudesComponent.validacionHorasValidadas('horario_comienzo', 'horario_fin'));
 
@@ -72,6 +75,20 @@ export class SolicitudesComponent {
     )
   )
 
+  getCicloControl(cicloId: number): FormControl {
+    if (!this.form.controls.ciclos) {
+      this.form.addControl('ciclos', new FormGroup({}));
+    }
+
+    let control = this.form.controls.ciclos.get(cicloId.toString()) as FormControl;
+    if (!control) {
+      control = new FormControl(null);
+      this.form.controls.ciclos.addControl(cicloId.toString(), control);
+    }
+    return control;
+  }
+
+
   onSubmit() {
     if (this.form.invalid) {
       Swal.fire({
@@ -81,6 +98,13 @@ export class SolicitudesComponent {
       });
       return;
     }
+
+    const ciclosSeleccionados = Object.entries(this.form.controls.ciclos.value)
+      .filter(([_, numero_puestos]) => numero_puestos !== null && numero_puestos !== undefined)
+      .map(([ciclo_id, numero_puestos]) => ({
+        ciclo_id: Number(ciclo_id),
+        numero_puestos: Number(numero_puestos)
+      }));
 
     const solicitud: ISolicitud = {
       nombreEmpresa: this.form.controls.nombreEmpresa.value ?? '',
@@ -94,8 +118,7 @@ export class SolicitudesComponent {
       titularidad: this.form.controls.titularidad.value ?? '',
       empresa_id: this.form.controls.empresa_id.value ?? null,
       centro_id: this.form.controls.centro_id.value?.id ?? null,
-      ciclo_id: this.form.controls.ciclo_id.value?.id ?? null,
-      numero_puestos: this.form.controls.numero_puestos.value ?? 0,
+      ciclos: ciclosSeleccionados
     }
 
     console.log('Datos enviados:', solicitud);
@@ -108,6 +131,11 @@ export class SolicitudesComponent {
             text: 'La solicitud se ha creado correctamente.',
           });
           this.form.reset();
+          this.form.controls.empresa_id.setValue(null);
+          this.form.controls.centro_id.setValue(null);
+          this.form.controls.ciclos = new FormGroup({});
+          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         },
         error: (err) => {
           Swal.fire({
