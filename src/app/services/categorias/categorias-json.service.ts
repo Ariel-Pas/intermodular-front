@@ -10,7 +10,7 @@ import { ICategoria, IServicio } from '../../types';
 })
 
 
-export class CategoriasJsonService extends ICategoriaService{
+export class CategoriasJsonService{
     getCategorias() : Observable<ICategoria[]>
     {
       return of(categorias);

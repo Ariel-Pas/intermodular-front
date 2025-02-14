@@ -51,6 +51,8 @@ export class EmpresaComponent {
       this.urlEditar = `/company/update/${this.empresa.id}`
 
       this.formNotas.patchValue({notas : this.empresa.notas})
+      console.log(this.empresa);
+
     })
   }
 
@@ -61,7 +63,7 @@ export class EmpresaComponent {
   formNotas = new FormGroup ({
     notas: new FormControl(
               '',
-              
+
             ),
   })
 

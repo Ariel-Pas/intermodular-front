@@ -19,7 +19,7 @@ export class AuthFakeService extends IAuthenticationService {
       credenciales = {
         usuario : user,
         rol : 'admin',
-        token : '4|VPhARBKtdv14XlebzVO2eSQqeKGtyXz1LnPo5oycb0c07c3b',
+        token : '5|kwdUaGxSXl9yqtF898uw9jZiYlLUCJ0UAxuMDSS5a9772e55',
         centro: 1
       }
 

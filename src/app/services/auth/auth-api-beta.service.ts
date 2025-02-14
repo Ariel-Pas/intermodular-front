@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { ISession, role } from '../../types';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { API_BASE } from '../../tokens/tokens';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,14 @@ import { Router } from '@angular/router';
 
 export class AuthApiBetaService {
 
-  private API_URL = 'http://localhost:8000/api';
+  //private API_URL = 'http://localhost:8000/api';
   //BehaviorSubject, permite acceder siempre al ultimo estado de la variable, y a su vez actualiza a todos los suscritos
   //Observables DIAPOSITIVA 65
   sesionSubject = new BehaviorSubject<ISession | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, @Inject(API_BASE) private API_URL: string) {
     this.inicializarSesion();
+
   }
 
   private inicializarSesion(): void {
