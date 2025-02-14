@@ -10,6 +10,9 @@
     </li>
   }
 
-  <orden-select [criterioOrdenacion]="criteriosOrdenacion()" />
+  @if(mostrarOrden()){
+    <orden-select [criterioOrdenacion]="criteriosOrdenacion()" />
+  }
+  
 
 </ul>

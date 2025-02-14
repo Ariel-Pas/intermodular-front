@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+/* import { Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, InfoGeografia } from '../types';
 import townsJson from '../data/towns.json';
@@ -7,7 +7,7 @@ import { Observable, of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresasFakerService extends IEmpresasService{
+export class EmpresasFakerService /* extends IEmpresasService {
 
   private empresas : IEmpresaDisplay[];
 
@@ -24,7 +24,7 @@ export class EmpresasFakerService extends IEmpresasService{
 
   private ids = 0;
   constructor() {
-    super();
+   // super();
     this.empresas = (
       Array.from({ length: 10 }, (): IEmpresaDisplay => {
         const prov =
@@ -32,19 +32,18 @@ export class EmpresasFakerService extends IEmpresasService{
         let e: IEmpresaDisplay = {
           id: (this.ids++).toString(),
           nombre: faker.company.name(),
-          cif: 'B12345678',
           descripcion: faker.lorem.text().substring(0, 60),
           email: 'contacto@techsolutions.com',
           direccion: {
             calle: 'Calle Innovación, 123',
-            provincia: prov,
-            poblacion:
-              this.towns[prov][
+            provincia: {id: '1', name: 'P', area: '10'},
+            poblacion: {id: '1', name: 'p', region :'1'}
+              /* this.towns[prov][
                 Math.floor(Math.random() * this.towns[prov].length)
-              ],
+              ] ,
             posicion: {
-              coordX: 40.416775,
-              coordY: -3.70379,
+              coordX: 38 + Math.random()*2.5,
+              coordY: -0.7 + Math.random()*1,
             },
           },
 
@@ -54,22 +53,14 @@ export class EmpresasFakerService extends IEmpresasService{
             finSemana: false,
           },
 
-          imagen: 'https://example.com/logo-techsolutions.png',
+          imagen: 'https://imagenes.elpais.com/resizer/v2/Y3W6QUFBBZLLTALRW6NBRPZ2RA.jpg?auth=d68f18251117888479d8fdc3210796bc86d9d3f41719da72c2877bcafc3504ea&width=414',
           categorias: [
             this.categorias[Math.floor(Math.random() * this.categorias.length)],
             this.categorias[Math.floor(Math.random() * this.categorias.length)],
           ],
           servicios: ['PHP', 'TS'],
-          vacantes: [
-            {
-              cantidad: Math.floor(Math.random() * 7),
-              anyo: 2024,
-            },
-          ],
-          puntuacion: {
-            profesor: Math.random()*10,
-            alumno: Math.random()*10
-          }
+          vacantes:  Math.floor(Math.random() * 7),
+          puntuacion: Math.random()*10
         };
         return e;
       })
@@ -90,4 +81,40 @@ export class EmpresasFakerService extends IEmpresasService{
       if(empresa) return of(empresa);
       return throwError(()=>({error : 'No existe la empresa'}))
   }
-}
+
+  buscarPorCif(cif:string): Observable<IEmpresaDisplay>
+  {
+    let emp :IEmpresaDisplay = {
+      id: (this.ids++).toString(),
+    nombre: faker.company.name(),
+    descripcion: faker.lorem.text().substring(0, 60),
+    email: 'contacto@techsolutions.com',
+    direccion: {
+      calle: 'Calle Innovación, 123',
+      provincia: {id: '1', name: 'P', area: '10'},
+      poblacion: {id: '1', name: 'p', region :'1'},
+      posicion: {
+        coordX: 38 + Math.random()*2.5,
+        coordY: -0.7 + Math.random()*1,
+      },
+    },
+
+    horario: {
+      horario_manana: '08:00 - 14:00',
+      horario_tarde: '15:00 - 18:00',
+      finSemana: false,
+    },
+
+    imagen: 'https://imagenes.elpais.com/resizer/v2/Y3W6QUFBBZLLTALRW6NBRPZ2RA.jpg?auth=d68f18251117888479d8fdc3210796bc86d9d3f41719da72c2877bcafc3504ea&width=414',
+    categorias: [
+      this.categorias[Math.floor(Math.random() * this.categorias.length)],
+      this.categorias[Math.floor(Math.random() * this.categorias.length)],
+    ],
+    servicios: ['PHP', 'TS'],
+    vacantes:  Math.floor(Math.random() * 7),
+    puntuacion: Math.random()*10
+  }
+    return of(emp);
+
+  }
+} */

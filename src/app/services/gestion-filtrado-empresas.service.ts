@@ -1,7 +1,7 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, IFiltros } from '../types';
-import { Subscription } from 'rxjs';
+import { startWith, Subject, Subscription, switchMap } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 
@@ -9,6 +9,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
   providedIn: 'root',
 })
 export class GestionFiltradoEmpresasService {
+
 
   //private empresas = signal<IEmpresaDisplay[]>([]);
   private filtros = signal<IFiltros>({
@@ -20,22 +21,35 @@ export class GestionFiltradoEmpresasService {
     servicio: ''
   });
 
+
   public orden = signal<string>('asc');
   //tipo asc|desc
   public criterio = signal<string>('nombre');
-  //keyof Icompany porque tiene que ser algo de la interfaz
-//obtener empresas del servicio
+  //debería ser keyof Icompany porque tiene que ser algo de la interfaz
+
+  //obtener empresas del servicio
   private servicioEmpresas = inject(IEmpresasService);
 
+
+
   private empresasRx = rxResource({
-    loader: () => this.servicioEmpresas.getEmpresas()
+    loader: ()=>this.servicioEmpresas.getEmpresas()
+
+
   })
 
-  private empresas = computed(()=> this.empresasRx.value() ?? []);
 
-  //todo hacer dos computadas, una que filtra y otra que ordena dependiente de la primera
+  //se supone que al llamar este método hace la petición de nuevo pero no va
+  public recargarEmpresas () {
+    this.empresasRx.reload();
+  };
+
+ // public empresas = computed(()=> this.empresasRx.value() ?? []);
+    public empresas = computed(()=> this.empresasRx.value() ?? []);
+
   //filtrar
   public empresasFiltradas = computed(() => {
+    console.log('filtrar');
 
 
 
@@ -51,27 +65,27 @@ export class GestionFiltradoEmpresasService {
 
       //console.log(filtrado);
       filtrado = filtrado.filter((x) =>
-        this.filtros().provincia ? this.filtros().provincia.includes(x.direccion.provincia) : true
+        this.filtros().provincia ? this.filtros().provincia.includes(x.direccion.provincia.name) : true
       );
 
       filtrado = filtrado.filter((x) =>
-        this.filtros().localidad ? x.direccion.poblacion == this.filtros().localidad : true
+        this.filtros().localidad ? x.direccion.poblacion.name == this.filtros().localidad : true
       );
 
 
       filtrado = filtrado.filter((x) =>{
         if(!this.filtros().vacantes) return true;
-        return x.vacantes[0].cantidad == this.filtros().vacantes;
+        return x.vacantes == this.filtros().vacantes;
 
       });
 
       filtrado = filtrado.filter((x) =>
         this.filtros().categoria
-          ? x.categorias.includes(this.filtros().categoria)
+          ? x.categorias.find(cat => cat.name == this.filtros().categoria)
           : true
       );
 
-      filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.includes(this.filtros().servicio) : true);
+      filtrado = filtrado.filter((x) => this.filtros().servicio ? x.servicios.find(serv => serv.name == this.filtros().servicio) : true);
 
 
 
@@ -83,18 +97,18 @@ export class GestionFiltradoEmpresasService {
             else return right.nombre.localeCompare(left.nombre);
 
           case 'vacantes' :
-          if(this.orden() == 'asc') return left.vacantes[0].cantidad - right.vacantes[0].cantidad;
-            else return right.vacantes[0].cantidad - left.vacantes[0].cantidad;
+          if(this.orden() == 'asc') return left.vacantes - right.vacantes;
+            else return right.vacantes - left.vacantes;
 
           case 'nota' :
-            let notaMediaLeft = (left.puntuacion.alumno + left.puntuacion.profesor)/2;
-            let notaMediaRight = (right.puntuacion.alumno + right.puntuacion.profesor)/2;
+            let notaMediaLeft = (left.puntuacion + left.puntuacion)/2;
+            let notaMediaRight = (right.puntuacion + right.puntuacion)/2;
             if(this.orden() == 'asc') return notaMediaLeft - notaMediaRight;
             else return notaMediaRight - notaMediaLeft;
 
           case 'municipio' :
-            if(this.orden() == 'asc') return left.direccion.poblacion.localeCompare(right.direccion.poblacion);
-            else return right.direccion.poblacion.localeCompare(left.direccion.poblacion);
+            if(this.orden() == 'asc') return left.direccion.poblacion.name.localeCompare(right.direccion.poblacion.name);
+            else return right.direccion.poblacion.name.localeCompare(left.direccion.poblacion.name);
 
         }
 
@@ -114,8 +128,7 @@ export class GestionFiltradoEmpresasService {
   };
 
   actualizarFiltros(filtros : IFiltros ){
-   /*  console.log('actualizarfiltros');
-    console.log(filtros); */
+    console.log(filtros);
 
     this.filtros.set(filtros);
   };

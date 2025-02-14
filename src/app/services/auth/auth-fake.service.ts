@@ -19,12 +19,14 @@ export class AuthFakeService extends IAuthenticationService {
       credenciales = {
         usuario : user,
         rol : 'admin',
-        token : 'fakeSuccesfultoken'
+        token : '1|xTHhvuvWix6A9OOhHv5S7Yfr8ZIpfsFoqJfeiyp06bb8a3b0',
+        centro: 1
       }
 
       this.token.set(credenciales.token)
       this.user.set(credenciales.usuario)
       this.rol.set(credenciales.rol);
+      this.centro.set(credenciales.centro ?? 1)
     }
     else{
       return throwError(()=>({error : 'Login no válido'}));

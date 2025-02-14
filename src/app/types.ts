@@ -8,14 +8,12 @@ export interface IUniqueResource{
 export interface IEmpresaDisplay {
   id: string;
   nombre: string;
-  cif: string;
   descripcion: string;
   email?: string;
-  telefono? : string;
   direccion: {
     calle: string;
-    provincia: string;
-    poblacion: string;
+    provincia: IRegion;
+    poblacion: ITown;
     posicion: {
       coordX: number;
       coordY: number;
@@ -26,19 +24,18 @@ export interface IEmpresaDisplay {
     horario_tarde: string;
     finSemana: boolean;
   };
-  imagen: string;
-  categorias: string[];
-  servicios: string[];
-  vacantes: [
-    {
-      anyo : number,
-      cantidad: number
-    }
-  ];
-  puntuacion: {
-    profesor: number,
-    alumno: number
-  }
+  imagen: string | null;
+  categorias: ICategoria[];
+  servicios: IServicio[];
+  vacantes: number;
+  puntuacion: number
+}
+
+export interface IEmpresaCompleta extends IEmpresaDisplay{
+  urlEditar: string,
+  cif : string,
+  notas? : string
+
 }
 
 export interface EmpresaJson {
@@ -113,7 +110,8 @@ export type stringPair = [string, string];
 export interface ICredenciales{
   usuario : string | null,
   rol : string | null,
-  token : string | null
+  token : string | null,
+  centro?: number | null
 }
 
 
@@ -127,21 +125,35 @@ export interface IServicio{
   category : string,
   id : string,
   name : string
+  categories? : string[]
+}
+
+export interface CategoryService{
+  servicio: string,
+  categoria: string
 }
 
 
 export interface INewEmpresa{
   nombre: string,
-  provincia: string //aqui meter el id?
-  localidad: string
+  provincia: string
+  localidad: string,
+  coordX: number,
+  coordY: number,
+  direccion: string,
   cif: string,
-  horario: {
-    manana: string,
-    tarde: string
-  },
-  categoria: string[],
-  servicios: {categoria: string, id:string}[];
+  email: string,
+  descripcion: string,
+  vacantes: number,
+  horario_manana: string,
+  horario_tarde: string,
+  finSemana : boolean,
+  servicios: CategoryService[];
+  imagen: string,
+  tipoImagen: string
 }
+
+
 
 
 export interface ICheckboxOption{
@@ -150,6 +162,14 @@ export interface ICheckboxOption{
   id: string
 }
 
+
+export interface UrlValue{
+  url: string
+}
+
+export interface ApiErrorMessage{
+  error:string
+}
 // Tipos formularios
 export interface IFormulario {
   id: string,
@@ -216,10 +236,13 @@ export interface ICentro {
   password: string;
   direccion: string;
   telefono: string;
+
 }
+
 
 export interface ICiclo {
   id: number;
   nombre: string;
   areasciclo_id: number;
 }
+

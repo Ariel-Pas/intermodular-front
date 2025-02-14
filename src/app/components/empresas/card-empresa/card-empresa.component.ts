@@ -1,7 +1,8 @@
 import { Component, input } from '@angular/core';
-import { IEmpresaDisplay } from '../../types';
-import { ButtonMainComponent } from '../../components/button-main/button-main.component';
+import { IEmpresaDisplay } from '../../../types';
+
 import { RouterLink } from '@angular/router';
+import { ButtonMainComponent } from '../../button-main/button-main.component';
 
 @Component({
   selector: 'app-empresa-card',

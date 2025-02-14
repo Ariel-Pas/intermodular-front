@@ -1,5 +1,5 @@
 @if (submit()) {
-  <button class="btn btn-primary {{flat()? 'background-flat' : ''}}" type="submit">
+  <button class="btn btn-primary {{flat()? 'background-flat' : ''}}" type="submit" [disabled] ="disabled()" >
     <span [innerHTML]="btnIcon()">
       <!-- <ng-content select="[icon]"></ng-content>
       {{btnIcon()}} -->
@@ -9,7 +9,7 @@
   </button>
 }
 @else if(href()) {
-  <a  routerLink="{{href()}}" class="btn btn-primary{{flat()? 'background-flat' : ''}}">
+  <a  routerLink="{{'/'+href()}}" class="btn btn-primary{{flat()? 'background-flat' : ''}}">
     <span [innerHTML]="btnIcon()">
       <!-- <ng-content select="[icon]"></ng-content> -->
 
