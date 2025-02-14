@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './company-map.component.html',
 
 })
+
 export class CompanyMapComponent {
   protected gestionEmpresas = inject(GestionFiltradoEmpresasService);
   protected zoom = 10;

@@ -7,10 +7,11 @@ import { KeyValuePipe } from '@angular/common';
 import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { ApiErrorMessage } from '../../../types';
+import { ButtonMainComponent } from '../../button-main/button-main.component';
 
 @Component({
   selector: 'mail-empresa',
-  imports: [ReactiveFormsModule, KeyValuePipe, SweetAlert2Module],
+  imports: [ReactiveFormsModule, KeyValuePipe, SweetAlert2Module, ButtonMainComponent],
   templateUrl: './mail-empresa.component.html',
   styleUrl: './mail-empresa.component.scss'
 })

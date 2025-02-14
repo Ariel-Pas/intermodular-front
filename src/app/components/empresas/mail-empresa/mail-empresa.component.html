@@ -1,45 +1,43 @@
-<div class="container mt-3">
-    <h3>Enviar mensaje</h3>
+<div class="container mt-4 p-4  rounded shadow-sm">
+  <h3 class="mb-3 text-primary">Enviar mensaje</h3>
 
-    <form [formGroup] ="form" (ngSubmit)="onSubmit()">
-        <div>
-            <label for="" class="form-label">Asunto</label>
-            <input type="text" class="form-control" formControlName="asunto">
-        </div>
-        <div>
-            <label for="" class="form-label">Mensaje</label>
-            <input type="text" class="form-control" formControlName="mensaje">
-        </div>
-        <div formGroupName="empresas">
-            
-            <label for="" class="form-label">Empresas</label>
-            <br>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-            @for (empresa of
-            form.controls.empresas.controls| keyvalue;
-            track empresa) {
+      <div class="mb-3">
+          <label class="form-label fw-semibold">Asunto</label>
+          <input type="text" class="form-control" formControlName="asunto" placeholder="Escribe el asunto...">
+      </div>
 
-                <label
-                class="form-check-label mx-2"  
-                >{{ empresa.key }}
-                <input
-                    type="checkbox"
-                    [formControlName]="empresa.key"
-                    [checked]="empresa.value"
-                    class="mx-1"
-                /></label>
-                } @if ( form.get('empresas')?.touched &&
-                form.controls.empresas.hasError('validar-checkbox'))
-                {
-                <p class="error-msg">Selecciona al menos una empresa</p>
+      <div class="mb-3">
+          <label class="form-label fw-semibold">Mensaje</label>
+          <textarea class="form-control" formControlName="mensaje" rows="3" placeholder="Escribe tu mensaje..."></textarea>
+      </div>
+
+      <div class="mb-3" formGroupName="empresas">
+          <label class="form-label fw-semibold">Empresas</label>
+          <div class="row">
+            @for (empresa of form.controls.empresas.controls | keyvalue; track empresa) {
+                <div class="col-md-4 col-6">
+                    <div class="form-check">
+                        <input type="checkbox" [formControlName]="empresa.key" class="form-check-input" id="{{ empresa.key }}">
+                        <label class="form-check-label" for="{{ empresa.key }}">{{ empresa.key }}</label>
+                    </div>
+                </div>
             }
-
-            
         </div>
 
-        <input type="submit" value="Enviar" class="btn btn-primary" [disabled]="form.invalid">
-    </form>
+          @if (form.get('empresas')?.touched && form.controls.empresas.hasError('validar-checkbox')) {
+              <p class="text-danger mt-2">Selecciona al menos una empresa</p>
+          }
+      </div>
 
+
+      <div class="row">
+        <div class="col-4">
+          <input type="submit" value="Enviar" class="btn bg-orange w-100 text-white " [disabled]="form.invalid">
+        </div>
+      </div>
+  </form>
 </div>
 
 <swal title="" text="" icon="success" />

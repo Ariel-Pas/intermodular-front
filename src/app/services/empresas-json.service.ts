@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 import IEmpresasService from './IEmpresasService';
 import { IEmpresaDisplay, InfoGeografia, EmpresaJson } from '../types';
 import townsJson from '../data/towns.json';
@@ -11,7 +11,7 @@ import { Observable, of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EmpresasJsonService /* extends IEmpresasService */ {
+export class EmpresasJsonService /* extends IEmpresasService {
   private empresas : IEmpresaDisplay[];
   private towns: InfoGeografia = townsJson;
 
@@ -68,3 +68,4 @@ export class EmpresasJsonService /* extends IEmpresasService */ {
     return throwError(()=>({error : 'No existe la empresa'}))
   }
 }
+ */
