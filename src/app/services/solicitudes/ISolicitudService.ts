@@ -7,5 +7,5 @@ export abstract class ISolicitudService
 
   public abstract cargarCentros() : Observable<ICentro[]>;
 
-  public abstract cargarCiclosSegunCentro(centro: ICentro) : Observable<ICentro>;
+  public abstract cargarCiclosSegunCentro(centro: ICentro) : Observable<ICentro[]>;
 }

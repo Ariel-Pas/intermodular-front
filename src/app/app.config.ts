@@ -3,8 +3,8 @@ import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import IEmpresasService from './services/IEmpresasService';
-import { EmpresasFakerService } from './services/empresas-faker.service';
-import { EmpresasJsonService } from './services/empresas-json.service';
+//import { EmpresasFakerService } from './services/empresas-faker.service';
+//import { EmpresasJsonService } from './services/empresas-json.service';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { EmpresasApiService } from './services/empresas-api.service';
 import { IAuthenticationService } from './services/auth/IAuthenticationService';
@@ -32,6 +32,10 @@ import { TokenApiService } from './services/token/token-api.service';
 import { ISolicitudService } from './services/solicitudes/ISolicitudService';
 import { SolicitudApiService } from './services/solicitudes/solicitud-api.service';
 
+import { MatIconModule } from '@angular/material/icon';
+
+import { CategoriasApiService } from './services/categorias/categorias-api.service';
+
 
 
 export const appConfig: ApplicationConfig = {
@@ -39,7 +43,7 @@ export const appConfig: ApplicationConfig = {
     {provide: IEmpresasService, useExisting: EmpresasApiService},
     {provide: IAuthenticationService, useExisting: AuthFakeService},
     {provide: ILocalizacionService, useExisting: LocalizacionesApiService},
-    {provide: ICategoriaService, useExisting: CategoriasJsonService},
+    {provide: ICategoriaService, useExisting: CategoriasApiService},
 
     //{provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
@@ -48,15 +52,27 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(SweetAlert2Module.forRoot()),
 
 
+
     {provide: API_BASE, useValue: 'http://localhost:8000/api'},
     // DEBORA NOBS
     {provide: API_URL, useValue: 'http://localhost:8000'},
+
+    // DEBORA NOBS
+    {provide: API_URL, useValue: 'http://servidor.laravel/'},
+
     {provide: IFormulariosService, useExisting: FormulariosApiService},
     {provide: IReseniaService, useExisting: ReseniaApiService},
     {provide: ITokenService, useExisting: TokenApiService},
     {provide: ISolicitudService, useExisting: SolicitudApiService},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    importProvidersFrom(SweetAlert2Module.forRoot()),
     // DEBORA NOBS
+
+    MatIconModule,
+    provideHttpClient(withInterceptors([AuthTokenInterceptor])),
+    provideRouter(routes, withComponentInputBinding()),
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideAnimationsAsync()
+
    // provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     //provideRouter(routes, withComponentInputBinding()),
     //provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), ////provideAnimationsAsync()

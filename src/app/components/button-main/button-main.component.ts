@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 export class ButtonMainComponent {
   public href = input<string>('');
   public text = input.required<string>({alias: 'text'});
-
+  public disabled = input<boolean>(false);
   public flat = input<boolean>(false);
   public submit = input<boolean>(false);
   public btnIcon = input<string>('');

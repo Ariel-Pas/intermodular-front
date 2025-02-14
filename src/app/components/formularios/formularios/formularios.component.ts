@@ -1,18 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IFormulariosService } from '../../../services/formularios/IFormulariosService';
-import { IPregunta, IResenia} from '../../../types';
+import { IPregunta, IResenia } from '../../../types';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormControl, FormGroup, FormRecord, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl, FormGroup, FormRecord, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IReseniaService } from '../../../services/resenias/IReseniaService';
 import { ActivatedRoute } from '@angular/router';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-formularios',
-  imports: [MatIconModule, MatButtonModule, MatTooltipModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
+  imports: [MatIconModule, MatButtonModule, MatTooltipModule, FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, SweetAlert2Module],
   templateUrl: './formularios.component.html',
   styleUrl: './formularios.component.scss'
 })
@@ -28,7 +30,6 @@ export class FormulariosComponent implements OnInit {
   starCount: number = 5; // número total de estrellas
   ratings: { [key: string]: number } = {}; // objeto para almacenar el rating de cada pregunta
   form: FormGroup = new FormGroup({
-      // respuesta: new FormControl<string | number | null>(null)
   });
 
   ngOnInit(): void {
@@ -106,8 +107,22 @@ export class FormulariosComponent implements OnInit {
 
     respuestas.forEach(resenia => {
       this.reseniasService.crearResenia(resenia).subscribe({
-        next: (res) => console.log('Reseña creada exitosamente', res),
-        error: (err) => console.error('Error al crear reseña', err),
+        next: (res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Reseña enviada',
+            text: 'La reseña se ha creado correctamente.',
+          });
+          this.form.reset();
+        },
+        error: (err) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al completar la reseña',
+              text: 'Por favor, corrija los errores antes de enviar.',
+            });
+            return;
+        },
         complete: () => console.log('Operación completada'),
       });
     });
@@ -129,57 +144,57 @@ export class FormulariosComponent implements OnInit {
 
 
 
-  // onSubmit() {
-  //   if (!this.formularioId || !this.empresaId) {
-  //     console.error('Formulario ID o Empresa ID no definidos');
-  //     return;
-  //   }
+// onSubmit() {
+//   if (!this.formularioId || !this.empresaId) {
+//     console.error('Formulario ID o Empresa ID no definidos');
+//     return;
+//   }
 
-  //   this.preguntas.forEach((pregunta) => {
-  //     const respuesta = this.form.controls[pregunta.id.toString()]?.value;
-  //     if (respuesta != null) {
-  //       const resenia: IResenia = {
-  //         respuesta: respuesta,
-  //         pregunta_id: pregunta.id,
-  //         formulario_id: this.formularioId,
-  //         empresa_id: this.empresaId,
-  //         centro_id: 2, // Debe ser dinamico
-  //       };
+//   this.preguntas.forEach((pregunta) => {
+//     const respuesta = this.form.controls[pregunta.id.toString()]?.value;
+//     if (respuesta != null) {
+//       const resenia: IResenia = {
+//         respuesta: respuesta,
+//         pregunta_id: pregunta.id,
+//         formulario_id: this.formularioId,
+//         empresa_id: this.empresaId,
+//         centro_id: 2, // Debe ser dinamico
+//       };
 
-  //       this.reseniasService.crearResenia(resenia).subscribe({
-  //         next: (res) => console.log('Reseña creada exitosamente', res),
-  //         error: (err) => console.error('Error al crear reseña', err),
-  //         complete: () => console.log('Operación completada'),
-  //       });
-  //     }
-  //   });
-  // }
-
-
+//       this.reseniasService.crearResenia(resenia).subscribe({
+//         next: (res) => console.log('Reseña creada exitosamente', res),
+//         error: (err) => console.error('Error al crear reseña', err),
+//         complete: () => console.log('Operación completada'),
+//       });
+//     }
+//   });
+// }
 
 
 
 
 
 
-  // form = new FormRecord ({
-  //     id: new FormControl<string | number | null>(null),
-  //     respuesta: new FormControl<string | number | null>(null),
-  // })
 
 
-  // modelToData(): IResenia {
-  //   return {
-  //     respuesta: this.form.controls.respuesta.value?.respuesta ?? '',
-  //   }
-  // }
+// form = new FormRecord ({
+//     id: new FormControl<string | number | null>(null),
+//     respuesta: new FormControl<string | number | null>(null),
+// })
 
-  // modelToData(): IResenia[] { ver este nuevo modelToData()
-  //   return this.preguntas.map((pregunta) => ({
-  //     respuesta: this.form.get(pregunta.id.toString())?.value ?? '',
-  //     pregunta_id: pregunta.id,
-  //     formulario_id: this.form.get('formulario_id')?.value ?? 1,
-  //     centro_id: this.form.get('centro_id')?.value ?? 2,
-  //     empresa_id: this.form.get('empresa_id')?.value ?? 3,
-  //   }));
-  // }
+
+// modelToData(): IResenia {
+//   return {
+//     respuesta: this.form.controls.respuesta.value?.respuesta ?? '',
+//   }
+// }
+
+// modelToData(): IResenia[] { ver este nuevo modelToData()
+//   return this.preguntas.map((pregunta) => ({
+//     respuesta: this.form.get(pregunta.id.toString())?.value ?? '',
+//     pregunta_id: pregunta.id,
+//     formulario_id: this.form.get('formulario_id')?.value ?? 1,
+//     centro_id: this.form.get('centro_id')?.value ?? 2,
+//     empresa_id: this.form.get('empresa_id')?.value ?? 3,
+//   }));
+// }
