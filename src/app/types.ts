@@ -219,6 +219,12 @@ export interface ISolicitud {
   horario_fin: string | null;
   empresa_id: number | null;
   centro_id: ICentro | number | null;
+  ciclos: ICicloSolicitud[]
+}
+
+export interface ICicloSolicitud {
+  ciclo_id: number;
+  numero_puestos: number;
 }
 
 
@@ -234,4 +240,9 @@ export interface ICentro {
 }
 
 
+export interface ICiclo {
+  id: number;
+  nombre: string;
+  areasciclo_id: number;
+}
 

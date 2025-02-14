@@ -31,6 +31,9 @@ import { ITokenService } from './services/token/ITokenService';
 import { TokenApiService } from './services/token/token-api.service';
 import { ISolicitudService } from './services/solicitudes/ISolicitudService';
 import { SolicitudApiService } from './services/solicitudes/solicitud-api.service';
+
+import { MatIconModule } from '@angular/material/icon';
+
 import { CategoriasApiService } from './services/categorias/categorias-api.service';
 
 
@@ -56,11 +59,17 @@ export const appConfig: ApplicationConfig = {
     {provide: ITokenService, useExisting: TokenApiService},
     {provide: ISolicitudService, useExisting: SolicitudApiService},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
+    importProvidersFrom(SweetAlert2Module.forRoot()),
     // DEBORA NOBS
+
+    MatIconModule,
+    provideHttpClient(withInterceptors([AuthTokenInterceptor])),
+    provideRouter(routes, withComponentInputBinding()),
+    provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideAnimationsAsync()
+
    // provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     //provideRouter(routes, withComponentInputBinding()),
     //provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), ////provideAnimationsAsync()
-
 
   ]
 };
