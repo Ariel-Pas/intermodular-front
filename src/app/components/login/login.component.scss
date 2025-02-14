@@ -1,0 +1,20 @@
+html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .container-fluid {
+            min-height: 100vh;
+        }
+
+        #imgLogin {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        input::placeholder {
+            font-size: medium;
+            font-weight: bold;
+            color: black;
+        }

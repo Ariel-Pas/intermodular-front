@@ -1,0 +1,7 @@
+<p>select-role works!</p>
+<div class="role-selection">
+  <h2>Selecciona tu rol</h2>
+ @for(role of rolesDisponibles; track role){
+  <button (click)="elegirRol(role)">{{role}}</button>
+ }
+</div>

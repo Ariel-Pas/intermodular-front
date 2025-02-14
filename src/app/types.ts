@@ -114,6 +114,16 @@ export interface ICredenciales{
   centro?: number | null
 }
 
+//AUTH BETA
+export type role = 'Admin' | 'Centro' | 'Tutor';
+
+export interface ISession{
+  username: string,
+  roles: role[],
+  token: string,
+  activatedRole: role | null;
+}
+//AUTH BETA
 
 //Categorias y servicios
 export interface ICategoria{
@@ -152,8 +162,6 @@ export interface INewEmpresa{
   imagen: string,
   tipoImagen: string
 }
-
-
 
 
 export interface ICheckboxOption{
@@ -240,9 +248,22 @@ export interface ICentro {
 }
 
 
+export interface IUsuario{
+  id: number;
+  nombre: string;
+  apellidos: string;
+  email: string;
+  password: string;
+  //AQUI NO ES string|null, YA QUE SIEMPRE EXISTIRA UN CENTRO PARA ASOCIAR AL USUARIO
+  //REVISAR CASO ADMIN, QUIZAS ESTE NO TENGA UN CENTRO
+  centro_id: string;
+}
+
+
 export interface ICiclo {
   id: number;
   nombre: string;
   areasciclo_id: number;
 }
+
 

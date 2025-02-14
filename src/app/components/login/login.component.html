@@ -1,23 +1,39 @@
-
-
-<div class="row justify-content-center">
-  <div class="col-6">
-    <h1>Acceder</h1>
-  </div>
-  <div class="col-7">
-    <form (submit)="authenticate($event, email.value, password.value)">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" #email>
-
+<div>
+  <div class="container-fluid d-flex justify-content-center align-items-center" style="background-color: #46B6AC">
+      <div class="container">
+          <div class="row g-0">
+              <div class="col-7">
+                  <img id="imgLogin" class="img-fluid object-fit" src="images/login3.jpg"
+                      alt="Imagen Login">
+              </div>
+              <div class="col-5 d-flex justify-content-center align-items-center bg-white ">
+                  <div class="">
+                      <h4 class="text-center">Bienvenido</h4>
+                      <h4 class="text-center mb-3" style="color:#ff3600"><strong>Acceder</strong></h4>
+                      <!-- USAR SWEET ALERT -->
+                      @if (mensajeError) {
+                        <p class="alert alert-danger">
+                          {{mensajeError}}
+                        </p>
+                      }
+                      <form (submit)="authenticate($event, email.value, password.value)">
+                          <div class="form-group m-2 d-flex align-items-center">
+                              <i class="bi bi-person fs-4 m-2"></i><input type="text"
+                                  class="border-0 border-bottom border-1" name="email" id="email"
+                                  placeholder="Usuario" #email />
+                          </div>
+                          <div class="form-group m-2 d-flex align-items-center">
+                              <i class="bi bi-key fs-4 m-2"></i><input type="password"
+                                  class="border-0 border-bottom border-1" name="password" id="password"
+                                  placeholder="Contraseña" #password />
+                          </div>
+                          <!-- AQUI HAY QUE AGREGAR UN MENSAJE SI EL PASS NO COINCIDE -->
+                          <input type="submit" name="enviar" value="JOIN US"
+                              class="btn btn-block w-100 text-white m-2" style="background-color: #ff3600">
+                      </form>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" #password>
-      </div>
-      <swal title="Error al acceder" text="Email o contraseña incorrectos" icon="error"></swal>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
   </div>
 </div>

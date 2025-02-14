@@ -45,15 +45,21 @@ export const appConfig: ApplicationConfig = {
     {provide: ILocalizacionService, useExisting: LocalizacionesApiService},
     {provide: ICategoriaService, useExisting: CategoriasApiService},
 
-    {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
+    //{provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
     importProvidersFrom(SweetAlert2Module.forRoot()),
 
 
+
+    {provide: API_BASE, useValue: 'http://localhost:8000/api'},
+    // DEBORA NOBS
+    {provide: API_URL, useValue: 'http://localhost:8000'},
+
     // DEBORA NOBS
     {provide: API_URL, useValue: 'http://servidor.laravel/'},
+
     {provide: IFormulariosService, useExisting: FormulariosApiService},
     {provide: IReseniaService, useExisting: ReseniaApiService},
     {provide: ITokenService, useExisting: TokenApiService},

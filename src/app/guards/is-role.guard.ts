@@ -6,7 +6,6 @@ export const isRoleGuard: CanMatchFn = (route, segments) => {
   return true;
 };
 
-
 export const roleIs = (...rol:string[]) : boolean =>{
   return rol.includes(inject(IAuthenticationService).rol() ?? '');
 }

@@ -62,4 +62,17 @@ export class CategoriasApiService extends ICategoriaService {
       }))
     );
   }
+
+  override getCategoria(id: string): Observable<ICategoria> {
+    return this.httpClient.get<ICategoria>(`${this.baseUrl}/categorias/${id}`);
+  }
+  override crearCategoria(categoria: ICategoria): Observable<ICategoria> {
+    return this.httpClient.post<ICategoria>(`${this.baseUrl}/categorias`, categoria);
+  }
+  override actualizarCategoria(id: string, categoria: ICategoria): Observable<ICategoria> {
+    return this.httpClient.put<ICategoria>(`${this.baseUrl}/categorias/${id}`, categoria);
+  }
+  override eliminarCategoria(id:string): Observable<boolean> {
+    return this.httpClient.delete<boolean>(`${this.baseUrl}/categoria/${id}`);
+  }
 }
