@@ -1,4 +1,221 @@
-<div class="container-fluid">
+<div class="container w-75 mx-auto my-5">
+  <div class="card border-0 shadow-lg overflow-hidden">
+    <div class="card-header text-white text-center py-5" style="background: linear-gradient(135deg, #F12711, #F5AF19);">
+      <h1 class="display-4 mb-3">Formulario de Creación de Solicitudes</h1>
+      <p class="lead mb-0">Por favor, completa el siguiente formulario</p>
+    </div>
+    <div class="card-body p-5">
+      <form (ngSubmit)="onSubmit()" (reset)="form.reset()" [formGroup]="form">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nombre de la empresa</label>
+            <input type="text" class="form-control form-control-lg border-0 shadow-sm rounded-pill" placeholder="Coloque aquí el nombre de su empresa" formControlName="nombreEmpresa" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+            @if (form.get('nombreEmpresa')?.invalid && (form.get('nombreEmpresa')?.touched || form.get('nombreEmpresa')?.dirty)) {
+              <span class="error-msg">
+                @if (form.get('nombreEmpresa')?.hasError('required')) {
+                  'El campo es obligatorio'
+                }
+                @else if (form.get('nombreEmpresa')?.hasError('minlength')) {
+                  'El nombre debe tener al menos 3 caracteres'
+                }
+                @else if (form.get('nombreEmpresa')?.hasError('maxlength')) {
+                  'El nombre no puede tener más de 100 caracteres'
+                }
+              </span>
+            } @else if(form.get('nombreEmpresa')?.valid && form.get('nombreEmpresa')?.touched) {
+              <span class="msg-valido">Es válido!</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="cif" class="form-label">CIF</label>
+            <input type="text" class="form-control form-control-lg border-0 shadow-sm rounded-pill" id="cif" placeholder="47362837B" formControlName="cif" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+            @if (form.get('cif')?.invalid && (form.get('cif')?.touched || form.get('cif')?.dirty)) {
+              <span class="error-msg">
+                @if (form.get('cif')?.hasError('required')) {
+                  'El campo CIF es obligatorio'
+                }
+                @else if (form.get('cif')?.hasError('pattern')) {
+                  'Formato de CIF incorrecto.'
+                }
+              </span>
+            } @else if(form.get('cif')?.valid && form.get('cif')?.touched) {
+              <span class="msg-valido">Es válido!</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="actividad" class="form-label">Actividad</label>
+            <input type="text" class="form-control form-control-lg border-0 shadow-sm rounded-pill" id="actividad" placeholder="Escriba aquí la actividad de su empresa" formControlName="actividad" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+            @if (form.get('actividad')?.invalid && (form.get('actividad')?.touched || form.get('actividad')?.dirty)) {
+              <span class="error-msg">
+                @if (form.get('actividad')?.hasError('required')) {
+                  'El campo actividad es obligatorio'
+                }
+                @else if (form.get('actividad')?.hasError('maxlength')) {
+                  'La actividad no puede tener más de 50 caracteres'
+                }
+              </span>
+            } @else if(form.get('actividad')?.valid && form.get('actividad')?.touched) {
+              <span class="msg-valido">Es válido!</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="provincia" class="form-label">Provincia</label>
+            <select class="form-select form-control-lg border-0 shadow-sm rounded-pill" id="provincia" formControlName="provincia" name="provincia" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+              @for (provincia of provinciasComputada(); track provincia.id) {
+                @if($first) {
+                  <option [ngValue]="null" selected>Seleccione una provincia</option>
+                }
+                <option [ngValue]="provincia"> {{ provincia.name }}</option>
+              } @empty {
+                <option [ngValue]="null">No hay provincias disponibles</option>
+              }
+            </select>
+            @if(form.get('provincia')?.touched && form.get('provincia')?.hasError('required')){
+              <span class="error-msg">Elige una provincia</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="localidad" class="form-label">Localidad</label>
+            <select class="form-select form-control-lg border-0 shadow-sm rounded-pill" formControlName="localidad" name="localidad" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+              @for(town of localidades$ | async; track town.id) {
+                @if($first) {
+                  <option [ngValue]="null" selected>Seleccione una localidad</option>
+                }
+                <option [ngValue]="town"> {{ town.name }}</option>
+              } @empty {
+                <option [ngValue]="null">No hay localidades disponibles</option>
+              }
+            </select>
+            @if(form.get('localidad')?.touched && form.get('localidad')?.hasError('required')){
+              <span class="error-msg">Elige una localidad</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label>Horario</label>
+            <div class="d-flex">
+              <label for="horario_comienzo" class="form-label">
+                <input type="time" class="form-control form-control-lg border-0 shadow-sm rounded-pill" name="horario_comienzo" formControlName="horario_comienzo" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+                @if (form.get('horario_comienzo')?.invalid && (form.get('horario_comienzo')?.touched || form.get('horario_comienzo')?.dirty)) {
+                  <span class="error-msg">
+                    @if (form.get('horario_comienzo')?.hasError('required')) {
+                      'El campo es obligatorio'
+                    }
+                    @else if (form.hasError('horarioValidadoValidacion')) {
+                      <span class="error-msg">El horario de mañana debe ser inferior al horario de tarde</span>
+                    }
+                  </span>
+                } @else if(form.get('horario_comienzo')?.valid && form.get('horario_comienzo')?.touched) {
+                  <span class="msg-valido">Es válido!</span>
+                }
+              </label>
+
+              <label for="horario_fin" class="form-label">
+                <input type="time" class="form-control form-control-lg border-0 shadow-sm rounded-pill" name="horario_fin" formControlName="horario_fin" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+                @if (form.get('horario_fin')?.invalid && (form.get('horario_fin')?.touched || form.get('horario_fin')?.dirty)) {
+                  <span class="error-msg">
+                    @if (form.get('horario_fin')?.hasError('required')) {
+                      'El campo es obligatorio'
+                    }
+                    @else if (form.hasError('horarioValidadoValidacion')) {
+                      <span>El horario de mañana debe ser inferior al horario de tarde</span>
+                    }
+                  </span>
+                } @else if(form.get('horario_fin')?.valid && form.get('horario_fin')?.touched && !form.hasError('horarioValidadoValidacion')) {
+                  <span class="msg-valido">Es válido!</span>
+                }
+
+                @if (form.hasError('horarioValidadoValidacion')) {
+                  <span class="error-msg">El horario de mañana debe ser inferior al horario de tarde</span>
+                }
+              </label>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control form-control-lg border-0 shadow-sm rounded-pill" id="email" placeholder="contact@pixel78.com" formControlName="email" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+            @if(form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)) {
+              <span class="error-msg">
+                @if (form.get('email')?.hasError('required')) {
+                  'El email es obligatorio'
+                }
+                @else if (form.get('email')?.hasError('email')) {
+                  'El formato de email no es válido'
+                }
+              </span>
+            } @else if(form.get('email')?.valid && form.get('email')?.touched) {
+              <span class="msg-valido">Es válido!</span>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="titularidad">Titularidad</label> <br>
+            <input type="radio" formControlName="titularidad" name="titularidad" value="Publica">Publica
+            <input type="radio" formControlName="titularidad" name="titularidad" value="Privada">Privada
+          </div>
+
+          <div class="col-md-6">
+            <label for="centro_id" class="form-label">Centro</label>
+            <select class="form-select form-control-lg border-0 shadow-sm rounded-pill" id="centro_id" formControlName="centro_id" name="centro_id" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+              @for (centro of centrosComputada(); track centro.id) {
+                @if($first) {
+                  <option [ngValue]="null" selected>Seleccione un centro</option>
+                }
+                <option [ngValue]="centro"> {{ centro.nombre }}</option>
+              } @empty {
+                <option [ngValue]="null">No hay centros disponibles</option>
+              }
+            </select>
+            @if(form.get('centro')?.touched && form.get('centro')?.hasError('required')){
+              <span class="error-msg">Elige un centro</span>
+            }
+          </div>
+
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Ciclo formativo</th>
+                <th>Nº de alumnos</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(ciclo of ciclos$ | async; track ciclo.id) {
+                <tr>
+                  <td>{{ ciclo.nombre }}</td>
+                  <td>
+                    <input type="hidden" [value]="ciclo.id">
+                    <input type="number" class="form-control form-control-lg border-0 shadow-sm rounded-pill"
+                    [formControl]="getCicloControl(ciclo.id)" min="1" style="background: rgba(241, 39, 17, 0.1); border: 1px solid #e28277;">
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <input type="hidden" formControlName="empresa_id">
+
+          <div class="text-center mt-5">
+            <button type="submit" class="btn btn-lg px-5 py-3 rounded-pill shadow-lg" [disabled]="form.invalid" style="background: linear-gradient(135deg, #F12711, #F5AF19); color: #fff; border: none;">
+              <mat-icon>send</mat-icon> Registrar
+            </button>
+            <button type="reset" class="btn btn-lg px-5 py-3 rounded-pill shadow-lg" style="background: linear-gradient(135deg, #F12711, #F5AF19); color: #fff; border: none;" (click)="onLimpiar()">
+              <mat-icon>clear</mat-icon> Limpiar
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="container-fluid">
 
   <div class="text-center p-5 bg-white shadow rounded">
     <h3 class="display-4"> Formulario de creacion de solicitudes: </h3>
@@ -35,7 +252,7 @@
         <div class="col-md-6">
           <label for="cif" class="form-label">CIF</label>
           <input type="text" class="form-control" id="cif"
-            placeholder="B47362837" formControlName="cif">
+            placeholder="47362837B" formControlName="cif">
 
           @if (form.get('cif')?.invalid && (form.get('cif')?.touched ||
           form.get('cif')?.dirty)) {
@@ -43,7 +260,7 @@
             @if (form.get('cif')?.hasError('required')) {
             'El campo CIF es obligatorio' }
             @else if (form.get('cif')?.hasError('pattern')) {
-            'Formato de CIF incorrecto. Debe ser una letra seguida de 7 números y una letra/número.'
+            'Formato de CIF incorrecto.'
             }
           </span>
           } @else if(form.get('cif')?.valid && form.get('cif')?.touched) {
@@ -219,39 +436,26 @@
           }
         </div>
 
-        <!-- <div class="col-md-6">
-          <label for="centro_id" class="form-label">Centro</label>
-          <select class="form-select" id="centro_id"
-            formControlName="centro_id" name="centro_id">
 
-            @for (centro of centrosComputada(); track centro.id) {
-            @if($first) {
-            <option [ngValue]="null" selected>Seleccione un centro</option>
-            }
-            <option [ngValue]="centro"> {{ centro.nombre }}</option>
-            } @empty {
-            <option [ngValue]="null">No hay centros disponibles</option>
-            }
-          </select>
-
-          @if(form.get('centro')?.touched &&
-          form.get('centro')?.hasError('required')){
-          <span class="error-msg">Elige un centro</span>
-          }
-        </div> -->
-
-        <!-- <div class="col-md-6">
-                    <label for="puestos" class="form-label">Puestos disponibles</label>
-                    <select class="form-select" name="vacantes" formControlName="vacantes"
-                    aria-label="Seleccionar vacantes" name="vacantes">
-                    @for (vacante of numeroVacantes; track vacante) {
-                      @if($first) {
-                        <option [ngValue]="null" selected>Elige una opcion...</option>
-                      }
-                    <option [ngValue]="vacante"> {{ vacante }} </option>
-                    }
-                  </select>
-                </div> -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Ciclo formativo</th>
+              <th>Nº de alumnos</th>
+            </tr>
+          </thead>
+          <tbody>
+              @for(ciclo of ciclos$ | async; track ciclo.id) {
+                <tr>
+                  <td>{{ ciclo.nombre }}</td>
+                  <td>
+                    <input type="hidden" [value]="ciclo.id">
+                    <input type="number" class="form-control" [formControl]="getCicloControl(ciclo.id)" min="1">
+                  </td>
+                </tr>
+              }
+          </tbody>
+        </table>
 
         <input type="hidden" formControlName="empresa_id">
 
@@ -259,11 +463,10 @@
 
       <input [disabled]="form.invalid" name="submit" type="submit"
         value="Registrar">
-      <input type="reset" value="Limpiar">
+      <input type="reset" (click)="onLimpiar()" value="Limpiar">
 
-    </form>
+  </form>
   </div>
 
 </div>
-
-<pre>{{ form.value | json }}</pre>
+ -->

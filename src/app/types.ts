@@ -24,9 +24,9 @@ export interface IEmpresaDisplay {
     horario_tarde: string;
     finSemana: boolean;
   };
-  imagen: string;
-  categorias: string[];
-  servicios: string[];
+  imagen: string | null;
+  categorias: ICategoria[];
+  servicios: IServicio[];
   vacantes: number;
   puntuacion: number
 }
@@ -151,6 +151,11 @@ export interface IServicioBeta {
   categorias: ICategoriaBeta[];
 }
 
+export interface CategoryService{
+  servicio: string,
+  categoria: string
+}
+
 
 export interface INewEmpresa{
   nombre: string,
@@ -166,8 +171,7 @@ export interface INewEmpresa{
   horario_manana: string,
   horario_tarde: string,
   finSemana : boolean,
-  categorias: string[],
-  servicios: {categoria: string, id:string}[];
+  servicios: CategoryService[];
   imagen: string,
   tipoImagen: string
 }
@@ -236,6 +240,12 @@ export interface ISolicitud {
   horario_fin: string | null;
   empresa_id: number | null;
   centro_id: ICentro | number | null;
+  ciclos: ICicloSolicitud[]
+}
+
+export interface ICicloSolicitud {
+  ciclo_id: number;
+  numero_puestos: number;
 }
 
 
@@ -249,6 +259,7 @@ export interface ICentro {
   telefono: string;
 
 }
+
 
 export interface IUsuario{
   // id: string;
@@ -268,4 +279,11 @@ export interface IUsuarioDisplay{
   centro_id: number;
 }
 
+
+
+export interface ICiclo {
+  id: number;
+  nombre: string;
+  areasciclo_id: number;
+}
 
