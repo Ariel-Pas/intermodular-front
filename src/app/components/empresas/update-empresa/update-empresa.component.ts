@@ -52,6 +52,8 @@ import {
 import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
 import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
 import { AuthApiBetaService } from '../../../services/auth/auth-api-beta.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'update-empresa',
@@ -61,6 +63,7 @@ import { AuthApiBetaService } from '../../../services/auth/auth-api-beta.service
     KeyValuePipe,
     SweetAlert2Module,
     ButtonMainComponent,
+    MatIconModule, MatButtonModule,
   ],
   templateUrl: './update-empresa.component.html',
   styleUrl: './update-empresa.component.scss',

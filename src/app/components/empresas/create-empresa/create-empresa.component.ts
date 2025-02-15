@@ -39,13 +39,15 @@ import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { Router } from '@angular/router';
 import { ButtonMainComponent } from "../../button-main/button-main.component";
 import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
 
 @Component({
   selector: 'app-create-empresa',
-  imports: [ReactiveFormsModule, AsyncPipe, KeyValuePipe, SweetAlert2Module, ButtonMainComponent],
+  imports: [ReactiveFormsModule, AsyncPipe, KeyValuePipe, SweetAlert2Module, ButtonMainComponent, MatIconModule, MatButtonModule],
   templateUrl: './create-empresa.component.html',
   styleUrl: './create-empresa.component.scss',
 })
