@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { IUsuario } from '../../types';
 import { API_URL } from '../../tokens/token-formulario';
 import { HttpClient } from '@angular/common/http';
+import { API_BASE } from '../../tokens/tokens';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioApiService extends IUsuarioService {
 
-  constructor(@Inject(API_URL) private apiUrl: string) {
+  constructor(@Inject(API_BASE) private apiUrl: string) {
     super();
   }
 

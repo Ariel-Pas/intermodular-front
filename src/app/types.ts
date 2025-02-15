@@ -122,6 +122,7 @@ export interface ISession{
   roles: role[],
   token: string,
   activatedRole: role | null;
+  centro_id : number
 }
 //AUTH BETA
 
@@ -237,12 +238,14 @@ export interface ICentro {
 }
 
 export interface IUsuario{
-  id: number;
+  // id: number;
   nombre: string;
   apellidos: string;
   email: string;
   password: string;
   //AQUI NO ES string|null, YA QUE SIEMPRE EXISTIRA UN CENTRO PARA ASOCIAR AL USUARIO
   //REVISAR CASO ADMIN, QUIZAS ESTE NO TENGA UN CENTRO
-  centro_id: string;
+  centro_id: number;
 }
+
+

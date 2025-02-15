@@ -1,1 +1,46 @@
-<p>create-usuario works!</p>
+<div class="container mt-4">
+  <div class="card shadow-sm p-4">
+    <h3 class="mb-3 text-primary">Crear Usuario (Tutor)</h3>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="nombre">Nombre:</label>
+        <input class="form-control" formControlName="nombre" type="text" id="nombre">
+        @if(form.get('nombre')?.touched && form.get('nombre')?.hasError('required')){
+          <div class="text-danger small">El nombre es obligatorio.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="apellidos">Apellidos:</label>
+        <input class="form-control" formControlName="apellidos" type="text" id="apellidos">
+        @if(form.get('apellidos')?.touched && form.get('apellidos')?.hasError('required')){
+          <div class="text-danger small">El campo apellidos es obligatorio.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="email">E-mail:</label>
+        <input class="form-control" formControlName="email" type="email" id="email">
+        @if(form.get('email')?.touched && form.get('email')?.hasError('required')){
+          <div class="text-danger small">El email es obligatorio.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="password">Contraseña:</label>
+        <input class="form-control" formControlName="password" type="password" id="password">
+        @if(form.get('password')?.touched && form.get('password')?.hasError('required')){
+          <div class="text-danger small">La contraseña es obligatoria.</div>
+        }
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="form.invalid">Crear usuario</button>
+    </form>
+
+  </div>
+</div>
+
+<swal title=" " text=" " icon="success"></swal>
+
+

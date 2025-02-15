@@ -35,13 +35,15 @@ export class AuthApiBetaService {
       access_token: string,
       roles: role[],
       nombre: string,
+      centro_id: number
     }>(`${this.API_URL}/login`, { email, password }).pipe(
       map(response => {
         const session: ISession = {
           username: response.nombre,
           roles: response.roles.filter(role => role !== 'Admin') as role[],
           token: response.access_token,
-          activatedRole: null
+          activatedRole: null,
+          centro_id: response.centro_id
         };
 
         //Si solo tiene un rol, activarlo automaticamente

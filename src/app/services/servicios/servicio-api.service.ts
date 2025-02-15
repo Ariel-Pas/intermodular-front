@@ -31,5 +31,4 @@ export class ServicioApiService extends IServicioService {
     return this.httpClient.delete<boolean>(`${this.apiUrl}/servicios/${id}`);
   }
 
-
 }
