@@ -6,10 +6,10 @@
     <!--categorias-->
     <h6 class="card-subtitle mb-2 text-body-secondary categorias">
       @for (cat of empresa().categorias; track cat) {
-        @if ($index < 1) {
-          {{cat.name}},
+        @if ($index < 2) {
+          {{cat.name}}{{$last ? '' : ','}}
         }
-        @if ($index == 2) {
+        @if ($index == 3) {
           {{'...'}}
         }
       }

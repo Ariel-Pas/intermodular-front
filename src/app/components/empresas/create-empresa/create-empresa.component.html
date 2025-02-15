@@ -232,7 +232,7 @@
     </div>
     <fieldset formGroupName="categorizacion" class="mb-3 row">
       <div class="mb-3 col-md-6">
-        <label class="form-label">Categorias</label>
+        <label class="form-label">CategorÍas</label>
         <select
           class="form-select"
           name="categoria"
@@ -284,9 +284,14 @@
 }
 
 @if(!mostrarForm() && empresaExistente()){
-  <div>La empresa {{empresaExistente()?.nombre}} ya está registrada en el sistema <br>
-    Quieres asociarla a tu centro?
-    <button-main text="Asociar" [onClick]="asociarEmpresa"></button-main>
+  <div class="row">
+    <p>
+      La empresa {{empresaExistente()?.nombre}} ya está registrada en el sistema <br>
+      ¿Quieres asociarla a tu centro?
+    </p>
+    <div class="col-2">
+      <button-main text="Asociar" [onClick]="asociarEmpresa"></button-main>
+    </div>
   </div>
 }
 </div>

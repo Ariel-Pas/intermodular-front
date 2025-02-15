@@ -44,10 +44,23 @@
             @if (empresa.horario.finSemana) {
             <p>Abre los fines de semana</p>
             }
+
+            <p><span class="fw-semibold">Categorías y servicios</span></p>
+              <ul>
+                @for (categoria of categoriasYServicios; track categoria) {
+                  <p>{{categoria.categoria.name}} :
+                  @for (servicio of categoria.servicios; track servicio) {
+                    <span>{{servicio.name}}{{$last ? '' :', '}}</span>
+                  }
+                  </p>
+                }
+
+              </ul>
+
           </div>
 
           <!--Notas-->
-          <div class="col-lg-6 row justify-content-end">
+          <div class="col-lg-6 row align-content-start">
             <form
               [formGroup]="formNotas"
               (ngSubmit)="actualizarNotas()"
@@ -146,7 +159,7 @@
       </div>
 
     </mat-tab>
-    
+
   </mat-tab-group>
 </div>
 
