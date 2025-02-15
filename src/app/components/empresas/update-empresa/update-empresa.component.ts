@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  ElementRef,
   inject,
   input,
   signal,
@@ -23,6 +24,7 @@ import {
   FormRecord,
   ReactiveFormsModule,
   ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { AsyncPipe, KeyValuePipe } from '@angular/common';
@@ -46,9 +48,10 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-import { leerImagenBase64 } from '../../FuncionesGenerales';
+
 import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
 import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
+import { AuthApiBetaService } from '../../../services/auth/auth-api-beta.service';
 
 @Component({
   selector: 'update-empresa',
@@ -148,7 +151,7 @@ export class UpdateEmpresaComponent {
               )
             );
 
-            console.log(this.infoServiciosSeleccionados);
+
           });
         })
       )
@@ -166,6 +169,7 @@ export class UpdateEmpresaComponent {
   public provincias = computed(() => this.provinciasRx.value() ?? []);
   public provinciasInit = signal<IRegion[] | null>(null);
   public poblacionesInit = signal<ITown[] | null>(null);
+
 
   //categorias y servicios
   private categoriasRx = rxResource({
@@ -231,15 +235,13 @@ export class UpdateEmpresaComponent {
   });
 
   //cambiar localidades al cambiar provincia
-  localidades$ =
-    this.form.controls.direccion.controls.provincia.valueChanges.pipe(
-      switchMap((provincia) =>
-        provincia
-          ? this.localizacionesService.getPoblaciones(provincia.id)
-          : of([])
-      ),
-      tap((datos) => this.poblacionesInit.set(datos))
-    );
+
+    onChangeProvincia(event: Event){
+      this.localizacionesService.getPoblaciones(this.form.controls.direccion.controls.provincia.value?.id ?? '').subscribe({
+        next : (datos) => this.poblacionesInit.set(datos)
+      })
+    }
+
 
   //Funciones validación
   nombreEmpresaDisponible(
@@ -259,7 +261,7 @@ export class UpdateEmpresaComponent {
     if (control.value === '' || control.value === null) return of(null);
     //si no ha variado respecto al valor del cif de la empresa no hay error
     if (control.value === this.empresaInfo?.cif) return of(null);
-    //buscar la empresa por cif. si el id es igual al de la empresa de la respuesta ok. sino fallo
+
     return this.empresasService.buscarPorCif(control.value).pipe(
       map((x) => ({
         'cif-disponible': true,
@@ -311,6 +313,33 @@ export class UpdateEmpresaComponent {
     }
   }
 
+      //añadir validador de imagen una vez se ha cargado la vista
+      ngAfterViewInit(){
+        this.form.controls.imagen.addValidators(this.fileInputTodoImagenes());
+        this.form.updateValueAndValidity();
+      }
+
+      imagenInput = viewChild<ElementRef<HTMLInputElement>>('imagen');
+
+      //validar que se ha seleccionado una imagen
+      fileInputTodoImagenes() :  ValidatorFn {
+        return (control : AbstractControl) : ValidationErrors | null =>{
+
+            //const fileList = fileInput.files;
+            const fileList = this.imagenInput()?.nativeElement.files;
+            if(fileList){
+              for (const file of fileList) {
+                if (!file.type.startsWith("image/")) {
+                  return {'imagen-no-valida' : true};
+                }
+              }
+            }
+            return null;
+        }
+      }
+
+
+
   private infoServiciosSeleccionados: IServicio[] = [];
 
   //método que mantiene actualizado el array inforServiciosSeleccionados
@@ -346,8 +375,6 @@ export class UpdateEmpresaComponent {
       else this.infoServiciosSeleccionados.push(infoServicio);
     }
 
-    console.log(this.infoServiciosSeleccionados);
-
   }
 
   obtenerServiciosYCategorias(): CategoryService[] {
@@ -382,15 +409,17 @@ export class UpdateEmpresaComponent {
     };
   }
 
-  private authService = inject(IAuthenticationService);
+  private authService = inject(AuthApiBetaService);
   onSubmit() {
+    console.log(this.modelToData());
+
     //decidir qué método utilizar dependiendo de si el usuario está autenticado
-    if (this.authService.token()) {
+    if (this.authService.currentToken) {
       this.empresasService
         .actualizarEmpresaAuth(this.empresaInfo?.id ?? '', this.modelToData())
         .subscribe({
           next: (x) => {
-            
+
             this.gestionEmpresasService.recargarEmpresas();
             this.alert().title = 'Empresa actualizada correctamente';
             this.alert().text = '';
@@ -399,7 +428,7 @@ export class UpdateEmpresaComponent {
             this.router.navigate(['dashboard'])
           },
           error: () => {
-            console.log('error');
+
             this.alert().title = 'Ha ocurrido un error';
             this.alert().text = 'No se ha podido actualizar.';
             this.alert().icon = 'error';
@@ -411,7 +440,7 @@ export class UpdateEmpresaComponent {
         .actualizarEmpresaToken(this.id(), this.modelToData())
         .subscribe({
           next: (x) => {
-            console.log(x);
+
             this.alert().title = 'Empresa actualizada correctamente';
             this.alert().text = '';
             this.alert().icon = 'success';
@@ -419,7 +448,7 @@ export class UpdateEmpresaComponent {
             //this.router.navigate(['dashboard'])
           },
           error: () => {
-            console.log('error');
+
             this.alert().title = 'Ha ocurrido un error';
             this.alert().text = 'No se ha podido actualizar.';
             this.alert().icon = 'error';

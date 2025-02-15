@@ -241,8 +241,6 @@ export class CreateEmpresaComponent {
             }
           }
           return null;
-;
-
       }
     }
 

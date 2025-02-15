@@ -100,6 +100,7 @@
               class="form-select"
               name="provincia"
               formControlName="provincia"
+              (change)="onChangeProvincia($event)"
             >
               <option [ngValue]="null">Elige una provincia</option>
               @for (provincia of provinciasInit(); track provincia.id) {
