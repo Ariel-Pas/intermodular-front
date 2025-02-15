@@ -5,105 +5,93 @@
     <div class="d-flex">
 
       <!-- @if (['Admin', 'Tutor'].includes(this.rol() ?? '')) { -->
-        @if(session()?.activatedRole === 'Tutor' || session()?.activatedRole === 'Centro'){
-          <a class="nav-link d-sm-none nav-add" aria-current="page" routerLink="/create-company">
-            <button-main
-            text=""
-            btnIcon='<i class="bi bi-plus"></i>'
-            />
-          </a>
+      @if(session()?.activatedRole === 'Tutor' || session()?.activatedRole === 'Centro'){
+      <a class="nav-link d-sm-none nav-add" aria-current="page" routerLink="/create-company">
+        <button-main text="" btnIcon='<i class="bi bi-plus"></i>' />
+      </a>
 
-        }
+      }
 
-        <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
 
     <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarNav">
       <ul class="navbar-nav">
-          <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
-           @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
+        <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
+        @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
         <li class="nav-item d-flex align-items-center">
-          <a class="nav-link active d-flex align-items-center border" aria-current="page" routerLink="/dashboard"
-            ><i class="bi bi-globe"></i
-          ><span class="d-sm-none"> Empresas</span></a>
+          <a class="nav-link active d-flex align-items-center border" aria-current="page" routerLink="/dashboard"><i
+              class="bi bi-globe"></i><span class="d-sm-none"> Empresas</span></a>
         </li>
         }
 
         <li class="nav-item d-flex align-items-center">
 
           <!-- @if (this.nombreUsuario() != null) { -->
-           @if(session()?.username){
-          <a class="nav-link border" routerLink="/profile">
+          @if(session()?.username){
+          @if(session()?.activatedRole === 'Centro'){
+          <a class="nav-link border" routerLink="/profile/Centro">
+            <i class="bi bi-person me-2"></i>
+            <!-- <span>{{this.nombreUsuario()}}</span> -->
+            <span>{{session()?.username}}</span>
+          </a>
+          }@else{
+          <a class="nav-link border" routerLink="/profile/Tutor">
             <i class="bi bi-person me-2"></i>
             <!-- <span>{{this.nombreUsuario()}}</span> -->
             <span>{{session()?.username}}</span>
           </a>
           }
+          }
           @else {
-            <a class="nav-link border" routerLink="/login">
-              <i class="bi bi-person me-2"></i>
-             <span>Acceder</span>
-            </a>
+          <a class="nav-link border" routerLink="/login">
+            <i class="bi bi-person me-2"></i>
+            <span>Acceder</span>
+          </a>
           }
         </li>
 
         <!-- @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){ -->
         @if(session()?.activatedRole === 'Centro'){
-          <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
-            <a class="nav-link" aria-current="page" routerLink="/create-usuario">
-              <button-main
-              text="Crear usuario"
-              btnIcon='<i class="bi bi-plus"></i>'
-              />
-            </a>
+        <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
+          <a class="nav-link" aria-current="page" routerLink="/create-usuario">
+            <button-main text="Crear usuario" btnIcon='<i class="bi bi-plus"></i>' />
+          </a>
 
-          </li>
-          }
+        </li>
+        }
 
         <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
         @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
-          <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
-            <a class="nav-link" aria-current="page" routerLink="/create-company">
-              <button-main
-              text="Crear empresa"
-              btnIcon='<i class="bi bi-plus"></i>'
-              />
-            </a>
+        <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
+          <a class="nav-link" aria-current="page" routerLink="/create-company">
+            <button-main text="Crear empresa" btnIcon='<i class="bi bi-plus"></i>' />
+          </a>
 
-          </li>
-          }
+        </li>
+        }
 
         <!-- @if(this.rol()) -->
-         @if(session()?.activatedRole)
+        @if(session()?.activatedRole)
         {
-          <li class="nav-item p-0 d-flex align-items-center">
-            <a class="nav-link" aria-current="page" routerLink="/create-solicitud">
-              <button-main
-              text="Crear solicitud"
-              btnIcon='<i class="bi bi-plus"></i>'
-              />
+        <li class="nav-item p-0 d-flex align-items-center">
+          <a class="nav-link" aria-current="page" routerLink="/create-solicitud">
+            <button-main text="Crear solicitud" btnIcon='<i class="bi bi-plus"></i>' />
+          </a>
+        </li>
+
+
+        <div class="nav-item p-0 d-flex align-items-center clickable">
+          <div class="nav-link">
+            <a (click)="logout()">
+              <i class="bi bi-box-arrow-left"></i>
+              <span class="d-sm-none ms-2">Salir</span>
             </a>
-          </li>
-
-
-          <div class="nav-item p-0 d-flex align-items-center clickable">
-            <div class="nav-link">
-              <a  (click)="logout()">
-                <i class="bi bi-box-arrow-left"></i>
-                <span class="d-sm-none ms-2">Salir</span>
-              </a>
-            </div>
           </div>
+        </div>
 
 
         }

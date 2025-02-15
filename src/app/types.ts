@@ -136,6 +136,19 @@ export interface IServicio{
   category : string,
   id : string,
   name : string
+  categories? : string[]
+}
+
+export interface ICategoriaBeta{
+  id?: string;
+  nombre:string;
+  servicios: IServicioBeta[];
+}
+
+export interface IServicioBeta {
+  id: string;
+  nombre: string;
+  categorias: ICategoriaBeta[];
 }
 
 
@@ -238,13 +251,20 @@ export interface ICentro {
 }
 
 export interface IUsuario{
-  // id: number;
+  // id: string;
+  nombre: string;
+  apellidos: string;
+  email: string;
+  password?: string;
+  centro_id: number;
+}
+
+export interface IUsuarioDisplay{
+  id: string;
   nombre: string;
   apellidos: string;
   email: string;
   password: string;
-  //AQUI NO ES string|null, YA QUE SIEMPRE EXISTIRA UN CENTRO PARA ASOCIAR AL USUARIO
-  //REVISAR CASO ADMIN, QUIZAS ESTE NO TENGA UN CENTRO
   centro_id: number;
 }
 

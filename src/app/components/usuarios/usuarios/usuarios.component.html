@@ -1,1 +1,39 @@
-<p>usuarios works!</p>
+<div class="container py-4">
+  <div class="table-responsive border border-secondary shadow-lg rounded-3">
+    <table class="table table-hover align-middle border border-secondary rounded-3 shadow-sm overflow-hidden">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>E-mail</th>
+          <th>ID Centro</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (usuario of usuarios(); track usuario) {
+          <tr>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellidos }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.centro_id }}</td>
+            <td>
+              <a  [routerLink]="['/update-usuario', usuario.id]" class="btn btn-sm btn-outline-warning me-2">Editar</a>
+              <button type="button" (click)="deleteUser(usuario.id)" class="btn btn-sm btn-outline-danger">Eliminar</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+<swal
+    #alert
+    title="¿Eliminar usuario?"
+    text="Esta acción no se puede deshacer"
+    icon="warning"
+    [showCancelButton]="true"
+    confirmButtonText="Sí, eliminar"
+    cancelButtonText="Cancelar"
+  ></swal>
+

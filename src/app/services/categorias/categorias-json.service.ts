@@ -3,7 +3,7 @@ import categorias from '../../data/categories.json';
 import servicios from '../../data/services.json';
 import { ICategoriaService } from './ICategoriasService';
 import { Observable, of } from 'rxjs';
-import { ICategoria, IServicio } from '../../types';
+import { ICategoria, ICategoriaBeta, IServicio } from '../../types';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ import { ICategoria, IServicio } from '../../types';
 
 
 export class CategoriasJsonService extends ICategoriaService{
+
 
     getCategorias() : Observable<ICategoria[]>
     {
@@ -27,16 +28,20 @@ export class CategoriasJsonService extends ICategoriaService{
     }
 
     //NOT USED - JSON
-    override getCategoria(id: string): Observable<ICategoria> {
+    override getCategoria(id: string): Observable<ICategoriaBeta> {
       throw new Error('Method not implemented.');
     }
-    override crearCategoria(categoria: ICategoria): Observable<ICategoria> {
+    override crearCategoria(categoria: ICategoriaBeta): Observable<ICategoriaBeta> {
       throw new Error('Method not implemented.');
     }
-    override actualizarCategoria(id: string, categoria: ICategoria): Observable<ICategoria> {
+    override actualizarCategoria(id: string, categoria: ICategoriaBeta): Observable<ICategoriaBeta> {
       throw new Error('Method not implemented.');
     }
     override eliminarCategoria(id: string): Observable<boolean> {
+      throw new Error('Method not implemented.');
+    }
+
+    override getCategoriasBeta(): Observable<ICategoriaBeta[]> {
       throw new Error('Method not implemented.');
     }
 }

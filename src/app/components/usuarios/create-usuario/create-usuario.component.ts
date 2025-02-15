@@ -1,8 +1,6 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject, Inject, viewChild } from '@angular/core';
+import { Component, inject, viewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { API_BASE } from '../../../tokens/tokens';
 import { UsuarioApiService } from '../../../services/usuarios/usuario-api.service';
 import { IUsuario } from '../../../types';
 import { AuthApiBetaService } from '../../../services/auth/auth-api-beta.service';
@@ -11,7 +9,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-usuario',
-  imports: [ReactiveFormsModule, AsyncPipe, SweetAlert2Module],
+  imports: [ReactiveFormsModule, SweetAlert2Module],
   templateUrl: './create-usuario.component.html',
   styleUrl: './create-usuario.component.scss'
 })
@@ -53,8 +51,7 @@ export class CreateUsuarioComponent {
         this.alert().text = '';
         this.alert().icon = "success";
         this.alert().fire();
-        //this.router.navigate(['dashboard'])
-
+        this.router.navigate(['/usuarios'])
       },
       error: ()=>{
         console.log('error');

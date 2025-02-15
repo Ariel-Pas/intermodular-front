@@ -1,7 +1,7 @@
 import { inject, Inject, Injectable } from '@angular/core';
 import IUsuarioService from './iusuario-service';
 import { Observable } from 'rxjs';
-import { IUsuario } from '../../types';
+import { IUsuario, IUsuarioDisplay } from '../../types';
 import { API_URL } from '../../tokens/token-formulario';
 import { HttpClient } from '@angular/common/http';
 import { API_BASE } from '../../tokens/tokens';
@@ -17,8 +17,8 @@ export class UsuarioApiService extends IUsuarioService {
 
   private httpClient = inject(HttpClient);
 
-  override getUsuarios(): Observable<IUsuario[]> {
-    return this.httpClient.get<IUsuario[]>(`${this.apiUrl}/usuarios`);
+  override getUsuarios(): Observable<IUsuarioDisplay[]> {
+    return this.httpClient.get<IUsuarioDisplay[]>(`${this.apiUrl}/usuarios`);
   }
   override getUsuario(id: string): Observable<IUsuario> {
     return this.httpClient.get<IUsuario>(`${this.apiUrl}/usuarios/${id}`);

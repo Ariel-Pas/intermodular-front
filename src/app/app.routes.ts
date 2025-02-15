@@ -25,11 +25,7 @@ import { UsuariosComponent } from './components/usuarios/usuarios/usuarios.compo
 import { CreateUsuarioComponent } from './components/usuarios/create-usuario/create-usuario.component';
 import { UpdateUsuarioComponent } from './components/usuarios/update-usuario/update-usuario.component';
 import { ServiciosComponent } from './components/servicios/servicios/servicios.component';
-import { CreateServicioComponent } from './components/servicios/create-servicio/create-servicio.component';
-import { UpdateServicioComponent } from './components/servicios/update-servicio/update-servicio.component';
 import { CategoriasComponent } from './components/categorias/categorias/categorias.component';
-import { CreateCategoriaComponent } from './components/categorias/create-categoria/create-categoria.component';
-import { UpdateCategoriaComponent } from './components/categorias/update-categoria/update-categoria.component';
 
 
 export const routes: Routes = [
@@ -46,13 +42,9 @@ export const routes: Routes = [
 
   //SERVICIOS
   {path: 'servicios', component: ServiciosComponent},
-  {path: 'create-servicio', component: CreateServicioComponent},
-  {path: 'update-servicio/:id', component: UpdateServicioComponent},
 
   //CATEGORIAS
   {path: 'categorias', component: CategoriasComponent},
-  {path: 'create-categoria', component: CreateCategoriaComponent},
-  {path: 'update-categoria/:id', component: UpdateCategoriaComponent},
 
   //GENERAL + EMPRESAS
   {path: 'dashboard', component: EmpresasPrincipalComponent, /* canActivate: [()=>roleIs('profesor', 'admin')] */},
