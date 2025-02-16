@@ -70,10 +70,11 @@
     </div>
 
 
-
-   <button-main  text="Contactar"  href="/company/{{empresa().id}}">
+    @if(authService.currentToken) {
+   <button-main  text="Ver más"  href="/company/{{empresa().id}}">
 
     </button-main>
+    }
 
   </div>
 </div>
