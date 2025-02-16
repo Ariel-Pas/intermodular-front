@@ -37,31 +37,31 @@ export const routes: Routes = [
 
 
   //USUARIOS
-  {path: 'usuarios', component: UsuariosComponent},
-  {path: 'create-usuario', component: CreateUsuarioComponent},
-  {path: 'update-usuario/:id', component: UpdateUsuarioComponent},
+  {path: 'usuarios', component: UsuariosComponent , canMatch: [RoleGuard], data: {expectedRole: 'Centro'}},
+  {path: 'create-usuario', component: CreateUsuarioComponent , canMatch: [RoleGuard], data: {expectedRole: 'Centro'}},
+  {path: 'update-usuario/:id', component: UpdateUsuarioComponent , canMatch: [RoleGuard], data: {expectedRole: 'Centro'}},
 
   //SERVICIOS
-  {path: 'servicios', component: ServiciosComponent},
+  {path: 'servicios', component: ServiciosComponent, canActivate: [AuthGuard]},
 
   //CATEGORIAS
-  {path: 'categorias', component: CategoriasComponent},
+  {path: 'categorias', component: CategoriasComponent, canActivate: [AuthGuard]},
 
   //GENERAL + EMPRESAS
 
-  {path: 'dashboard', component: EmpresasPrincipalComponent/* , canActivate: [()=>roleIs('profesor','centro' ,'admin')] */},
+  {path: 'dashboard', component: EmpresasPrincipalComponent, canActivate: [AuthGuard]},
 
   {path: 'login', component: LoginComponent},
-  {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
+  {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}, canActivate: [AuthGuard]},
   {path: 'company/update/:id', component: UpdateEmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
-  {path: 'create-company', component: CreateEmpresaComponent,/*  canActivate: [()=>roleIs('profesor', 'admin')] */},
+  {path: 'create-company', component: CreateEmpresaComponent, canActivate: [AuthGuard]},
 
-  {path: 'company/contact', component: MailEmpresaComponent},
-  {path: 'empresas-alumnos/:id', component: ListaEmpresasAlumnosComponent},
+  {path: 'company/contact', component: MailEmpresaComponent, canActivate: [AuthGuard]},
+  {path: 'empresas-alumnos/:id', component: ListaEmpresasAlumnosComponent },
 
   // rutas formulario:
-  {path: 'create-formulario', component: FormulariosComponent }, // sacar creo ,
-  {path: 'formulario/:id', component: FormulariosComponent},
+  {path: 'create-formulario', component: FormulariosComponent , canActivate: [AuthGuard]},
+  {path: 'formulario/:id', component: FormulariosComponent, canActivate: [AuthGuard]},
   {path: 'create-solicitud', component: SolicitudesComponent},
 
   {path: '', redirectTo: 'login', pathMatch:'full'},
