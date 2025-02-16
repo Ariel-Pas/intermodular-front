@@ -36,7 +36,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { CategoriasApiService } from './services/categorias/categorias-api.service';
 
-
+//modificar esta ruta y poner la de la api SIN /api
+const rutaBase = 'http://servidor.laravel/';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -44,20 +45,16 @@ export const appConfig: ApplicationConfig = {
     {provide: IAuthenticationService, useExisting: AuthFakeService},
     {provide: ILocalizacionService, useExisting: LocalizacionesApiService},
     {provide: ICategoriaService, useExisting: CategoriasApiService},
-
-    //{provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     provideRouter(routes, withComponentInputBinding()),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
     importProvidersFrom(SweetAlert2Module.forRoot()),
 
 
 
-    {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
-    // DEBORA NOBS
-    /* {provide: API_URL, useValue: 'http://localhost:8000'} ,*/
+    {provide: API_BASE, useValue: `${rutaBase}api`},
 
-    // DEBORA NOBS
-    {provide: API_URL, useValue: 'http://servidor.laravel/'},
+
+    {provide: API_URL, useValue: rutaBase},
 
     {provide: IFormulariosService, useExisting: FormulariosApiService},
     {provide: IReseniaService, useExisting: ReseniaApiService},
@@ -65,7 +62,7 @@ export const appConfig: ApplicationConfig = {
     {provide: ISolicitudService, useExisting: SolicitudApiService},
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher},
     importProvidersFrom(SweetAlert2Module.forRoot()),
-    // DEBORA NOBS
+
 
     MatIconModule,
     provideHttpClient(withInterceptors([AuthTokenInterceptor])),
