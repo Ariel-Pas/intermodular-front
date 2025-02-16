@@ -27,7 +27,7 @@ import { UpdateUsuarioComponent } from './components/usuarios/update-usuario/upd
 import { ServiciosComponent } from './components/servicios/servicios/servicios.component';
 import { CategoriasComponent } from './components/categorias/categorias/categorias.component';
 
-
+//TEST
 export const routes: Routes = [
   //PERFILES
   {path: 'profile/Centro', component: CentroProfileComponent, canMatch: [RoleGuard], data: {expectedRole: 'Centro'}},
