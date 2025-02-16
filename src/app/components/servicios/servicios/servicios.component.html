@@ -1,1 +1,68 @@
-<p>servicios works!</p>
+<div class="container py-4">
+  <h2 class="my-4">Gestión de Servicios</h2>
+
+  <!-- FORMULARIO PARA NUEVO SERVICIO -->
+  <div class="card p-3 mb-4 shadow-sm">
+    <div class="d-flex gap-2">
+      <input type="text" class="form-control" placeholder="Nuevo Servicio" [(ngModel)]="nuevoServicio"
+        (keyup.enter)="agregarServicio()">
+      <button class="btn btn-primary" (click)="agregarServicio()">
+        <i class="bi bi-plus-circle"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- SERVICIOS -->
+  <div class="table-responsive border shadow-lg rounded-3">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Nombre (Editable)</th>
+          <th>Categorías</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (servicio of servicios(); track servicio.id) {
+        <tr>
+          <td>{{ servicio.id }}</td>
+
+          <!-- CAMPO NOMBRE EDITABLE -->
+          <td>
+            <div class="d-flex gap-2">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="servicio.nombre">
+              <button class="btn btn-sm btn-success" (click)="actualizarServicio(servicio)">
+                <i class="bi bi-floppy"></i>
+              </button>
+            </div>
+          </td>
+
+          <!-- CATEGORIAS -->
+          <td>
+            @if (servicio.categorias.length > 0) {
+            <ul class="list-unstyled mb-0">
+              @for (categoria of servicio.categorias; track categoria.id) {
+              <li>{{ categoria.id }} - {{ categoria.nombre }}</li>
+              }
+            </ul>
+            } @else {
+            <span class="text-muted">Sin categoría asignada</span>
+            }
+          </td>
+
+          <!-- ACCIONES -->
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="eliminarServicio(servicio.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<swal #alert title="¿Eliminar servicio?" text="Esta acción no se puede deshacer" icon="warning"
+  [showCancelButton]="true" confirmButtonText="Sí, eliminar" cancelButtonText="Cancelar"></swal>

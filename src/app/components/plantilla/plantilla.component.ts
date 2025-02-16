@@ -6,7 +6,7 @@ import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-plantilla',
-  imports: [PlantillaNavComponent, RouterOutlet, RouterLink, RouterLinkActive, AsyncPipe],
+  imports: [PlantillaNavComponent, RouterOutlet, AsyncPipe],
   templateUrl: './plantilla.component.html',
   styleUrl: './plantilla.component.scss'
 })

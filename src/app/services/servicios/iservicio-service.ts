@@ -1,11 +1,12 @@
 import { Observable } from "rxjs";
 import { IServicio } from "../../types";
+import { IServicioBeta } from "../../types";
 
 export default abstract class IServicioService {
-    abstract getServicios(): Observable<IServicio[]>;
-    abstract getServicio(id: string): Observable<IServicio>;
+    abstract getServicios(): Observable<IServicioBeta[]>;
+    abstract getServicio(id: string): Observable<IServicioBeta>;
     //AQUI DEBERIA ESTAR INewServicio
-    abstract crearServicio(servicio: IServicio): Observable<IServicio>;
-    abstract actualizarServicio(id: string, servicio: IServicio): Observable<IServicio>;
+    abstract crearServicio(servicio: IServicioBeta): Observable<IServicioBeta>;
+    abstract actualizarServicio(id: string, servicio: IServicioBeta): Observable<IServicioBeta>;
     abstract eliminarServicio(id: string): Observable<boolean>;
 }

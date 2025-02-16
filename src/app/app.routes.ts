@@ -21,6 +21,11 @@ import { AuthGuard } from './guards/authguard.guard';
 import { RoleGuard } from './guards/roleguard.guard';
 import { SelectRoleComponent } from './components/login/select-role/select-role.component';
 import { UnauthorizedComponent } from './components/login/unauthorized/unauthorized.component';
+import { UsuariosComponent } from './components/usuarios/usuarios/usuarios.component';
+import { CreateUsuarioComponent } from './components/usuarios/create-usuario/create-usuario.component';
+import { UpdateUsuarioComponent } from './components/usuarios/update-usuario/update-usuario.component';
+import { ServiciosComponent } from './components/servicios/servicios/servicios.component';
+import { CategoriasComponent } from './components/categorias/categorias/categorias.component';
 
 
 export const routes: Routes = [
@@ -30,7 +35,22 @@ export const routes: Routes = [
   {path: 'select-role', component: SelectRoleComponent, canActivate: [AuthGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent},
 
+
+  //USUARIOS
+  {path: 'usuarios', component: UsuariosComponent},
+  {path: 'create-usuario', component: CreateUsuarioComponent},
+  {path: 'update-usuario/:id', component: UpdateUsuarioComponent},
+
+  //SERVICIOS
+  {path: 'servicios', component: ServiciosComponent},
+
+  //CATEGORIAS
+  {path: 'categorias', component: CategoriasComponent},
+
+  //GENERAL + EMPRESAS
+
   {path: 'dashboard', component: EmpresasPrincipalComponent/* , canActivate: [()=>roleIs('profesor','centro' ,'admin')] */},
+
   {path: 'login', component: LoginComponent},
   {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'company/update/:id', component: UpdateEmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},

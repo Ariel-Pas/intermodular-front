@@ -1,1 +1,47 @@
-<p>Perfil de profesor de {{this.nombreUsuario}}</p>
+<div class="container-fluid p-0" style="height: 100vh;">
+  <div class="row g-0 h-100">
+    <aside class="col-md-3 col-lg-2 bg-dark text-white h-100 d-flex flex-column p-4 shadow-lg">
+      <div class="mb-4 text-center">
+        <h4 class="text-white-50 mb-0 fw-normal">ADMINISTRACIÓN</h4>
+        <hr class="text-white-50 mt-3">
+      </div>
+
+      <nav class="nav flex-column gap-2">
+        @if(session()?.activatedRole === 'Centro'){
+          <a routerLink="/usuarios"
+          class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded bg-opacity-10 bg-white hover-bg-opacity-25"
+          routerLinkActive="active bg-primary text-white">
+         <i class="bi bi-people fs-6"></i>
+         Usuarios
+       </a>
+        }
+
+        <a routerLink="/categorias"
+           class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded bg-opacity-10 bg-white hover-bg-opacity-25"
+           routerLinkActive="active bg-primary text-white">
+          <i class="bi bi-tags fs-6"></i>
+          Categorías
+        </a>
+
+        <a routerLink="/servicios"
+           class="nav-link text-white d-flex align-items-center gap-2 py-2 px-3 rounded bg-opacity-10 bg-white hover-bg-opacity-25"
+           routerLinkActive="active bg-primary text-white">
+          <i class="bi bi-gear fs-6"></i>
+          Servicios
+        </a>
+      </nav>
+    </aside>
+
+    <main class="col-md-9 col-lg-10 p-0 h-100">
+      <div class="position-relative h-100 bg-dark">
+        <img src="images/profesor.jpg"
+             class="img-fluid w-100 h-100 object-fit-cover opacity-75"
+             alt="Universidad">
+        <div class="position-absolute start-50 text-center text-white" style="top: 30%; transform: translateX(-10%);">
+          <h1 class="display-5 fw-light mb-3">Bienvenido</h1>
+          <p class="lead mb-0 text-white-75">Sistema de Gestión Institucional</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

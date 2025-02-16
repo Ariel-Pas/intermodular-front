@@ -1,7 +1,33 @@
-<p>select-role works!</p>
-<div class="role-selection">
-  <h2>Selecciona tu rol</h2>
- @for(role of rolesDisponibles; track role){
-  <button (click)="elegirRol(role)">{{role}}</button>
- }
+<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+  <div class="card shadow-lg border-0" style="max-width: 800px; width: 100%;">
+    <div class="card-body p-5">
+      <div class="text-center mb-5">
+        <img src="images/role.jpg"
+             alt="Selección de rol"
+             class="img-fluid rounded-circle mb-4"
+             style="width: 120px; height: 120px; object-fit: cover;">
+      </div>
+
+      <div class="text-center mb-5">
+        <h1 class="h3 mb-3 fw-normal">Selecciona tu rol</h1>
+        <p class="text-muted">¿Cómo deseas acceder a la plataforma?</p>
+      </div>
+
+      <div class="row g-4">
+        @for(role of rolesDisponibles; track role) {
+          <div class="col-12 col-md-6">
+            <button class="btn btn-outline-primary w-100 py-3 d-flex align-items-center justify-content-center"
+                    (click)="elegirRol(role)"
+                    style="min-height: 100px;">
+              <span class="fs-5">{{role}}</span>
+            </button>
+          </div>
+        }
+      </div>
+
+      <div class="text-center mt-4">
+        <small class="text-muted">Tu rol determinará tus permisos en la web.</small>
+      </div>
+    </div>
+  </div>
 </div>

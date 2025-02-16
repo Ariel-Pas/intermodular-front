@@ -1,13 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { IAuthenticationService } from '../../../services/auth/IAuthenticationService';
+import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { AuthApiBetaService } from '../../../services/auth/auth-api-beta.service';
 
 @Component({
   selector: 'app-profesor-profile',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './profesor-profile.component.html',
   styleUrl: './profesor-profile.component.scss'
 })
 export class ProfesorProfileComponent {
-  private loginService = inject(IAuthenticationService);
-    public nombreUsuario = this.loginService.user();
+  private authService = inject(AuthApiBetaService);
+  public session = toSignal(this.authService.session$, { initialValue: null });
 }
