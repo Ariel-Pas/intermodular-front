@@ -82,6 +82,9 @@ export class UpdateEmpresaComponent {
   ngOnInit(): void {
     this.route.data
       .pipe(
+        //para rellenar la información de la empresa a modificar hay que tener la info de la empresa
+        //y la info de los selects y checkboxes para rellenarlos y asignarlos
+
         //pedirle todos los observables
         switchMap((data) =>
           forkJoin({
@@ -167,9 +170,8 @@ export class UpdateEmpresaComponent {
     loader: () => this.localizacionesService.getRegiones(),
   });
 
-  //this.provinciasRx.set() //actualizar array y clonar con filter
-
   public provincias = computed(() => this.provinciasRx.value() ?? []);
+  //señales que se asignan al cargar los datos
   public provinciasInit = signal<IRegion[] | null>(null);
   public poblacionesInit = signal<ITown[] | null>(null);
 

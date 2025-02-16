@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container mb-4">
   <mat-tab-group
     mat-stretch-tabs="false"
     mat-align-tabs="start"
@@ -44,7 +44,7 @@
             @if (empresa.horario.finSemana) {
             <p>Abre los fines de semana</p>
             }
-
+            <p><span class="fw-semibold">Nota: </span>{{ empresa.puntuacion}}</p>
             <p><span class="fw-semibold">Categorías y servicios</span></p>
               <ul>
                 @for (categoria of categoriasYServicios; track categoria) {
@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="acciones row mt-4">
+      <div class="acciones row my-4">
         <p class="fw-bold">Acciones</p>
           <hr />
         <div class="col-3 col-md-2">
