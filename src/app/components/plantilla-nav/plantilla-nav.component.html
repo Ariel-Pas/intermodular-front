@@ -95,19 +95,19 @@
             </a>
           </li>
 
+        }
 
+        @if(session()?.activatedRole != null)
+        {
           <div class="nav-item p-0 d-flex align-items-center clickable">
             <div class="nav-link">
               <a  (click)="logout()">
                 <i class="bi bi-box-arrow-left"></i>
-                <span class="d-sm-none ms-2">Salir</span>
+                <span class="ms-2">Salir</span>
               </a>
             </div>
           </div>
-
-
         }
-
 
       </ul>
     </div>

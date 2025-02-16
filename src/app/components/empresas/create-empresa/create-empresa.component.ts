@@ -39,13 +39,15 @@ import { SwalComponent, SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { Router } from '@angular/router';
 import { ButtonMainComponent } from "../../button-main/button-main.component";
 import { GestionFiltradoEmpresasService } from '../../../services/gestion-filtrado-empresas.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
 
 @Component({
   selector: 'app-create-empresa',
-  imports: [ReactiveFormsModule, AsyncPipe, KeyValuePipe, SweetAlert2Module, ButtonMainComponent],
+  imports: [ReactiveFormsModule, AsyncPipe, KeyValuePipe, SweetAlert2Module, ButtonMainComponent, MatIconModule, MatButtonModule],
   templateUrl: './create-empresa.component.html',
   styleUrl: './create-empresa.component.scss',
 })
@@ -68,6 +70,7 @@ export class CreateEmpresaComponent {
 
 
   private empresasService = inject(IEmpresasService);
+  private gestionFiltradoService = inject(GestionFiltradoEmpresasService);
   private localizacionesService = inject(ILocalizacionService);
   private categoriasService = inject(ICategoriaService);
   private router = inject(Router);
@@ -108,9 +111,7 @@ export class CreateEmpresaComponent {
   })
 
 
-  protected formValido = computed(()=> {
-    return (this.form.valid && (this.imagenValida() === true))
-  })
+
   //Form reactivo
   form = new FormGroup({
     nombre: new FormControl(
@@ -190,8 +191,7 @@ export class CreateEmpresaComponent {
       })
     }
 
-    protected imagenInvalida = signal<boolean|null>(null);
-    protected imagenValida = signal<boolean|null>(null);
+
     //Cargar imagen cuando se selecciona
     leerImagen(event : Event){
       if(event.target instanceof HTMLInputElement){
@@ -200,12 +200,9 @@ export class CreateEmpresaComponent {
         const fileList = event.target.files;
         if(fileList && fileList.length == 1){
           if (!fileList[0].type.startsWith("image/")) {
-            this.imagenInvalida.set(true);
-            this.imagenValida.set(false);
             return;
           }
-          this.imagenValida.set(true);
-          this.imagenInvalida.set(false);
+
           this.form.controls.tipoImagen.setValue(fileList[0].type.split('/')[1], {emitModelToViewChange: false})
 
           const reader = new FileReader();
@@ -224,6 +221,7 @@ export class CreateEmpresaComponent {
       }
     }
 
+    //añadir validador de imagen una vez se ha cargado la vista
     ngAfterViewInit(){
       this.form.controls.imagen.addValidators(this.fileInputTodoImagenes());
       this.form.updateValueAndValidity();
@@ -231,6 +229,7 @@ export class CreateEmpresaComponent {
 
     imagenInput = viewChild<ElementRef<HTMLInputElement>>('imagen');
 
+    //validar que se ha seleccionado una imagen
     fileInputTodoImagenes() :  ValidatorFn {
       return (control : AbstractControl) : ValidationErrors | null =>{
 
@@ -244,9 +243,6 @@ export class CreateEmpresaComponent {
             }
           }
           return null;
-
-        //return null;
-
       }
     }
 
@@ -258,7 +254,7 @@ export class CreateEmpresaComponent {
     //comprobar si el nombre del servicio está asociado a la categoria seleccionada del form
     const infoServicio = this.servicios().find((x) => x.name == servicio);
     if (!infoServicio) return true;
-    //comparar la categoria del servicio encontrado con el valor seleccionado
+    //comparar las categorias del servicio encontrado con el valor seleccionado
     //para saber si hay que esconderlo o no
     let esconder = !infoServicio.categories?.includes(this.form.controls.categorizacion.controls.categoria.value?.id ?? '');
 
@@ -366,6 +362,7 @@ export class CreateEmpresaComponent {
   asociarEmpresa =(e :Event) => {
     this.empresasService.asociarEmpresa(this.empresaExistente()?.id ?? '').subscribe({
       next: ()=> {
+        this.gestionFiltradoService.recargarEmpresas();
         this.alert().title = "Empresa asociada correctamente";
         this.alert().text = '';
         this.alert().icon = "success";
