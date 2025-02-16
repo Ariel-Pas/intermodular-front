@@ -35,6 +35,7 @@ export const routes: Routes = [
   {path: 'select-role', component: SelectRoleComponent, canActivate: [AuthGuard]},
   {path: 'unauthorized', component: UnauthorizedComponent},
 
+
   //USUARIOS
   {path: 'usuarios', component: UsuariosComponent},
   {path: 'create-usuario', component: CreateUsuarioComponent},
@@ -47,7 +48,9 @@ export const routes: Routes = [
   {path: 'categorias', component: CategoriasComponent},
 
   //GENERAL + EMPRESAS
-  {path: 'dashboard', component: EmpresasPrincipalComponent, /* canActivate: [()=>roleIs('profesor', 'admin')] */},
+
+  {path: 'dashboard', component: EmpresasPrincipalComponent/* , canActivate: [()=>roleIs('profesor','centro' ,'admin')] */},
+
   {path: 'login', component: LoginComponent},
   {path: 'company/:id', component: EmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},
   {path: 'company/update/:id', component: UpdateEmpresaComponent, resolve: {empresa: empresaResolver}/* , canActivate: [()=>roleIs('profesor', 'admin')] */},

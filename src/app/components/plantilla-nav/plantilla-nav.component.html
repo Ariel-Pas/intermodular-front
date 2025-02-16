@@ -4,13 +4,13 @@
 
     <div class="d-flex">
 
-      <!-- @if (['Admin', 'Tutor'].includes(this.rol() ?? '')) { -->
       @if(session()?.activatedRole === 'Tutor' || session()?.activatedRole === 'Centro'){
       <a class="nav-link d-sm-none nav-add" aria-current="page" routerLink="/create-company">
         <button-main text="" btnIcon='<i class="bi bi-plus"></i>' />
       </a>
 
       }
+
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,11 +20,13 @@
 
     <div class="collapse navbar-collapse justify-content-end align-items-end" id="navbarNav">
       <ul class="navbar-nav">
-        <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
-        @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
+
+           @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
         <li class="nav-item d-flex align-items-center">
-          <a class="nav-link active d-flex align-items-center border" aria-current="page" routerLink="/dashboard"><i
-              class="bi bi-globe"></i><span class="d-sm-none"> Empresas</span></a>
+          <a class="nav-link active d-flex align-items-center border" aria-current="page" routerLink="/dashboard"
+            ><i class="bi bi-globe"></i
+          ><span class="ms-2">Empresas</span></a>
+
         </li>
         }
 
@@ -54,27 +56,29 @@
           }
         </li>
 
-        <!-- @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){ -->
+       
         @if(session()?.activatedRole === 'Centro'){
         <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
           <a class="nav-link" aria-current="page" routerLink="/create-usuario">
             <button-main text="Crear usuario" btnIcon='<i class="bi bi-plus"></i>' />
           </a>
 
+
         </li>
         }
 
-        <!-- @if (['Admin', 'Tutor', 'Centro'].includes(this.rol() ?? '')) { -->
         @if(['Tutor', 'Centro'].includes(session()?.activatedRole || '')){
         <li class="nav-item p-0 d-flex align-items-center d-none d-sm-block">
           <a class="nav-link" aria-current="page" routerLink="/create-company">
             <button-main text="Crear empresa" btnIcon='<i class="bi bi-plus"></i>' />
           </a>
 
+
         </li>
         }
 
-        <!-- @if(this.rol()) -->
+
+
         @if(session()?.activatedRole)
         {
         <li class="nav-item p-0 d-flex align-items-center">
@@ -83,19 +87,19 @@
           </a>
         </li>
 
-
-        <div class="nav-item p-0 d-flex align-items-center clickable">
-          <div class="nav-link">
-            <a (click)="logout()">
-              <i class="bi bi-box-arrow-left"></i>
-              <span class="d-sm-none ms-2">Salir</span>
-            </a>
-          </div>
-        </div>
-
-
         }
 
+        @if(session()?.activatedRole != null)
+        {
+          <div class="nav-item p-0 d-flex align-items-center clickable">
+            <div class="nav-link">
+              <a  (click)="logout()">
+                <i class="bi bi-box-arrow-left"></i>
+                <span class="ms-2">Salir</span>
+              </a>
+            </div>
+          </div>
+        }
 
       </ul>
     </div>

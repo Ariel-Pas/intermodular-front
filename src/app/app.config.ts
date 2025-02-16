@@ -46,16 +46,15 @@ export const appConfig: ApplicationConfig = {
     {provide: ICategoriaService, useExisting: CategoriasApiService},
 
     //{provide: API_BASE, useValue: 'http://servidor.laravel/api'},
-    provideHttpClient(withInterceptors([AuthTokenInterceptor])),
     provideRouter(routes, withComponentInputBinding()),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),
     importProvidersFrom(SweetAlert2Module.forRoot()),
 
 
 
-    {provide: API_BASE, useValue: 'http://localhost:8000/api'},
+    {provide: API_BASE, useValue: 'http://servidor.laravel/api'},
     // DEBORA NOBS
-    {provide: API_URL, useValue: 'http://localhost:8000'},
+    /* {provide: API_URL, useValue: 'http://localhost:8000'} ,*/
 
     // DEBORA NOBS
     {provide: API_URL, useValue: 'http://servidor.laravel/'},
