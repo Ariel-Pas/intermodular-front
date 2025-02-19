@@ -164,7 +164,7 @@
 
             @for (servicio of form.controls.categorizacion.controls.servicios.controls| keyvalue; track servicio) {
             <label [class.d-none]="ocultarServicio(servicio.key)" class="form-check-label mx-2">{{ servicio.key }}
-              <input type="checkbox" value={{servicio.key}} name={{servicio.key}} [value]="servicio.key" [formControlName]="servicio.key" [checked]="servicio.value" (change)="onChangeServicio($event)" class="mx-1" #imagen/>
+              <input type="checkbox" value={{servicio.key}} name={{servicio.key}} [value]="servicio.key" [formControlName]="servicio.key" [checked]="servicio.value" (change)="onChangeServicio($event)" class="mx-1" />
             </label>
             } @if ( form.get('categorizacion')?.get('categoria')?.touched && form.controls.categorizacion.controls.servicios.hasError('validar-checkbox')) {
             <p class="error-msg">Selecciona al menos un servicio</p>
